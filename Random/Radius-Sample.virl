@@ -6,21 +6,32 @@
     <node name="BR-1" type="SIMPLE" subtype="IOSv" location="238,136">
         <extensions>
             <entry key="config" type="String">!
-! Last configuration change at 01:04:30 UTC Sun Mar 13 2016
+! Last configuration change at 03:05:54 UTC Sun Mar 13 2016
 !
 version 15.6
 service timestamps debug datetime msec
 service timestamps log datetime msec
 no service password-encryption
 !
-hostname Router
+hostname BR-1
 !
 boot-start-marker
 boot-end-marker
 !
 !
+enable secret 5 $1$Pq0D$dJezb6oWVr2RXx0zAQ2/50
 !
-no aaa new-model
+aaa new-model
+!
+!
+aaa authentication login OPEN-CONSOLE none
+aaa authentication login RADIUS-LOCAL group radius local-case
+!
+!
+!
+!
+!
+aaa session-id common
 ethernet lmi ce
 !
 !
@@ -48,6 +59,7 @@ multilink bundle-name authenticated
 !
 !
 !
+username admin privilege 15 secret 5 $1$EoIN$FS7Ps/iLhiNO5ivvyGq/F.
 !
 redundancy
 !
@@ -66,15 +78,14 @@ redundancy
 !
 !
 interface GigabitEthernet0/0
- no ip address
+ ip address 172.16.2.58 255.255.255.0
  shutdown
  duplex auto
  speed auto
  media-type rj45
 !
 interface GigabitEthernet0/1
- no ip address
- shutdown
+ ip address 192.168.10.3 255.255.255.0
  duplex auto
  speed auto
  media-type rj45
@@ -91,8 +102,17 @@ ip forward-protocol nd
 !
 no ip http server
 no ip http secure-server
+ip route 192.168.5.0 255.255.255.0 192.168.10.0
+ip route 192.168.5.0 255.255.255.0 192.168.10.1
+!
+ip radius source-interface GigabitEthernet0/1 
 !
 !
+!
+!
+radius server RADIUS
+ address ipv4 192.168.5.10 auth-port 1812 acct-port 1813
+ key cisco123
 !
 !
 control-plane
@@ -126,9 +146,10 @@ banner login `
 **************************************************************************`
 !
 line con 0
+ login authentication OPEN-CONSOLE
 line aux 0
 line vty 0 4
- login
+ login authentication RADIUS-LOCAL
  transport input none
 !
 no scheduler allocate
@@ -141,21 +162,32 @@ end</entry>
     <node name="BR-2" type="SIMPLE" subtype="IOSv" location="392,146">
         <extensions>
             <entry key="config" type="String">!
-! Last configuration change at 01:04:27 UTC Sun Mar 13 2016
+! Last configuration change at 03:05:54 UTC Sun Mar 13 2016
 !
 version 15.6
 service timestamps debug datetime msec
 service timestamps log datetime msec
 no service password-encryption
 !
-hostname Router
+hostname BR-2
 !
 boot-start-marker
 boot-end-marker
 !
 !
+enable secret 5 $1$ibJo$PaBValcxNNysFsAQwiGGa1
 !
-no aaa new-model
+aaa new-model
+!
+!
+aaa authentication login OPEN-CONSOLE none
+aaa authentication login RADIUS-LOCAL group radius local-case
+!
+!
+!
+!
+!
+aaa session-id common
 ethernet lmi ce
 !
 !
@@ -183,6 +215,7 @@ multilink bundle-name authenticated
 !
 !
 !
+username admin privilege 15 secret 5 $1$D9tf$nxAKOlIYfPRb9dIlMJ5mA/
 !
 redundancy
 !
@@ -201,15 +234,14 @@ redundancy
 !
 !
 interface GigabitEthernet0/0
- no ip address
+ ip address 172.16.2.55 255.255.255.0
  shutdown
  duplex auto
  speed auto
  media-type rj45
 !
 interface GigabitEthernet0/1
- no ip address
- shutdown
+ ip address 192.168.10.2 255.255.255.0
  duplex auto
  speed auto
  media-type rj45
@@ -226,8 +258,16 @@ ip forward-protocol nd
 !
 no ip http server
 no ip http secure-server
+ip route 192.168.5.0 255.255.255.0 192.168.10.1
+!
+ip radius source-interface GigabitEthernet0/1 
 !
 !
+!
+!
+radius server RADIUS
+ address ipv4 192.168.5.10 auth-port 1812 acct-port 1813
+ key cisco123
 !
 !
 control-plane
@@ -261,9 +301,10 @@ banner login `
 **************************************************************************`
 !
 line con 0
+ login authentication OPEN-CONSOLE
 line aux 0
 line vty 0 4
- login
+ login authentication RADIUS-LOCAL
  transport input none
 !
 no scheduler allocate
@@ -276,21 +317,32 @@ end</entry>
     <node name="HQ" type="SIMPLE" subtype="IOSv" location="316,273">
         <extensions>
             <entry key="config" type="String">!
-! Last configuration change at 01:04:16 UTC Sun Mar 13 2016
+! Last configuration change at 03:05:51 UTC Sun Mar 13 2016
 !
 version 15.6
 service timestamps debug datetime msec
 service timestamps log datetime msec
 no service password-encryption
 !
-hostname Router
+hostname HQ
 !
 boot-start-marker
 boot-end-marker
 !
 !
+enable secret 5 $1$DG8D$l8Lu.ZvAbAjSmAfG64V7f.
 !
-no aaa new-model
+aaa new-model
+!
+!
+aaa authentication login OPEN-CONSOLE none
+aaa authentication login RADIUS-LOCAL group radius local-case
+!
+!
+!
+!
+!
+aaa session-id common
 ethernet lmi ce
 !
 !
@@ -318,6 +370,7 @@ multilink bundle-name authenticated
 !
 !
 !
+username admin privilege 15 secret 5 $1$aQol$6JpAQJYjMddibPvtDGzsx/
 !
 redundancy
 !
@@ -336,15 +389,14 @@ redundancy
 !
 !
 interface GigabitEthernet0/0
- no ip address
+ ip address 172.16.2.57 255.255.255.0
  shutdown
  duplex auto
  speed auto
  media-type rj45
 !
 interface GigabitEthernet0/1
- no ip address
- shutdown
+ ip address 192.168.10.1 255.255.255.0
  duplex auto
  speed auto
  media-type rj45
@@ -368,7 +420,14 @@ ip forward-protocol nd
 no ip http server
 no ip http secure-server
 !
+ip radius source-interface GigabitEthernet0/1 
 !
+!
+!
+!
+radius server RADIUS
+ address ipv4 192.168.5.10 auth-port 1812 acct-port 1813
+ key cisco123
 !
 !
 control-plane
@@ -402,9 +461,10 @@ banner login `
 **************************************************************************`
 !
 line con 0
+ login authentication OPEN-CONSOLE
 line aux 0
 line vty 0 4
- login
+ login authentication RADIUS-LOCAL
  transport input none
 !
 no scheduler allocate
