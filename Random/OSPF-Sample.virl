@@ -1,0 +1,537 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<topology xmlns="http://www.cisco.com/VIRL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="0.9" simulationEngine="OPENSTACK" xsi:schemaLocation="http://www.cisco.com/VIRL https://raw.github.com/CiscoVIRL/schema/v0.9/virl.xsd">
+    <extensions>
+        <entry key="AutoNetkit.infrastructure_only" type="Boolean">false</entry>
+    </extensions>
+    <node name="Branch-3" type="SIMPLE" subtype="IOSv" location="113,86">
+        <extensions>
+            <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
+            <entry key="config" type="String">!&#xD;
+hostname Branch-3&#xD;
+boot-start-marker&#xD;
+boot-end-marker&#xD;
+!&#xD;
+!&#xD;
+service timestamps debug datetime msec&#xD;
+service timestamps log datetime msec&#xD;
+no service password-encryption&#xD;
+no service config&#xD;
+enable password cisco&#xD;
+ip classless&#xD;
+ip subnet-zero&#xD;
+no ip domain lookup&#xD;
+ip domain name virl.info&#xD;
+crypto key generate rsa modulus 768&#xD;
+ip ssh server algorithm authentication password&#xD;
+username cisco privilege 15 secret cisco&#xD;
+line vty 0 4&#xD;
+ transport input ssh telnet&#xD;
+ exec-timeout 720 0&#xD;
+ password cisco&#xD;
+ login local&#xD;
+line con 0&#xD;
+ password cisco&#xD;
+!&#xD;
+no cdp run&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+interface GigabitEthernet0/1&#xD;
+  description to HQ-WAN-1&#xD;
+  ip address 172.17.1.5 255.255.255.0&#xD;
+  duplex full&#xD;
+  speed auto&#xD;
+  no shutdown&#xD;
+!&#xD;
+interface GigabitEthernet0/2&#xD;
+  description to server-1&#xD;
+  ip address 172.30.3.1 255.255.255.0&#xD;
+  duplex full&#xD;
+  speed auto&#xD;
+  no shutdown&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+router ospf 1&#xD;
+  network 172.30.3.1 0.0.0.0 area 0&#xD;
+  log-adjacency-changes&#xD;
+  passive-interface GigabitEthernet0/2&#xD;
+  network 172.17.1.5 0.0.0.0 area 0&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+end&#xD;
+</entry>
+        </extensions>
+        <interface id="0" name="GigabitEthernet0/1"/>
+        <interface id="1" name="GigabitEthernet0/2" ipv4="10.0.0.13" netPrefixLenV4="30"/>
+    </node>
+    <node name="Branch-4" type="SIMPLE" subtype="IOSv" location="112,156">
+        <extensions>
+            <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
+            <entry key="config" type="String">!&#xD;
+hostname Branch-4&#xD;
+boot-start-marker&#xD;
+boot-end-marker&#xD;
+!&#xD;
+!&#xD;
+service timestamps debug datetime msec&#xD;
+service timestamps log datetime msec&#xD;
+no service password-encryption&#xD;
+no service config&#xD;
+enable password cisco&#xD;
+ip classless&#xD;
+ip subnet-zero&#xD;
+no ip domain lookup&#xD;
+ip domain name virl.info&#xD;
+crypto key generate rsa modulus 768&#xD;
+ip ssh server algorithm authentication password&#xD;
+username cisco privilege 15 secret cisco&#xD;
+line vty 0 4&#xD;
+ transport input ssh telnet&#xD;
+ exec-timeout 720 0&#xD;
+ password cisco&#xD;
+ login local&#xD;
+line con 0&#xD;
+ password cisco&#xD;
+!&#xD;
+no cdp run&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+interface GigabitEthernet0/1&#xD;
+  description to HQ-WAN-1&#xD;
+  ip address 172.17.1.6 255.255.255.0&#xD;
+  duplex full&#xD;
+  speed auto&#xD;
+  no shutdown&#xD;
+!&#xD;
+interface GigabitEthernet0/2&#xD;
+  description to server-1&#xD;
+  ip address 172.30.4.1 255.255.255.0&#xD;
+  duplex full&#xD;
+  speed auto&#xD;
+  no shutdown&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+router ospf 1&#xD;
+  network 172.30.4.1 0.0.0.0 area 0&#xD;
+  log-adjacency-changes&#xD;
+  passive-interface GigabitEthernet0/2&#xD;
+  network 172.17.1.6 0.0.0.0 area 0&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+end&#xD;
+</entry>
+        </extensions>
+        <interface id="0" name="GigabitEthernet0/1"/>
+        <interface id="1" name="GigabitEthernet0/2" ipv4="10.0.0.29" netPrefixLenV4="30"/>
+    </node>
+    <node name="Branch-5" type="SIMPLE" subtype="IOSv" location="109,228">
+        <extensions>
+            <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
+            <entry key="config" type="String">!&#xD;
+hostname Branch-5&#xD;
+boot-start-marker&#xD;
+boot-end-marker&#xD;
+!&#xD;
+!&#xD;
+service timestamps debug datetime msec&#xD;
+service timestamps log datetime msec&#xD;
+no service password-encryption&#xD;
+no service config&#xD;
+enable password cisco&#xD;
+ip classless&#xD;
+ip subnet-zero&#xD;
+no ip domain lookup&#xD;
+ip domain name virl.info&#xD;
+crypto key generate rsa modulus 768&#xD;
+ip ssh server algorithm authentication password&#xD;
+username cisco privilege 15 secret cisco&#xD;
+line vty 0 4&#xD;
+ transport input ssh telnet&#xD;
+ exec-timeout 720 0&#xD;
+ password cisco&#xD;
+ login local&#xD;
+line con 0&#xD;
+ password cisco&#xD;
+!&#xD;
+no cdp run&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+interface GigabitEthernet0/1&#xD;
+  description to HQ-WAN-1&#xD;
+  ip address 172.17.1.7 255.255.255.0&#xD;
+  duplex full&#xD;
+  speed auto&#xD;
+  no shutdown&#xD;
+!&#xD;
+interface GigabitEthernet0/2&#xD;
+  description to server-1&#xD;
+  ip address 172.30.5.1 255.255.255.0&#xD;
+  duplex full&#xD;
+  speed auto&#xD;
+  no shutdown&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+router ospf 1&#xD;
+  network 172.30.5.1 0.0.0.0 area 0&#xD;
+  log-adjacency-changes&#xD;
+  passive-interface GigabitEthernet0/2&#xD;
+  network 172.17.1.7 0.0.0.0 area 0&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+end&#xD;
+</entry>
+        </extensions>
+        <interface id="0" name="GigabitEthernet0/1"/>
+        <interface id="1" name="GigabitEthernet0/2" ipv4="10.0.0.33" netPrefixLenV4="30"/>
+    </node>
+    <node name="Branch-6" type="SIMPLE" subtype="IOSv" location="111,306">
+        <extensions>
+            <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
+            <entry key="config" type="String">!&#xD;
+hostname Branch-6&#xD;
+boot-start-marker&#xD;
+boot-end-marker&#xD;
+!&#xD;
+!&#xD;
+service timestamps debug datetime msec&#xD;
+service timestamps log datetime msec&#xD;
+no service password-encryption&#xD;
+no service config&#xD;
+enable password cisco&#xD;
+ip classless&#xD;
+ip subnet-zero&#xD;
+no ip domain lookup&#xD;
+ip domain name virl.info&#xD;
+crypto key generate rsa modulus 768&#xD;
+ip ssh server algorithm authentication password&#xD;
+username cisco privilege 15 secret cisco&#xD;
+line vty 0 4&#xD;
+ transport input ssh telnet&#xD;
+ exec-timeout 720 0&#xD;
+ password cisco&#xD;
+ login local&#xD;
+line con 0&#xD;
+ password cisco&#xD;
+!&#xD;
+no cdp run&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+interface GigabitEthernet0/1&#xD;
+  description to HQ-WAN-1&#xD;
+  ip address 172.17.1.8 255.255.255.0&#xD;
+  duplex full&#xD;
+  speed auto&#xD;
+  no shutdown&#xD;
+!&#xD;
+interface GigabitEthernet0/2&#xD;
+  description to server-1&#xD;
+  ip address 172.30.6.1 255.255.255.0&#xD;
+  duplex full&#xD;
+  speed auto&#xD;
+  no shutdown&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+router ospf 1&#xD;
+  network 172.30.6.1 0.0.0.0 area 0&#xD;
+  log-adjacency-changes&#xD;
+  passive-interface GigabitEthernet0/2&#xD;
+  network 172.17.1.8 0.0.0.0 area 0&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+end&#xD;
+</entry>
+        </extensions>
+        <interface id="0" name="GigabitEthernet0/1"/>
+        <interface id="1" name="GigabitEthernet0/2" ipv4="10.0.0.37" netPrefixLenV4="30"/>
+    </node>
+    <node name="server-1" type="SIMPLE" subtype="server" location="4,63" vmImage="server [0e04799f-7485-4f2c-9a73-4d3ac96dacf0]" vmFlavor="m1.small [2]">
+        <extensions>
+            <entry key="config" type="String">#cloud-config&#xD;
+bootcmd:&#xD;
+- ln -s -t /etc/rc.d /etc/rc.local&#xD;
+hostname: server-1&#xD;
+manage_etc_hosts: true&#xD;
+runcmd:&#xD;
+- start ttyS0&#xD;
+- systemctl start getty@ttyS0.service&#xD;
+- systemctl start rc-local&#xD;
+- sed -i '/^\s*PasswordAuthentication\s\+no/d' /etc/ssh/sshd_config&#xD;
+- echo "UseDNS no" &gt;&gt; /etc/ssh/sshd_config&#xD;
+- service ssh restart&#xD;
+- service sshd restart&#xD;
+users:&#xD;
+- default&#xD;
+- gecos: User configured by VIRL Configuration Engine 0.20.22&#xD;
+  lock-passwd: false&#xD;
+  name: cisco&#xD;
+  plain-text-passwd: cisco&#xD;
+  shell: /bin/bash&#xD;
+  ssh-authorized-keys:&#xD;
+  - VIRL-USER-SSH-PUBLIC-KEY&#xD;
+  sudo: ALL=(ALL) ALL&#xD;
+write_files:&#xD;
+- path: /etc/init/ttyS0.conf&#xD;
+  owner: root:root&#xD;
+  content: |&#xD;
+    # ttyS0 - getty&#xD;
+    # This service maintains a getty on ttyS0 from the point the system is&#xD;
+    # started until it is shut down again.&#xD;
+    start on stopped rc or RUNLEVEL=[12345]&#xD;
+    stop on runlevel [!12345]&#xD;
+    respawn&#xD;
+    exec /sbin/getty -L 115200 ttyS0 vt102&#xD;
+  permissions: '0644'&#xD;
+- path: /etc/systemd/system/dhclient@.service&#xD;
+  content: |&#xD;
+    [Unit]&#xD;
+    Description=Run dhclient on %i interface&#xD;
+    After=network.target&#xD;
+    [Service]&#xD;
+    Type=oneshot&#xD;
+    ExecStart=/sbin/dhclient %i -pf /var/run/dhclient.%i.pid -lf /var/lib/dhclient/dhclient.%i.lease&#xD;
+    RemainAfterExit=yes&#xD;
+  owner: root:root&#xD;
+  permissions: '0644'&#xD;
+- path: /etc/rc.local&#xD;
+  owner: root:root&#xD;
+  permissions: '0755'&#xD;
+  content: |-&#xD;
+    #!/bin/sh&#xD;
+    ifconfig eth1 up 172.30.3.5 netmask 255.255.255.0&#xD;
+    route add default gw 172.30.3.1   &#xD;
+    exit 0&#xD;
+</entry>
+        </extensions>
+        <interface id="0" name="eth1" ipv4="10.0.0.14" netPrefixLenV4="30"/>
+    </node>
+    <node name="server-2" type="SIMPLE" subtype="server" location="5,159" vmImage="server [0e04799f-7485-4f2c-9a73-4d3ac96dacf0]" vmFlavor="m1.small [2]">
+        <extensions>
+            <entry key="config" type="String">#cloud-config&#xD;
+bootcmd:&#xD;
+- ln -s -t /etc/rc.d /etc/rc.local&#xD;
+hostname: server-2&#xD;
+manage_etc_hosts: true&#xD;
+runcmd:&#xD;
+- start ttyS0&#xD;
+- systemctl start getty@ttyS0.service&#xD;
+- systemctl start rc-local&#xD;
+- sed -i '/^\s*PasswordAuthentication\s\+no/d' /etc/ssh/sshd_config&#xD;
+- echo "UseDNS no" &gt;&gt; /etc/ssh/sshd_config&#xD;
+- service ssh restart&#xD;
+- service sshd restart&#xD;
+users:&#xD;
+- default&#xD;
+- gecos: User configured by VIRL Configuration Engine 0.20.22&#xD;
+  lock-passwd: false&#xD;
+  name: cisco&#xD;
+  plain-text-passwd: cisco&#xD;
+  shell: /bin/bash&#xD;
+  ssh-authorized-keys:&#xD;
+  - VIRL-USER-SSH-PUBLIC-KEY&#xD;
+  sudo: ALL=(ALL) ALL&#xD;
+write_files:&#xD;
+- path: /etc/init/ttyS0.conf&#xD;
+  owner: root:root&#xD;
+  content: |&#xD;
+    # ttyS0 - getty&#xD;
+    # This service maintains a getty on ttyS0 from the point the system is&#xD;
+    # started until it is shut down again.&#xD;
+    start on stopped rc or RUNLEVEL=[12345]&#xD;
+    stop on runlevel [!12345]&#xD;
+    respawn&#xD;
+    exec /sbin/getty -L 115200 ttyS0 vt102&#xD;
+  permissions: '0644'&#xD;
+- path: /etc/systemd/system/dhclient@.service&#xD;
+  content: |&#xD;
+    [Unit]&#xD;
+    Description=Run dhclient on %i interface&#xD;
+    After=network.target&#xD;
+    [Service]&#xD;
+    Type=oneshot&#xD;
+    ExecStart=/sbin/dhclient %i -pf /var/run/dhclient.%i.pid -lf /var/lib/dhclient/dhclient.%i.lease&#xD;
+    RemainAfterExit=yes&#xD;
+  owner: root:root&#xD;
+  permissions: '0644'&#xD;
+- path: /etc/rc.local&#xD;
+  owner: root:root&#xD;
+  permissions: '0755'&#xD;
+  content: |-&#xD;
+    #!/bin/sh&#xD;
+    ifconfig eth1 up 172.30.4.5 netmask 255.255.255.0&#xD;
+    route add default gw 172.30.4.1   &#xD;
+    exit 0&#xD;
+</entry>
+        </extensions>
+        <interface id="0" name="eth1" ipv4="10.0.0.30" netPrefixLenV4="30"/>
+    </node>
+    <node name="server-3" type="SIMPLE" subtype="server" location="5,245" vmImage="server [0e04799f-7485-4f2c-9a73-4d3ac96dacf0]" vmFlavor="m1.small [2]">
+        <extensions>
+            <entry key="config" type="String">#cloud-config&#xD;
+bootcmd:&#xD;
+- ln -s -t /etc/rc.d /etc/rc.local&#xD;
+hostname: server-3&#xD;
+manage_etc_hosts: true&#xD;
+runcmd:&#xD;
+- start ttyS0&#xD;
+- systemctl start getty@ttyS0.service&#xD;
+- systemctl start rc-local&#xD;
+- sed -i '/^\s*PasswordAuthentication\s\+no/d' /etc/ssh/sshd_config&#xD;
+- echo "UseDNS no" &gt;&gt; /etc/ssh/sshd_config&#xD;
+- service ssh restart&#xD;
+- service sshd restart&#xD;
+users:&#xD;
+- default&#xD;
+- gecos: User configured by VIRL Configuration Engine 0.20.22&#xD;
+  lock-passwd: false&#xD;
+  name: cisco&#xD;
+  plain-text-passwd: cisco&#xD;
+  shell: /bin/bash&#xD;
+  ssh-authorized-keys:&#xD;
+  - VIRL-USER-SSH-PUBLIC-KEY&#xD;
+  sudo: ALL=(ALL) ALL&#xD;
+write_files:&#xD;
+- path: /etc/init/ttyS0.conf&#xD;
+  owner: root:root&#xD;
+  content: |&#xD;
+    # ttyS0 - getty&#xD;
+    # This service maintains a getty on ttyS0 from the point the system is&#xD;
+    # started until it is shut down again.&#xD;
+    start on stopped rc or RUNLEVEL=[12345]&#xD;
+    stop on runlevel [!12345]&#xD;
+    respawn&#xD;
+    exec /sbin/getty -L 115200 ttyS0 vt102&#xD;
+  permissions: '0644'&#xD;
+- path: /etc/systemd/system/dhclient@.service&#xD;
+  content: |&#xD;
+    [Unit]&#xD;
+    Description=Run dhclient on %i interface&#xD;
+    After=network.target&#xD;
+    [Service]&#xD;
+    Type=oneshot&#xD;
+    ExecStart=/sbin/dhclient %i -pf /var/run/dhclient.%i.pid -lf /var/lib/dhclient/dhclient.%i.lease&#xD;
+    RemainAfterExit=yes&#xD;
+  owner: root:root&#xD;
+  permissions: '0644'&#xD;
+- path: /etc/rc.local&#xD;
+  owner: root:root&#xD;
+  permissions: '0755'&#xD;
+  content: |-&#xD;
+    #!/bin/sh&#xD;
+    ifconfig eth1 up 172.30.5.5 netmask 255.255.255.0&#xD;
+    route add default gw 172.30.5.1   &#xD;
+    exit 0&#xD;
+</entry>
+        </extensions>
+        <interface id="0" name="eth1" ipv4="10.0.0.34" netPrefixLenV4="30"/>
+    </node>
+    <node name="server-4" type="SIMPLE" subtype="server" location="2,336" vmImage="server [0e04799f-7485-4f2c-9a73-4d3ac96dacf0]" vmFlavor="m1.small [2]">
+        <extensions>
+            <entry key="config" type="String">#cloud-config&#xD;
+bootcmd:&#xD;
+- ln -s -t /etc/rc.d /etc/rc.local&#xD;
+hostname: server-4&#xD;
+manage_etc_hosts: true&#xD;
+runcmd:&#xD;
+- start ttyS0&#xD;
+- systemctl start getty@ttyS0.service&#xD;
+- systemctl start rc-local&#xD;
+- sed -i '/^\s*PasswordAuthentication\s\+no/d' /etc/ssh/sshd_config&#xD;
+- echo "UseDNS no" &gt;&gt; /etc/ssh/sshd_config&#xD;
+- service ssh restart&#xD;
+- service sshd restart&#xD;
+users:&#xD;
+- default&#xD;
+- gecos: User configured by VIRL Configuration Engine 0.20.22&#xD;
+  lock-passwd: false&#xD;
+  name: cisco&#xD;
+  plain-text-passwd: cisco&#xD;
+  shell: /bin/bash&#xD;
+  ssh-authorized-keys:&#xD;
+  - VIRL-USER-SSH-PUBLIC-KEY&#xD;
+  sudo: ALL=(ALL) ALL&#xD;
+write_files:&#xD;
+- path: /etc/init/ttyS0.conf&#xD;
+  owner: root:root&#xD;
+  content: |&#xD;
+    # ttyS0 - getty&#xD;
+    # This service maintains a getty on ttyS0 from the point the system is&#xD;
+    # started until it is shut down again.&#xD;
+    start on stopped rc or RUNLEVEL=[12345]&#xD;
+    stop on runlevel [!12345]&#xD;
+    respawn&#xD;
+    exec /sbin/getty -L 115200 ttyS0 vt102&#xD;
+  permissions: '0644'&#xD;
+- path: /etc/systemd/system/dhclient@.service&#xD;
+  content: |&#xD;
+    [Unit]&#xD;
+    Description=Run dhclient on %i interface&#xD;
+    After=network.target&#xD;
+    [Service]&#xD;
+    Type=oneshot&#xD;
+    ExecStart=/sbin/dhclient %i -pf /var/run/dhclient.%i.pid -lf /var/lib/dhclient/dhclient.%i.lease&#xD;
+    RemainAfterExit=yes&#xD;
+  owner: root:root&#xD;
+  permissions: '0644'&#xD;
+- path: /etc/rc.local&#xD;
+  owner: root:root&#xD;
+  permissions: '0755'&#xD;
+  content: |-&#xD;
+    #!/bin/sh&#xD;
+    ifconfig eth1 up 172.30.6.5 netmask 255.255.255.0&#xD;
+    route add default gw 172.30.6.1   &#xD;
+    exit 0&#xD;
+</entry>
+        </extensions>
+        <interface id="0" name="eth1" ipv4="10.0.0.38" netPrefixLenV4="30"/>
+    </node>
+    <node name="METRO" type="SIMPLE" subtype="Unmanaged Switch" location="257,184">
+        <interface id="0" name="link1"/>
+        <interface id="1" name="link2"/>
+        <interface id="2" name="link3"/>
+        <interface id="3" name="link4"/>
+        <interface id="4" name="link5"/>
+    </node>
+    <connection dst="/virl:topology/virl:node[1]/virl:interface[2]" src="/virl:topology/virl:node[5]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[2]/virl:interface[2]" src="/virl:topology/virl:node[6]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[3]/virl:interface[2]" src="/virl:topology/virl:node[7]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[4]/virl:interface[2]" src="/virl:topology/virl:node[8]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[9]/virl:interface[1]" src="/virl:topology/virl:node[1]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[9]/virl:interface[2]" src="/virl:topology/virl:node[2]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[9]/virl:interface[3]" src="/virl:topology/virl:node[3]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[9]/virl:interface[4]" src="/virl:topology/virl:node[4]/virl:interface[1]"/>
+</topology>
