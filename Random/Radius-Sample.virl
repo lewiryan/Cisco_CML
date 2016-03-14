@@ -5,155 +5,160 @@
     </extensions>
     <node name="BR-1" type="SIMPLE" subtype="IOSv" location="238,136">
         <extensions>
-            <entry key="config" type="String">!
-! Last configuration change at 03:05:54 UTC Sun Mar 13 2016
-!
-version 15.6
-service timestamps debug datetime msec
-service timestamps log datetime msec
-no service password-encryption
-!
-hostname BR-1
-!
-boot-start-marker
-boot-end-marker
-!
-!
-enable secret 5 $1$Pq0D$dJezb6oWVr2RXx0zAQ2/50
-!
-aaa new-model
-!
-!
-aaa authentication login OPEN-CONSOLE none
-aaa authentication login RADIUS-LOCAL group radius local-case
-!
-!
-!
-!
-!
-aaa session-id common
-ethernet lmi ce
-!
-!
-!
-mmi polling-interval 60
-no mmi auto-configure
-no mmi pvc
-mmi snmp-timeout 180
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-ip cef
-no ipv6 cef
-!
-multilink bundle-name authenticated
-!
-!
-!
-!
-username admin privilege 15 secret 5 $1$EoIN$FS7Ps/iLhiNO5ivvyGq/F.
-!
-redundancy
-!
-!
-! 
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-interface GigabitEthernet0/0
- ip address 172.16.2.58 255.255.255.0
- shutdown
- duplex auto
- speed auto
- media-type rj45
-!
-interface GigabitEthernet0/1
- ip address 192.168.10.3 255.255.255.0
- duplex auto
- speed auto
- media-type rj45
-!
-interface GigabitEthernet0/2
- no ip address
- shutdown
- duplex auto
- speed auto
- media-type rj45
-!
-ip forward-protocol nd
-!
-!
-no ip http server
-no ip http secure-server
-ip route 192.168.5.0 255.255.255.0 192.168.10.0
-ip route 192.168.5.0 255.255.255.0 192.168.10.1
-!
-ip radius source-interface GigabitEthernet0/1 
-!
-!
-!
-!
-radius server RADIUS
- address ipv4 192.168.5.10 auth-port 1812 acct-port 1813
- key cisco123
-!
-!
-control-plane
-!
-banner exec `
-**************************************************************************
-* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
-* education. IOSv is provided as-is and is not supported by Cisco's      *
-* Technical Advisory Center. Any use or disclosure, in whole or in part, *
-* of the IOSv Software or Documentation to any third party for any       *
-* purposes is expressly prohibited except as otherwise authorized by     *
-* Cisco in writing.                                                      *
-**************************************************************************`
-banner incoming `
-**************************************************************************
-* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
-* education. IOSv is provided as-is and is not supported by Cisco's      *
-* Technical Advisory Center. Any use or disclosure, in whole or in part, *
-* of the IOSv Software or Documentation to any third party for any       *
-* purposes is expressly prohibited except as otherwise authorized by     *
-* Cisco in writing.                                                      *
-**************************************************************************`
-banner login `
-**************************************************************************
-* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
-* education. IOSv is provided as-is and is not supported by Cisco's      *
-* Technical Advisory Center. Any use or disclosure, in whole or in part, *
-* of the IOSv Software or Documentation to any third party for any       *
-* purposes is expressly prohibited except as otherwise authorized by     *
-* Cisco in writing.                                                      *
-**************************************************************************`
-!
-line con 0
- login authentication OPEN-CONSOLE
-line aux 0
-line vty 0 4
- login authentication RADIUS-LOCAL
- transport input none
-!
-no scheduler allocate
-!
+            <entry key="config" type="String">!&#xD;
+! Last configuration change at 03:05:54 UTC Sun Mar 13 2016&#xD;
+!&#xD;
+version 15.6&#xD;
+service timestamps debug datetime msec&#xD;
+service timestamps log datetime msec&#xD;
+no service password-encryption&#xD;
+!&#xD;
+hostname BR-1&#xD;
+!&#xD;
+boot-start-marker&#xD;
+boot-end-marker&#xD;
+!&#xD;
+!&#xD;
+enable secret 0 cisco&#xD;
+!&#xD;
+aaa new-model&#xD;
+!&#xD;
+!&#xD;
+aaa authentication login OPEN-CONSOLE none&#xD;
+aaa authentication login RADIUS-LOCAL group radius local-case&#xD;
+aaa authorization exec default group radius if-authenticated&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+aaa session-id common&#xD;
+ethernet lmi ce&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+mmi polling-interval 60&#xD;
+no mmi auto-configure&#xD;
+no mmi pvc&#xD;
+mmi snmp-timeout 180&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+ip cef&#xD;
+no ipv6 cef&#xD;
+!&#xD;
+multilink bundle-name authenticated&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+username admin privilege 15 secret 0 cisco&#xD;
+!&#xD;
+redundancy&#xD;
+!&#xD;
+!&#xD;
+! &#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+interface GigabitEthernet0/0&#xD;
+ no ip address&#xD;
+ shutdown&#xD;
+ duplex auto&#xD;
+ speed auto&#xD;
+ media-type rj45&#xD;
+!&#xD;
+interface GigabitEthernet0/1&#xD;
+ ip address 192.168.10.3 255.255.255.0&#xD;
+ duplex auto&#xD;
+ speed auto&#xD;
+ media-type rj45&#xD;
+!&#xD;
+interface GigabitEthernet0/2&#xD;
+ no ip address&#xD;
+ shutdown&#xD;
+ duplex auto&#xD;
+ speed auto&#xD;
+ media-type rj45&#xD;
+!&#xD;
+ip forward-protocol nd&#xD;
+!&#xD;
+!&#xD;
+no ip http server&#xD;
+no ip http secure-server&#xD;
+!&#xD;
+ip route 192.168.5.0 255.255.255.0 192.168.10.1&#xD;
+!&#xD;
+ip radius source-interface GigabitEthernet0/1 &#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+radius server RADIUS&#xD;
+ address ipv4 192.168.5.10 auth-port 1812 acct-port 1813&#xD;
+ key cisco123&#xD;
+!&#xD;
+!&#xD;
+control-plane&#xD;
+!&#xD;
+banner exec `&#xD;
+**************************************************************************&#xD;
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *&#xD;
+* education. IOSv is provided as-is and is not supported by Cisco's      *&#xD;
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *&#xD;
+* of the IOSv Software or Documentation to any third party for any       *&#xD;
+* purposes is expressly prohibited except as otherwise authorized by     *&#xD;
+* Cisco in writing.                                                      *&#xD;
+**************************************************************************`&#xD;
+banner incoming `&#xD;
+**************************************************************************&#xD;
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *&#xD;
+* education. IOSv is provided as-is and is not supported by Cisco's      *&#xD;
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *&#xD;
+* of the IOSv Software or Documentation to any third party for any       *&#xD;
+* purposes is expressly prohibited except as otherwise authorized by     *&#xD;
+* Cisco in writing.                                                      *&#xD;
+**************************************************************************`&#xD;
+banner login `&#xD;
+**************************************************************************&#xD;
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *&#xD;
+* education. IOSv is provided as-is and is not supported by Cisco's      *&#xD;
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *&#xD;
+* of the IOSv Software or Documentation to any third party for any       *&#xD;
+* purposes is expressly prohibited except as otherwise authorized by     *&#xD;
+* Cisco in writing.                                                      *&#xD;
+**************************************************************************`&#xD;
+!&#xD;
+parser view SHOWMODE&#xD;
+ secret 0 cisco123&#xD;
+ commands exec include all show&#xD;
+!&#xD;
+line con 0&#xD;
+ login authentication OPEN-CONSOLE&#xD;
+line aux 0&#xD;
+line vty 0 4&#xD;
+ login authentication RADIUS-LOCAL&#xD;
+ transport input ssh&#xD;
+!&#xD;
+no scheduler allocate&#xD;
+!&#xD;
 end</entry>
         </extensions>
         <interface id="0" name="GigabitEthernet0/1"/>
@@ -161,154 +166,159 @@ end</entry>
     </node>
     <node name="BR-2" type="SIMPLE" subtype="IOSv" location="392,146">
         <extensions>
-            <entry key="config" type="String">!
-! Last configuration change at 03:05:54 UTC Sun Mar 13 2016
-!
-version 15.6
-service timestamps debug datetime msec
-service timestamps log datetime msec
-no service password-encryption
-!
-hostname BR-2
-!
-boot-start-marker
-boot-end-marker
-!
-!
-enable secret 5 $1$ibJo$PaBValcxNNysFsAQwiGGa1
-!
-aaa new-model
-!
-!
-aaa authentication login OPEN-CONSOLE none
-aaa authentication login RADIUS-LOCAL group radius local-case
-!
-!
-!
-!
-!
-aaa session-id common
-ethernet lmi ce
-!
-!
-!
-mmi polling-interval 60
-no mmi auto-configure
-no mmi pvc
-mmi snmp-timeout 180
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-ip cef
-no ipv6 cef
-!
-multilink bundle-name authenticated
-!
-!
-!
-!
-username admin privilege 15 secret 5 $1$D9tf$nxAKOlIYfPRb9dIlMJ5mA/
-!
-redundancy
-!
-!
-! 
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-interface GigabitEthernet0/0
- ip address 172.16.2.55 255.255.255.0
- shutdown
- duplex auto
- speed auto
- media-type rj45
-!
-interface GigabitEthernet0/1
- ip address 192.168.10.2 255.255.255.0
- duplex auto
- speed auto
- media-type rj45
-!
-interface GigabitEthernet0/2
- no ip address
- shutdown
- duplex auto
- speed auto
- media-type rj45
-!
-ip forward-protocol nd
-!
-!
-no ip http server
-no ip http secure-server
-ip route 192.168.5.0 255.255.255.0 192.168.10.1
-!
-ip radius source-interface GigabitEthernet0/1 
-!
-!
-!
-!
-radius server RADIUS
- address ipv4 192.168.5.10 auth-port 1812 acct-port 1813
- key cisco123
-!
-!
-control-plane
-!
-banner exec `
-**************************************************************************
-* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
-* education. IOSv is provided as-is and is not supported by Cisco's      *
-* Technical Advisory Center. Any use or disclosure, in whole or in part, *
-* of the IOSv Software or Documentation to any third party for any       *
-* purposes is expressly prohibited except as otherwise authorized by     *
-* Cisco in writing.                                                      *
-**************************************************************************`
-banner incoming `
-**************************************************************************
-* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
-* education. IOSv is provided as-is and is not supported by Cisco's      *
-* Technical Advisory Center. Any use or disclosure, in whole or in part, *
-* of the IOSv Software or Documentation to any third party for any       *
-* purposes is expressly prohibited except as otherwise authorized by     *
-* Cisco in writing.                                                      *
-**************************************************************************`
-banner login `
-**************************************************************************
-* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
-* education. IOSv is provided as-is and is not supported by Cisco's      *
-* Technical Advisory Center. Any use or disclosure, in whole or in part, *
-* of the IOSv Software or Documentation to any third party for any       *
-* purposes is expressly prohibited except as otherwise authorized by     *
-* Cisco in writing.                                                      *
-**************************************************************************`
-!
-line con 0
- login authentication OPEN-CONSOLE
-line aux 0
-line vty 0 4
- login authentication RADIUS-LOCAL
- transport input none
-!
-no scheduler allocate
-!
+            <entry key="config" type="String">!&#xD;
+! Last configuration change at 03:05:54 UTC Sun Mar 13 2016&#xD;
+!&#xD;
+version 15.6&#xD;
+service timestamps debug datetime msec&#xD;
+service timestamps log datetime msec&#xD;
+no service password-encryption&#xD;
+!&#xD;
+hostname BR-2&#xD;
+!&#xD;
+boot-start-marker&#xD;
+boot-end-marker&#xD;
+!&#xD;
+!&#xD;
+enable secret 0 cisco&#xD;
+!&#xD;
+aaa new-model&#xD;
+!&#xD;
+!&#xD;
+aaa authentication login OPEN-CONSOLE none&#xD;
+aaa authentication login RADIUS-LOCAL group radius local-case&#xD;
+aaa authorization exec default group radius if-authenticated&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+aaa session-id common&#xD;
+ethernet lmi ce&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+mmi polling-interval 60&#xD;
+no mmi auto-configure&#xD;
+no mmi pvc&#xD;
+mmi snmp-timeout 180&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+ip cef&#xD;
+no ipv6 cef&#xD;
+!&#xD;
+multilink bundle-name authenticated&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+username admin privilege 15 secret 0 cisco&#xD;
+!&#xD;
+redundancy&#xD;
+!&#xD;
+!&#xD;
+! &#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+interface GigabitEthernet0/0&#xD;
+ no ip address&#xD;
+ shutdown&#xD;
+ duplex auto&#xD;
+ speed auto&#xD;
+ media-type rj45&#xD;
+!&#xD;
+interface GigabitEthernet0/1&#xD;
+ ip address 192.168.10.2 255.255.255.0&#xD;
+ duplex auto&#xD;
+ speed auto&#xD;
+ media-type rj45&#xD;
+!&#xD;
+interface GigabitEthernet0/2&#xD;
+ no ip address&#xD;
+ shutdown&#xD;
+ duplex auto&#xD;
+ speed auto&#xD;
+ media-type rj45&#xD;
+!&#xD;
+ip forward-protocol nd&#xD;
+!&#xD;
+!&#xD;
+no ip http server&#xD;
+no ip http secure-server&#xD;
+ip route 192.168.5.0 255.255.255.0 192.168.10.1&#xD;
+!&#xD;
+ip radius source-interface GigabitEthernet0/1 &#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+radius server RADIUS&#xD;
+ address ipv4 192.168.5.10 auth-port 1812 acct-port 1813&#xD;
+ key cisco123&#xD;
+!&#xD;
+!&#xD;
+control-plane&#xD;
+!&#xD;
+banner exec `&#xD;
+**************************************************************************&#xD;
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *&#xD;
+* education. IOSv is provided as-is and is not supported by Cisco's      *&#xD;
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *&#xD;
+* of the IOSv Software or Documentation to any third party for any       *&#xD;
+* purposes is expressly prohibited except as otherwise authorized by     *&#xD;
+* Cisco in writing.                                                      *&#xD;
+**************************************************************************`&#xD;
+banner incoming `&#xD;
+**************************************************************************&#xD;
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *&#xD;
+* education. IOSv is provided as-is and is not supported by Cisco's      *&#xD;
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *&#xD;
+* of the IOSv Software or Documentation to any third party for any       *&#xD;
+* purposes is expressly prohibited except as otherwise authorized by     *&#xD;
+* Cisco in writing.                                                      *&#xD;
+**************************************************************************`&#xD;
+banner login `&#xD;
+**************************************************************************&#xD;
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *&#xD;
+* education. IOSv is provided as-is and is not supported by Cisco's      *&#xD;
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *&#xD;
+* of the IOSv Software or Documentation to any third party for any       *&#xD;
+* purposes is expressly prohibited except as otherwise authorized by     *&#xD;
+* Cisco in writing.                                                      *&#xD;
+**************************************************************************`&#xD;
+!&#xD;
+parser view SHOWMODE&#xD;
+ secret 0 cisco123&#xD;
+ commands exec include all show&#xD;
+!&#xD;
+line con 0&#xD;
+ login authentication OPEN-CONSOLE&#xD;
+line aux 0&#xD;
+line vty 0 4&#xD;
+ login authentication RADIUS-LOCAL&#xD;
+ transport input ssh&#xD;
+!&#xD;
+no scheduler allocate&#xD;
+!&#xD;
 end</entry>
         </extensions>
         <interface id="0" name="GigabitEthernet0/1"/>
@@ -316,159 +326,165 @@ end</entry>
     </node>
     <node name="HQ" type="SIMPLE" subtype="IOSv" location="316,273">
         <extensions>
-            <entry key="config" type="String">!
-! Last configuration change at 03:05:51 UTC Sun Mar 13 2016
-!
-version 15.6
-service timestamps debug datetime msec
-service timestamps log datetime msec
-no service password-encryption
-!
-hostname HQ
-!
-boot-start-marker
-boot-end-marker
-!
-!
-enable secret 5 $1$DG8D$l8Lu.ZvAbAjSmAfG64V7f.
-!
-aaa new-model
-!
-!
-aaa authentication login OPEN-CONSOLE none
-aaa authentication login RADIUS-LOCAL group radius local-case
-!
-!
-!
-!
-!
-aaa session-id common
-ethernet lmi ce
-!
-!
-!
-mmi polling-interval 60
-no mmi auto-configure
-no mmi pvc
-mmi snmp-timeout 180
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-ip cef
-no ipv6 cef
-!
-multilink bundle-name authenticated
-!
-!
-!
-!
-username admin privilege 15 secret 5 $1$aQol$6JpAQJYjMddibPvtDGzsx/
-!
-redundancy
-!
-!
-! 
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-interface GigabitEthernet0/0
- ip address 172.16.2.57 255.255.255.0
- shutdown
- duplex auto
- speed auto
- media-type rj45
-!
-interface GigabitEthernet0/1
- ip address 192.168.10.1 255.255.255.0
- duplex auto
- speed auto
- media-type rj45
-!
-interface GigabitEthernet0/2
- no ip address
- shutdown
- duplex auto
- speed auto
- media-type rj45
-!
-interface GigabitEthernet0/3
- ip address 192.168.5.1 255.255.255.0
- duplex auto
- speed auto
- media-type rj45
-!
-ip forward-protocol nd
-!
-!
-no ip http server
-no ip http secure-server
-!
-ip radius source-interface GigabitEthernet0/1 
-!
-!
-!
-!
-radius server RADIUS
- address ipv4 192.168.5.10 auth-port 1812 acct-port 1813
- key cisco123
-!
-!
-control-plane
-!
-banner exec `
-**************************************************************************
-* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
-* education. IOSv is provided as-is and is not supported by Cisco's      *
-* Technical Advisory Center. Any use or disclosure, in whole or in part, *
-* of the IOSv Software or Documentation to any third party for any       *
-* purposes is expressly prohibited except as otherwise authorized by     *
-* Cisco in writing.                                                      *
-**************************************************************************`
-banner incoming `
-**************************************************************************
-* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
-* education. IOSv is provided as-is and is not supported by Cisco's      *
-* Technical Advisory Center. Any use or disclosure, in whole or in part, *
-* of the IOSv Software or Documentation to any third party for any       *
-* purposes is expressly prohibited except as otherwise authorized by     *
-* Cisco in writing.                                                      *
-**************************************************************************`
-banner login `
-**************************************************************************
-* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
-* education. IOSv is provided as-is and is not supported by Cisco's      *
-* Technical Advisory Center. Any use or disclosure, in whole or in part, *
-* of the IOSv Software or Documentation to any third party for any       *
-* purposes is expressly prohibited except as otherwise authorized by     *
-* Cisco in writing.                                                      *
-**************************************************************************`
-!
-line con 0
- login authentication OPEN-CONSOLE
-line aux 0
-line vty 0 4
- login authentication RADIUS-LOCAL
- transport input none
-!
-no scheduler allocate
-!
+            <entry key="config" type="String">!&#xD;
+! Last configuration change at 02:36:44 UTC Mon Mar 14 2016&#xD;
+!&#xD;
+version 15.6&#xD;
+service timestamps debug datetime msec&#xD;
+service timestamps log datetime msec&#xD;
+no service password-encryption&#xD;
+!&#xD;
+hostname HQ&#xD;
+!&#xD;
+boot-start-marker&#xD;
+boot-end-marker&#xD;
+!&#xD;
+!&#xD;
+enable secret 0 cisco&#xD;
+!&#xD;
+aaa new-model&#xD;
+!&#xD;
+!&#xD;
+aaa authentication login OPEN-CONSOLE none&#xD;
+aaa authentication login RADIUS-LOCAL group radius local-case&#xD;
+aaa authorization exec default group radius if-authenticated &#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+aaa session-id common&#xD;
+ethernet lmi ce&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+mmi polling-interval 60&#xD;
+no mmi auto-configure&#xD;
+no mmi pvc&#xD;
+mmi snmp-timeout 180&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+ip domain name ciscoskills.local&#xD;
+ip cef&#xD;
+no ipv6 cef&#xD;
+!&#xD;
+multilink bundle-name authenticated&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+username admin privilege 15 secret 0 cisco&#xD;
+!&#xD;
+redundancy&#xD;
+!&#xD;
+!&#xD;
+! &#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+interface GigabitEthernet0/0&#xD;
+ no ip address&#xD;
+ shutdown&#xD;
+ duplex auto&#xD;
+ speed auto&#xD;
+ media-type rj45&#xD;
+!&#xD;
+interface GigabitEthernet0/1&#xD;
+ ip address 192.168.10.1 255.255.255.0&#xD;
+ duplex auto&#xD;
+ speed auto&#xD;
+ media-type rj45&#xD;
+!&#xD;
+interface GigabitEthernet0/2&#xD;
+ no ip address&#xD;
+ shutdown&#xD;
+ duplex auto&#xD;
+ speed auto&#xD;
+ media-type rj45&#xD;
+!&#xD;
+interface GigabitEthernet0/3&#xD;
+ ip address 192.168.5.1 255.255.255.0&#xD;
+ duplex auto&#xD;
+ speed auto&#xD;
+ media-type rj45&#xD;
+!&#xD;
+ip forward-protocol nd&#xD;
+!&#xD;
+!&#xD;
+no ip http server&#xD;
+no ip http secure-server&#xD;
+!&#xD;
+ip radius source-interface GigabitEthernet0/1 &#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+radius server RADIUS&#xD;
+ address ipv4 192.168.5.10 auth-port 1812 acct-port 1813&#xD;
+ key cisco123&#xD;
+!&#xD;
+!&#xD;
+control-plane&#xD;
+!&#xD;
+banner exec `&#xD;
+**************************************************************************&#xD;
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *&#xD;
+* education. IOSv is provided as-is and is not supported by Cisco's      *&#xD;
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *&#xD;
+* of the IOSv Software or Documentation to any third party for any       *&#xD;
+* purposes is expressly prohibited except as otherwise authorized by     *&#xD;
+* Cisco in writing.                                                      *&#xD;
+**************************************************************************`&#xD;
+banner incoming `&#xD;
+**************************************************************************&#xD;
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *&#xD;
+* education. IOSv is provided as-is and is not supported by Cisco's      *&#xD;
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *&#xD;
+* of the IOSv Software or Documentation to any third party for any       *&#xD;
+* purposes is expressly prohibited except as otherwise authorized by     *&#xD;
+* Cisco in writing.                                                      *&#xD;
+**************************************************************************`&#xD;
+banner login `&#xD;
+**************************************************************************&#xD;
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *&#xD;
+* education. IOSv is provided as-is and is not supported by Cisco's      *&#xD;
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *&#xD;
+* of the IOSv Software or Documentation to any third party for any       *&#xD;
+* purposes is expressly prohibited except as otherwise authorized by     *&#xD;
+* Cisco in writing.                                                      *&#xD;
+**************************************************************************`&#xD;
+parser view SHOWMODE&#xD;
+ secret 0 cisco123&#xD;
+ commands exec include all show&#xD;
+!&#xD;
+!&#xD;
+line con 0&#xD;
+ login authentication OPEN-CONSOLE&#xD;
+line aux 0&#xD;
+line vty 0 4&#xD;
+ login authentication RADIUS-LOCAL&#xD;
+ transport input ssh&#xD;
+!&#xD;
+no scheduler allocate&#xD;
+!&#xD;
 end</entry>
         </extensions>
         <interface id="0" name="GigabitEthernet0/1"/>
