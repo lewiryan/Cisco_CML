@@ -526,6 +526,9 @@ write_files:&#xD;
         <interface id="3" name="link4"/>
         <interface id="4" name="link5"/>
     </node>
+    <node name="HQ" type="SIMPLE" subtype="IOSv" location="410,186">
+        <interface id="0" name="GigabitEthernet0/1"/>
+    </node>
     <connection dst="/virl:topology/virl:node[1]/virl:interface[2]" src="/virl:topology/virl:node[5]/virl:interface[1]"/>
     <connection dst="/virl:topology/virl:node[2]/virl:interface[2]" src="/virl:topology/virl:node[6]/virl:interface[1]"/>
     <connection dst="/virl:topology/virl:node[3]/virl:interface[2]" src="/virl:topology/virl:node[7]/virl:interface[1]"/>
@@ -534,4 +537,5 @@ write_files:&#xD;
     <connection dst="/virl:topology/virl:node[9]/virl:interface[2]" src="/virl:topology/virl:node[2]/virl:interface[1]"/>
     <connection dst="/virl:topology/virl:node[9]/virl:interface[3]" src="/virl:topology/virl:node[3]/virl:interface[1]"/>
     <connection dst="/virl:topology/virl:node[9]/virl:interface[4]" src="/virl:topology/virl:node[4]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[10]/virl:interface[1]" src="/virl:topology/virl:node[9]/virl:interface[5]"/>
 </topology>
