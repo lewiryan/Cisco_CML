@@ -2,6 +2,7 @@
 <topology xmlns="http://www.cisco.com/VIRL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="0.9" simulationEngine="OPENSTACK" xsi:schemaLocation="http://www.cisco.com/VIRL https://raw.github.com/CiscoVIRL/schema/v0.9/virl.xsd">
     <extensions>
         <entry key="management_network" type="String">flat</entry>
+        <entry key="AutoNetkit.infrastructure_only" type="Boolean">true</entry>
     </extensions>
     <node name="ASA-1" type="SIMPLE" subtype="ASAv" location="349,140">
         <interface id="0" name="GigabitEthernet0/0"/>
