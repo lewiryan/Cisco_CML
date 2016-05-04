@@ -6,7 +6,7 @@
     </extensions>
     <node name="ASA-1" type="SIMPLE" subtype="ASAv" location="349,140">
         <extensions>
-            <entry key="config" type="string">! ASAv Config generated on 2016-05-03 19:02
+            <entry key="config" type="string">! ASAv Config generated on 2016-05-03 19:10
 ! by autonetkit_0.21.4
 !
 hostname ASA-1
@@ -16,7 +16,7 @@ passwd cisco
 names
 !
 interface GigabitEthernet0/0
-  description to iosv-1
+  description to IOS-1
   duplex full
   no shutdown
   no ip address
@@ -65,12 +65,12 @@ end
         <interface id="0" name="GigabitEthernet0/0"/>
         <interface id="1" name="GigabitEthernet0/1"/>
     </node>
-    <node name="csr1000v-1" type="SIMPLE" subtype="CSR1000v" location="675,132">
+    <node name="CSR-1" type="SIMPLE" subtype="CSR1000v" location="675,132">
         <extensions>
-            <entry key="config" type="string">! IOS Config generated on 2016-05-03 19:02
+            <entry key="config" type="string">! IOS Config generated on 2016-05-03 19:10
 ! by autonetkit_0.21.4
 !
-hostname csr1000v-1
+hostname CSR-1
 boot-start-marker
 boot-end-marker
 !
@@ -130,12 +130,12 @@ interface GigabitEthernet1
   no shutdown
 !
 interface GigabitEthernet2
-  description to iosv-2
+  description to IOS-2
   no ip address
   no shutdown
 !
 interface GigabitEthernet3
-  description to server-2
+  description to S2
   no ip address
   no shutdown
 !
@@ -152,7 +152,7 @@ end
     </node>
     <node name="R1" type="SIMPLE" subtype="IOSv" location="214,174">
         <extensions>
-            <entry key="config" type="string">! IOS Config generated on 2016-05-03 19:02
+            <entry key="config" type="string">! IOS Config generated on 2016-05-03 19:10
 ! by autonetkit_0.21.4
 !
 hostname R1
@@ -242,12 +242,12 @@ end
         <interface id="0" name="link1"/>
         <interface id="1" name="link2"/>
     </node>
-    <node name="server-1" type="SIMPLE" subtype="server" location="41,345">
+    <node name="S1" type="SIMPLE" subtype="server" location="41,345">
         <extensions>
             <entry key="config" type="string">#cloud-config
 bootcmd:
 - ln -s -t /etc/rc.d /etc/rc.local
-hostname: server-1
+hostname: S1
 manage_etc_hosts: true
 runcmd:
 - start ttyS0
@@ -294,12 +294,12 @@ write_files:
         </extensions>
         <interface id="0" name="eth1"/>
     </node>
-    <node name="iosv-1" type="SIMPLE" subtype="IOSv" location="445,127">
+    <node name="IOS-1" type="SIMPLE" subtype="IOSv" location="445,127">
         <extensions>
-            <entry key="config" type="string">! IOS Config generated on 2016-05-03 19:02
+            <entry key="config" type="string">! IOS Config generated on 2016-05-03 19:10
 ! by autonetkit_0.21.4
 !
-hostname iosv-1
+hostname IOS-1
 boot-start-marker
 boot-end-marker
 !
@@ -365,7 +365,7 @@ interface GigabitEthernet0/1
   no shutdown
 !
 interface GigabitEthernet0/2
-  description to iosv-2
+  description to IOS-2
   no ip address
   duplex full
   speed auto
@@ -382,12 +382,12 @@ end
         <interface id="0" name="GigabitEthernet0/1"/>
         <interface id="1" name="GigabitEthernet0/2"/>
     </node>
-    <node name="iosv-2" type="SIMPLE" subtype="IOSv" location="550,123">
+    <node name="IOS-2" type="SIMPLE" subtype="IOSv" location="550,123">
         <extensions>
-            <entry key="config" type="string">! IOS Config generated on 2016-05-03 19:02
+            <entry key="config" type="string">! IOS Config generated on 2016-05-03 19:10
 ! by autonetkit_0.21.4
 !
-hostname iosv-2
+hostname IOS-2
 boot-start-marker
 boot-end-marker
 !
@@ -446,14 +446,14 @@ interface GigabitEthernet0/0
   no shutdown
 !
 interface GigabitEthernet0/1
-  description to iosv-1
+  description to IOS-1
   no ip address
   duplex full
   speed auto
   no shutdown
 !
 interface GigabitEthernet0/2
-  description to csr1000v-1
+  description to CSR-1
   no ip address
   duplex full
   speed auto
@@ -470,12 +470,12 @@ end
         <interface id="0" name="GigabitEthernet0/1"/>
         <interface id="1" name="GigabitEthernet0/2"/>
     </node>
-    <node name="server-2" type="SIMPLE" subtype="server" location="827,156">
+    <node name="S2" type="SIMPLE" subtype="server" location="827,156">
         <extensions>
             <entry key="config" type="string">#cloud-config
 bootcmd:
 - ln -s -t /etc/rc.d /etc/rc.local
-hostname: server-2
+hostname: S2
 manage_etc_hosts: true
 runcmd:
 - start ttyS0
