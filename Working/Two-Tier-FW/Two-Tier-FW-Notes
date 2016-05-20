@@ -1,0 +1,30 @@
+In this example we are using a Two-Tiered DMZ design, we have four physical ASA's
+
+Using RFC: 5737
+The blocks 192.0.2.0/24 (TEST-NET-1), 198.51.100.0/24 (TEST-NET-2),
+and 203.0.113.0/24 (TEST-NET-3) are provided for use in documentation.
+
+In this example using RFC 5737 for "public" internet
+
+Using RFC: 1918
+The Internet Assigned Numbers Authority (IANA) has reserved the
+following three blocks of the IP address space for private internets:
+
+     10.0.0.0        -   10.255.255.255  (10/8 prefix)
+     172.16.0.0      -   172.31.255.255  (172.16/12 prefix)
+     192.168.0.0     -   192.168.255.255 (192.168/16 prefix)
+
+In this example using RFC 1918 for "Local" Network
+
+Desgin Overview:
+
+Pub-R1 ->  -> FW-1 -> 				FW-3->
+HSRP (Pair)	  HA (Pair) --DMZ LAN--	HA (Pair) --INT LAN--
+Pub-R2 -> -> FW-2 ->				FW-4->
+
+This has two public routers connected to ASA's (FW-1 and FW-2)
+outside interfaces which are "public" IP addersses.
+
+Outside Network: 203.0.113.116/28
+FW-1 outside interface: 203.0.113.117 (Primary)
+FW-2 outside interface: 203.0.113.118 (Secondary)
