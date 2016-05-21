@@ -28,3 +28,6 @@ outside interfaces which are "public" IP addersses.
 Outside Network: 203.0.113.116/28
 FW-1 outside interface: 203.0.113.117 (Primary)
 FW-2 outside interface: 203.0.113.118 (Secondary)
+
+Pub-R1 outside interface: 203.0.113.119 (Primary)
+Pub-R2 outside interface: 203.0.113.120 (Secondary)
