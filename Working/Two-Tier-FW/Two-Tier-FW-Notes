@@ -37,8 +37,21 @@ This has two public routers connected to ASA's (FW-1 and FW-2)
 outside interfaces which are "public" IP addersses.
 
 Outside Network: 203.0.113.116/28
-FW-1 outside interface: 203.0.113.117 (Primary)
+Gateway 203.0.113.117
+
+FW-1 outside interface: 203.0.113.118 (Primary)
 FW-2 HA Secondary
 
 Pub-R1 outside interface: 203.0.113.119 (Primary)
 Pub-R2 outside interface: 203.0.113.120 (Secondary)
+HSRP is active on this network for Pub-Routers
+
+DMZ LAN Network: 10.1.0.0/24
+FW-1 Inside interface:  10.1.0.1
+FW-2 HA Secondary
+FW-3 Outside interface: 10.1.0.253
+FW-4 Outside interface: 10.1.0.254
+
+LAN Network: 10.2.0.0/24
+FW-3 Inside interface:  10.2.0.1
+FW-4 HA Secondary
