@@ -26,3 +26,26 @@ configuration needs to be applyied to all firewalls:
   
 Otherwise you would not be able to connect to these devices on the shared flat.
 When you first configure them.
+
+Network Topology:
+
+ASA-1 <-> Internet-1 are using TEST-NET-1/25 Starting with 192.0.2.0 Network
+Internet-1 <-> Internet-2 are using TEST-NET-2/30 Starting with 198.51.100.0 Network
+Internet-2 <-> ASA-2 are using TEST-NET-3/25 Starting with 203.0.113.0 Network
+
+Internet Routers are just using static routes to the outside interfaces of the ASA's for all TEST-NETs
+
+
+ASA-1 Inside Interface - 10.0.0.1/24
+ASA-1 DMZ Interface - 10.254.254.1/24
+ASA-1 Outside Interface - 192.0.2.10/24
+Internet-1 Interface between ASA-1 - 192.0.2.1/25
+Internet-1 Interface between Internet-2 - 198.51.100.1/30
+Internet-2 Interface between Internet-1 - 198.51.100.2/30
+Internet-2 Interface between ASA-2 - 203.0.113.1/25
+ASA-2 Outside Interface - 203.0.113.10/25
+ASA-2 DMZ Interface - 172.31.255.1/24
+ASA-2 Inside Interface - 172.17.1.1/24
+
+ASA-1 has public IP addressing that range begins at 192.0.2.128/25
+ASA-2 has public IP addressing that range begins at 203.0.113.128/25
