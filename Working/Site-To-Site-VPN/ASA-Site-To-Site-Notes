@@ -28,15 +28,20 @@ Otherwise you would not be able to connect to these devices on the shared flat.
 When you first configure them.
 -------------------------------------------------------------------------------
 
-This topology is using Ubuntu servers and is in Infrastruce Only mode becuase of this
+This topology is using Ubuntu servers and is in Infrastruce Only mode/Shared Flat becuase of this
 these Ubuntu servers need to configured with an IP address and defualt gateway run the
-apply the following to each Ubuntu Server
+apply the following to each Ubuntu Server as these are not configured automatically. Place
+the following at the bottom of the configuration file on each server node.
 
+- path: /etc/rc.local
+  owner: root:root
+  permissions: '0755'
+  content: |-
     #!/bin/sh
     ifconfig eth1 up X.X.X.X netmask X.X.X.X
-    route add default gw X.X.X.X   
+    route add default gw X.X.X.X
     exit 0
--------------------------------------------------------------------------------
+
 Network Topology:
 
 ASA-1 <-> Internet-1 are using TEST-NET-1/25 Starting with 192.0.2.0 Network
