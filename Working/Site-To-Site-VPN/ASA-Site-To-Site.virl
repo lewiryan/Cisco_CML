@@ -55,18 +55,19 @@ interface Management0/0
  management-only
  nameif mgmt
  security-level 100
- ip address 172.16.1.253 255.255.255.0 
+ ip address 172.16.1.54 255.255.255.0 
 !
 ftp mode passive
 same-security-traffic permit inter-interface
 pager lines 23
 logging enable
 logging asdm informational
-mtu mgmt 1500
-mtu Outside 1500
 mtu Inside 1500
 mtu DMZ 1500
+mtu Outside 1500
+mtu mgmt 1500
 no failover
+no monitor-interface service-module 
 icmp unreachable rate-limit 1 burst-size 1
 no asdm history enable
 arp timeout 14400
@@ -201,7 +202,7 @@ call-home
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 04:14:03 UTC Sat Jun 25 2016
+! Last configuration change at 15:02:56 UTC Sat Jun 25 2016
 !
 version 15.6
 service timestamps debug datetime msec
@@ -281,7 +282,7 @@ interface Loopback0
 interface GigabitEthernet0/0
  description OOB Management
  vrf forwarding Mgmt-intf
- ip address 172.16.1.245 255.255.255.0
+ ip address 172.16.1.61 255.255.255.0
  duplex full
  speed auto
  media-type rj45
@@ -360,7 +361,7 @@ end</entry>
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 04:13:58 UTC Sat Jun 25 2016
+! Last configuration change at 15:03:06 UTC Sat Jun 25 2016
 !
 version 15.6
 service timestamps debug datetime msec
@@ -440,7 +441,7 @@ interface Loopback0
 interface GigabitEthernet0/0
  description OOB Management
  vrf forwarding Mgmt-intf
- ip address 172.16.1.244 255.255.255.0
+ ip address 172.16.1.63 255.255.255.0
  duplex full
  speed auto
  media-type rj45
@@ -554,7 +555,7 @@ interface Management0/0
  management-only
  nameif mgmt
  security-level 100
- ip address 172.16.1.51 255.255.255.0 
+ ip address 172.16.1.55 255.255.255.0 
 !
 ftp mode passive
 same-security-traffic permit inter-interface
@@ -563,6 +564,7 @@ logging enable
 logging asdm informational
 mtu mgmt 1500
 no failover
+no monitor-interface service-module 
 icmp unreachable rate-limit 1 burst-size 1
 no asdm history enable
 arp timeout 14400
@@ -697,7 +699,7 @@ call-home
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 04:14:22 UTC Sat Jun 25 2016
+! Last configuration change at 15:16:50 UTC Sat Jun 25 2016
 !
 version 15.2
 service timestamps debug datetime msec
@@ -745,6 +747,12 @@ vlan internal allocation policy ascending
 !
 vlan 2
  name ank_vlan2
+!
+vlan 5
+ name DMZ
+!
+vlan 10
+ name Inside
 no cdp run
 !
 ! 
@@ -766,21 +774,23 @@ interface Loopback0
 !
 interface GigabitEthernet0/1
  description to ASA-1
- switchport access vlan 2
- switchport mode access
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport nonegotiate
  media-type rj45
- negotiation auto
+ duplex full
+ no negotiation auto
 !
 interface GigabitEthernet0/2
  description to Internal-Server-1
- switchport access vlan 2
+ switchport access vlan 5
  switchport mode access
  media-type rj45
  negotiation auto
 !
 interface GigabitEthernet0/3
  description to DMZ-Server-1
- switchport access vlan 2
+ switchport access vlan 10
  switchport mode access
  media-type rj45
  negotiation auto
@@ -789,7 +799,7 @@ interface GigabitEthernet0/0
  description OOB management
  no switchport
  vrf forwarding Mgmt-intf
- ip address 172.16.1.249 255.255.255.0
+ ip address 172.16.1.53 255.255.255.0
  negotiation auto
 !
 ip forward-protocol nd
@@ -852,7 +862,7 @@ end</entry>
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 04:14:27 UTC Sat Jun 25 2016
+! Last configuration change at 15:02:12 UTC Sat Jun 25 2016
 !
 version 15.2
 service timestamps debug datetime msec
@@ -944,7 +954,7 @@ interface GigabitEthernet0/0
  description OOB management
  no switchport
  vrf forwarding Mgmt-intf
- ip address 172.16.1.250 255.255.255.0
+ ip address 172.16.1.52 255.255.255.0
  negotiation auto
 !
 ip forward-protocol nd
@@ -1005,156 +1015,168 @@ end</entry>
     </node>
     <node name="Internal-Server-1" type="SIMPLE" subtype="server" location="34,251">
         <extensions>
-            <entry key="config" type="String">#cloud-config
-bootcmd:
-- ln -s -t /etc/rc.d /etc/rc.local
-hostname: Internal-Server-1
-manage_etc_hosts: true
-runcmd:
-- start ttyS0
-- systemctl start getty@ttyS0.service
-- systemctl start rc-local
-- sed -i '/^\s*PasswordAuthentication\s\+no/d' /etc/ssh/sshd_config
-- echo "UseDNS no" &gt;&gt; /etc/ssh/sshd_config
-- service ssh restart
-- service sshd restart
-users:
-- default
-- gecos: User configured by VIRL Configuration Engine 0.21.7
-  lock-passwd: false
-  name: cisco
-  plain-text-passwd: cisco
-  shell: /bin/bash
-  ssh-authorized-keys:
-  - VIRL-USER-SSH-PUBLIC-KEY
-  sudo: ALL=(ALL) ALL
-write_files:
-- path: /etc/init/ttyS0.conf
-  owner: root:root
-  content: |
-    # ttyS0 - getty
-    # This service maintains a getty on ttyS0 from the point the system is
-    # started until it is shut down again.
-    start on stopped rc or RUNLEVEL=[12345]
-    stop on runlevel [!12345]
-    respawn
-    exec /sbin/getty -L 115200 ttyS0 vt102
-  permissions: '0644'
-- path: /etc/systemd/system/dhclient@.service
-  content: |
-    [Unit]
-    Description=Run dhclient on %i interface
-    After=network.target
-    [Service]
-    Type=oneshot
-    ExecStart=/sbin/dhclient %i -pf /var/run/dhclient.%i.pid -lf /var/lib/dhclient/dhclient.%i.lease
-    RemainAfterExit=yes
-  owner: root:root
-  permissions: '0644'
+            <entry key="config" type="String">#cloud-config&#xD;
+bootcmd:&#xD;
+- ln -s -t /etc/rc.d /etc/rc.local&#xD;
+hostname: Internal-Server-1&#xD;
+manage_etc_hosts: true&#xD;
+runcmd:&#xD;
+- start ttyS0&#xD;
+- systemctl start getty@ttyS0.service&#xD;
+- systemctl start rc-local&#xD;
+- sed -i '/^\s*PasswordAuthentication\s\+no/d' /etc/ssh/sshd_config&#xD;
+- echo "UseDNS no" &gt;&gt; /etc/ssh/sshd_config&#xD;
+- service ssh restart&#xD;
+- service sshd restart&#xD;
+users:&#xD;
+- default&#xD;
+- gecos: User configured by VIRL Configuration Engine 0.21.7&#xD;
+  lock-passwd: false&#xD;
+  name: cisco&#xD;
+  plain-text-passwd: cisco&#xD;
+  shell: /bin/bash&#xD;
+  ssh-authorized-keys:&#xD;
+  - VIRL-USER-SSH-PUBLIC-KEY&#xD;
+  sudo: ALL=(ALL) ALL&#xD;
+write_files:&#xD;
+- path: /etc/init/ttyS0.conf&#xD;
+  owner: root:root&#xD;
+  content: |&#xD;
+    # ttyS0 - getty&#xD;
+    # This service maintains a getty on ttyS0 from the point the system is&#xD;
+    # started until it is shut down again.&#xD;
+    start on stopped rc or RUNLEVEL=[12345]&#xD;
+    stop on runlevel [!12345]&#xD;
+    respawn&#xD;
+    exec /sbin/getty -L 115200 ttyS0 vt102&#xD;
+  permissions: '0644'&#xD;
+- path: /etc/systemd/system/dhclient@.service&#xD;
+  content: |&#xD;
+    [Unit]&#xD;
+    Description=Run dhclient on %i interface&#xD;
+    After=network.target&#xD;
+    [Service]&#xD;
+    Type=oneshot&#xD;
+    ExecStart=/sbin/dhclient %i -pf /var/run/dhclient.%i.pid -lf /var/lib/dhclient/dhclient.%i.lease&#xD;
+    RemainAfterExit=yes&#xD;
+  owner: root:root&#xD;
+  permissions: '0644'&#xD;
+   #!/bin/sh&#xD;
+    ifconfig eth1 up 10.0.0.10 netmask 255.255.255.0&#xD;
+    route add default gw 10.0.0.1   &#xD;
+    exit 0&#xD;
 </entry>
         </extensions>
         <interface id="0" name="eth1"/>
     </node>
     <node name="DMZ-Server-1" type="SIMPLE" subtype="server" location="125,304">
         <extensions>
-            <entry key="config" type="String">#cloud-config
-bootcmd:
-- ln -s -t /etc/rc.d /etc/rc.local
-hostname: DMZ-Server-1
-manage_etc_hosts: true
-runcmd:
-- start ttyS0
-- systemctl start getty@ttyS0.service
-- systemctl start rc-local
-- sed -i '/^\s*PasswordAuthentication\s\+no/d' /etc/ssh/sshd_config
-- echo "UseDNS no" &gt;&gt; /etc/ssh/sshd_config
-- service ssh restart
-- service sshd restart
-users:
-- default
-- gecos: User configured by VIRL Configuration Engine 0.21.7
-  lock-passwd: false
-  name: cisco
-  plain-text-passwd: cisco
-  shell: /bin/bash
-  ssh-authorized-keys:
-  - VIRL-USER-SSH-PUBLIC-KEY
-  sudo: ALL=(ALL) ALL
-write_files:
-- path: /etc/init/ttyS0.conf
-  owner: root:root
-  content: |
-    # ttyS0 - getty
-    # This service maintains a getty on ttyS0 from the point the system is
-    # started until it is shut down again.
-    start on stopped rc or RUNLEVEL=[12345]
-    stop on runlevel [!12345]
-    respawn
-    exec /sbin/getty -L 115200 ttyS0 vt102
-  permissions: '0644'
-- path: /etc/systemd/system/dhclient@.service
-  content: |
-    [Unit]
-    Description=Run dhclient on %i interface
-    After=network.target
-    [Service]
-    Type=oneshot
-    ExecStart=/sbin/dhclient %i -pf /var/run/dhclient.%i.pid -lf /var/lib/dhclient/dhclient.%i.lease
-    RemainAfterExit=yes
-  owner: root:root
-  permissions: '0644'
+            <entry key="config" type="String">#cloud-config&#xD;
+bootcmd:&#xD;
+- ln -s -t /etc/rc.d /etc/rc.local&#xD;
+hostname: DMZ-Server-1&#xD;
+manage_etc_hosts: true&#xD;
+runcmd:&#xD;
+- start ttyS0&#xD;
+- systemctl start getty@ttyS0.service&#xD;
+- systemctl start rc-local&#xD;
+- sed -i '/^\s*PasswordAuthentication\s\+no/d' /etc/ssh/sshd_config&#xD;
+- echo "UseDNS no" &gt;&gt; /etc/ssh/sshd_config&#xD;
+- service ssh restart&#xD;
+- service sshd restart&#xD;
+users:&#xD;
+- default&#xD;
+- gecos: User configured by VIRL Configuration Engine 0.21.7&#xD;
+  lock-passwd: false&#xD;
+  name: cisco&#xD;
+  plain-text-passwd: cisco&#xD;
+  shell: /bin/bash&#xD;
+  ssh-authorized-keys:&#xD;
+  - VIRL-USER-SSH-PUBLIC-KEY&#xD;
+  sudo: ALL=(ALL) ALL&#xD;
+write_files:&#xD;
+- path: /etc/init/ttyS0.conf&#xD;
+  owner: root:root&#xD;
+  content: |&#xD;
+    # ttyS0 - getty&#xD;
+    # This service maintains a getty on ttyS0 from the point the system is&#xD;
+    # started until it is shut down again.&#xD;
+    start on stopped rc or RUNLEVEL=[12345]&#xD;
+    stop on runlevel [!12345]&#xD;
+    respawn&#xD;
+    exec /sbin/getty -L 115200 ttyS0 vt102&#xD;
+  permissions: '0644'&#xD;
+- path: /etc/systemd/system/dhclient@.service&#xD;
+  content: |&#xD;
+    [Unit]&#xD;
+    Description=Run dhclient on %i interface&#xD;
+    After=network.target&#xD;
+    [Service]&#xD;
+    Type=oneshot&#xD;
+    ExecStart=/sbin/dhclient %i -pf /var/run/dhclient.%i.pid -lf /var/lib/dhclient/dhclient.%i.lease&#xD;
+    RemainAfterExit=yes&#xD;
+  owner: root:root&#xD;
+  permissions: '0644'&#xD;
+    #!/bin/sh&#xD;
+    ifconfig eth1 up 10.254.254.10 netmask 255.255.255.0&#xD;
+    route add default gw 10.254.254.1   &#xD;
+    exit 0&#xD;
 </entry>
         </extensions>
         <interface id="0" name="eth1"/>
     </node>
     <node name="Internal-Server-2" type="SIMPLE" subtype="server" location="943,230">
         <extensions>
-            <entry key="config" type="String">#cloud-config
-bootcmd:
-- ln -s -t /etc/rc.d /etc/rc.local
-hostname: Internal-Server-2
-manage_etc_hosts: true
-runcmd:
-- start ttyS0
-- systemctl start getty@ttyS0.service
-- systemctl start rc-local
-- sed -i '/^\s*PasswordAuthentication\s\+no/d' /etc/ssh/sshd_config
-- echo "UseDNS no" &gt;&gt; /etc/ssh/sshd_config
-- service ssh restart
-- service sshd restart
-users:
-- default
-- gecos: User configured by VIRL Configuration Engine 0.21.7
-  lock-passwd: false
-  name: cisco
-  plain-text-passwd: cisco
-  shell: /bin/bash
-  ssh-authorized-keys:
-  - VIRL-USER-SSH-PUBLIC-KEY
-  sudo: ALL=(ALL) ALL
-write_files:
-- path: /etc/init/ttyS0.conf
-  owner: root:root
-  content: |
-    # ttyS0 - getty
-    # This service maintains a getty on ttyS0 from the point the system is
-    # started until it is shut down again.
-    start on stopped rc or RUNLEVEL=[12345]
-    stop on runlevel [!12345]
-    respawn
-    exec /sbin/getty -L 115200 ttyS0 vt102
-  permissions: '0644'
-- path: /etc/systemd/system/dhclient@.service
-  content: |
-    [Unit]
-    Description=Run dhclient on %i interface
-    After=network.target
-    [Service]
-    Type=oneshot
-    ExecStart=/sbin/dhclient %i -pf /var/run/dhclient.%i.pid -lf /var/lib/dhclient/dhclient.%i.lease
-    RemainAfterExit=yes
-  owner: root:root
-  permissions: '0644'
+            <entry key="config" type="String">#cloud-config&#xD;
+bootcmd:&#xD;
+- ln -s -t /etc/rc.d /etc/rc.local&#xD;
+hostname: Internal-Server-2&#xD;
+manage_etc_hosts: true&#xD;
+runcmd:&#xD;
+- start ttyS0&#xD;
+- systemctl start getty@ttyS0.service&#xD;
+- systemctl start rc-local&#xD;
+- sed -i '/^\s*PasswordAuthentication\s\+no/d' /etc/ssh/sshd_config&#xD;
+- echo "UseDNS no" &gt;&gt; /etc/ssh/sshd_config&#xD;
+- service ssh restart&#xD;
+- service sshd restart&#xD;
+users:&#xD;
+- default&#xD;
+- gecos: User configured by VIRL Configuration Engine 0.21.7&#xD;
+  lock-passwd: false&#xD;
+  name: cisco&#xD;
+  plain-text-passwd: cisco&#xD;
+  shell: /bin/bash&#xD;
+  ssh-authorized-keys:&#xD;
+  - VIRL-USER-SSH-PUBLIC-KEY&#xD;
+  sudo: ALL=(ALL) ALL&#xD;
+write_files:&#xD;
+- path: /etc/init/ttyS0.conf&#xD;
+  owner: root:root&#xD;
+  content: |&#xD;
+    # ttyS0 - getty&#xD;
+    # This service maintains a getty on ttyS0 from the point the system is&#xD;
+    # started until it is shut down again.&#xD;
+    start on stopped rc or RUNLEVEL=[12345]&#xD;
+    stop on runlevel [!12345]&#xD;
+    respawn&#xD;
+    exec /sbin/getty -L 115200 ttyS0 vt102&#xD;
+  permissions: '0644'&#xD;
+- path: /etc/systemd/system/dhclient@.service&#xD;
+  content: |&#xD;
+    [Unit]&#xD;
+    Description=Run dhclient on %i interface&#xD;
+    After=network.target&#xD;
+    [Service]&#xD;
+    Type=oneshot&#xD;
+    ExecStart=/sbin/dhclient %i -pf /var/run/dhclient.%i.pid -lf /var/lib/dhclient/dhclient.%i.lease&#xD;
+    RemainAfterExit=yes&#xD;
+  owner: root:root&#xD;
+  permissions: '0644'&#xD;
+    #!/bin/sh&#xD;
+    ifconfig eth1 up 172.17.1.10 netmask 255.255.255.0&#xD;
+    route add default gw 172.17.1.1   &#xD;
+    exit 0&#xD;
 </entry>
         </extensions>
         <interface id="0" name="eth1"/>
