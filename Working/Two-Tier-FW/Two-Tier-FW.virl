@@ -28,21 +28,18 @@ interface GigabitEthernet0/0
  duplex full
  nameif outside
  security-level 0
- ip address 203.0.113.118 255.255.255.240 
+ ip address 203.0.113.118 255.255.255.240 standby 203.0.113.117 
 !
 interface GigabitEthernet0/1
- description to FW-2
+ description LAN/STATE Failover Interface
  duplex full
- nameif FO
- security-level 0
- ip address 10.0.1.1 255.255.255.252 
 !
 interface GigabitEthernet0/2
  description to DMZ-LAN
  duplex full
- no nameif
- no security-level
- no ip address
+ nameif DMZ
+ security-level 50
+ ip address 10.1.0.1 255.255.255.0 standby 10.1.0.2 
 !
 interface Management0/0
  description OOB Management
@@ -50,7 +47,7 @@ interface Management0/0
  management-only
  nameif mgmt
  security-level 100
- ip address 172.16.1.54 255.255.255.0 
+ ip address 172.16.1.70 255.255.255.0 
 !
 ftp mode passive
 same-security-traffic permit inter-interface
@@ -58,10 +55,15 @@ pager lines 23
 logging enable
 logging asdm informational
 mtu outside 1500
+mtu DMZ 1500
 mtu mgmt 1500
-mtu FO 1500
-no failover
-no monitor-interface service-module 
+failover
+failover lan unit primary
+failover lan interface Fail-Over GigabitEthernet0/1
+failover key cisco123
+failover link Fail-Over GigabitEthernet0/1
+failover interface ip Fail-Over 10.0.1.1 255.255.255.252 standby 10.0.1.2
+no monitor-interface mgmt
 icmp unreachable rate-limit 1 burst-size 1
 no asdm history enable
 arp timeout 14400
@@ -199,7 +201,7 @@ call-home
             <entry key="config" type="String">!
 ASA Version 9.5(2)204 
 !
-hostname FW-2
+hostname FW-1
 enable password 2KFQnbNIdI.2KYOU encrypted
 xlate per-session deny tcp any4 any4
 xlate per-session deny tcp any4 any6
@@ -217,21 +219,18 @@ interface GigabitEthernet0/0
  duplex full
  nameif outside
  security-level 0
- no ip address
+ ip address 203.0.113.118 255.255.255.240 standby 203.0.113.117 
 !
 interface GigabitEthernet0/1
- description to FW-1
+ description LAN/STATE Failover Interface
  duplex full
- nameif FO
- security-level 0
- ip address 10.0.1.2 255.255.255.252 
 !
 interface GigabitEthernet0/2
  description to DMZ-LAN
  duplex full
- no nameif
- no security-level
- no ip address
+ nameif DMZ
+ security-level 50
+ ip address 10.1.0.1 255.255.255.0 standby 10.1.0.2 
 !
 interface Management0/0
  description OOB Management
@@ -239,7 +238,7 @@ interface Management0/0
  management-only
  nameif mgmt
  security-level 100
- ip address 172.16.1.55 255.255.255.0 
+ ip address 172.16.1.70 255.255.255.0 
 !
 ftp mode passive
 same-security-traffic permit inter-interface
@@ -247,10 +246,15 @@ pager lines 23
 logging enable
 logging asdm informational
 mtu outside 1500
+mtu DMZ 1500
 mtu mgmt 1500
-mtu FO 1500
-no failover
-no monitor-interface service-module 
+failover
+failover lan unit secondary
+failover lan interface Fail-Over GigabitEthernet0/1
+failover key cisco123
+failover link Fail-Over GigabitEthernet0/1
+failover interface ip Fail-Over 10.0.1.1 255.255.255.252 standby 10.0.1.2
+no monitor-interface mgmt
 icmp unreachable rate-limit 1 burst-size 1
 no asdm history enable
 arp timeout 14400
@@ -266,7 +270,6 @@ timeout floating-conn 0:00:00
 user-identity default-domain LOCAL
 aaa authentication ssh console LOCAL 
 http server enable
-http 0.0.0.0 0.0.0.0 mgmt
 no snmp-server location
 no snmp-server contact
 crypto ipsec security-association pmtu-aging infinite
@@ -370,13 +373,13 @@ service-policy global_policy global
 prompt hostname context 
 no call-home reporting anonymous
 call-home
+ profile License
+  destination address http https://tools.cisco.com/its/service/oddce/services/DDCEService
+  destination transport-method http
  profile CiscoTAC-1
   no active
   destination address http https://tools.cisco.com/its/service/oddce/services/DDCEService
-  destination address email callhome@cisco.com
- profile License
-  destination address http https://tools.cisco.com/its/service/oddce/services/DDCEService
-  destination transport-method http</entry>
+  destination address email callhome@cisco.com</entry>
         </extensions>
         <interface id="0" name="GigabitEthernet0/0"/>
         <interface id="1" name="GigabitEthernet0/1"/>
@@ -386,7 +389,7 @@ call-home
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 01:15:17 UTC Sun Jul 10 2016
+! Last configuration change at 18:48:36 UTC Sun Jul 10 2016
 !
 version 15.6
 service timestamps debug datetime msec
@@ -466,7 +469,7 @@ interface Loopback0
 interface GigabitEthernet0/0
  description OOB Management
  vrf forwarding Mgmt-intf
- ip address 172.16.1.58 255.255.255.0
+ ip address 172.16.1.74 255.255.255.0
  duplex full
  speed auto
  media-type rj45
@@ -550,7 +553,7 @@ end</entry>
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 01:15:20 UTC Sun Jul 10 2016
+! Last configuration change at 18:48:42 UTC Sun Jul 10 2016
 !
 version 15.6
 service timestamps debug datetime msec
@@ -630,7 +633,7 @@ interface Loopback0
 interface GigabitEthernet0/0
  description OOB Management
  vrf forwarding Mgmt-intf
- ip address 172.16.1.59 255.255.255.0
+ ip address 172.16.1.75 255.255.255.0
  duplex full
  speed auto
  media-type rj45
@@ -762,7 +765,7 @@ interface Management0/0
  management-only
  nameif mgmt
  security-level 100
- ip address 172.16.1.56 255.255.255.0 
+ ip address 172.16.1.72 255.255.255.0 
 !
 ftp mode passive
 same-security-traffic permit inter-interface
@@ -949,7 +952,7 @@ interface Management0/0
  management-only
  nameif mgmt
  security-level 100
- ip address 172.16.1.57 255.255.255.0 
+ ip address 172.16.1.73 255.255.255.0 
 !
 ftp mode passive
 same-security-traffic permit inter-interface
