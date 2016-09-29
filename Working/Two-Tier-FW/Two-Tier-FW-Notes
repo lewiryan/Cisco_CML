@@ -29,9 +29,13 @@ When you first configure them.
 
 Desgin Overview:
 
-Pub-R1 ->  -> FW-1 -> 				FW-3->
-HSRP (Pair)	  HA (Pair) --DMZ LAN--	HA (Pair) --INT LAN--
-Pub-R2 -> -> FW-2 ->				FW-4->
+                                           --DMZ LAN--
+                                           |
+                  <-  FW-1 -> 			 FW-3->
+(Internet Switch)     HA (Pair) --P2P--  HA (Pair) --INTERNAL LAN--
+                  <-  FW-2 ->			 FW-4->
+                                           |
+                                           --DMZ LAN--
 
 This has two public routers connected to ASA's (FW-1 and FW-2)
 outside interfaces which are "public" IP addersses.
@@ -39,10 +43,10 @@ outside interfaces which are "public" IP addersses.
 Outside Network: 203.0.113.116/28
 Gateway 203.0.113.117
 
-FW-1 outside interface: 203.0.113.118 (Primary)
+FW-1 outside interface: 203.0.113.117 (Primary)
 FW-1 HA - 10.0.1.1/30
 FW-2 HA Secondary - 10.0.1.2/30
-FW-2 outside interface: 203.0.113.117
+FW-2 outside interface: 203.0.113.118
 
 Pub-R1 outside interface: 203.0.113.119 (Primary)
 Pub-R2 outside interface: 203.0.113.120 (Secondary)
