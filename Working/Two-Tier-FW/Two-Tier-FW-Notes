@@ -29,35 +29,42 @@ When you first configure them.
 
 Desgin Overview:
 
-                                           --DMZ LAN--
-                                           |
-                  <-  FW-1 -> 			 FW-3->
-(Internet Switch)     HA (Pair) --P2P--  HA (Pair) --INTERNAL LAN--
-                  <-  FW-2 ->			 FW-4->
-                                           |
-                                           --DMZ LAN--
+                                                            --DMZ LAN--
+                                                            |
+                  <-  FW-1 -> 			                    FW-3->
+(Internet Switch)     HA (Pair) <-- Vestibule Network -->   HA (Pair) --INTERNAL LAN--
+                  <-  FW-2 ->			                    FW-4->
+                                                            |
+                                                            --DMZ LAN--
 
-This has two public routers connected to ASA's (FW-1 and FW-2)
+This has a public switch connected to ASA's (FW-1 and FW-2)
 outside interfaces which are "public" IP addersses.
 
 Outside Network: 203.0.113.116/28
 Gateway 203.0.113.117
 
+Outside Network 203.0.113.116/28
 FW-1 outside interface: 203.0.113.117 (Primary)
-FW-1 HA - 10.0.1.1/30
-FW-2 HA Secondary - 10.0.1.2/30
 FW-2 outside interface: 203.0.113.118
 
-Pub-R1 outside interface: 203.0.113.119 (Primary)
-Pub-R2 outside interface: 203.0.113.120 (Secondary)
-HSRP is active on this network for Pub-Routers
+HA FW-1 & FW-2 10.0.1.0/30
+FW-1 HA - 10.0.1.1/30
+FW-2 HA Secondary - 10.0.1.2/30
+
+Vestibule Network 10.0.1.8/29
+FW-1 -> FW-3 10.0.1.9/29
+FW-1 -> FW-4 10.0.1.10/29
+FW-2 -> FW-3 10.0.1.11/29
+FW-2 -> Fw-4 10.0.1.12/29
+
+HA FW-3 & FW-4 10.0.1.4/30
+FW-3 HA - 10.0.1.5
+FW-4 HA - 10.0.1.6
 
 DMZ LAN Network: 10.1.0.0/24
-FW-1 Inside interface:  10.1.0.1
-FW-2 HA Secondary
-FW-3 Outside interface: 10.1.0.253
-FW-4 Outside interface: 10.1.0.254
+FW-3 DMZ interface:  10.1.0.1
+FW-4 HA Secondary:   10.1.0.2
 
 LAN Network: 10.2.0.0/24
 FW-3 Inside interface:  10.2.0.1
-FW-4 HA Secondary
+FW-4 HA Secondary:      10.2.0.2
