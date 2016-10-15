@@ -1,0 +1,497 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<topology xmlns="http://www.cisco.com/VIRL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="0.95" xsi:schemaLocation="http://www.cisco.com/VIRL https://raw.github.com/CiscoVIRL/schema/v0.95/virl.xsd">
+    <extensions>
+        <entry key="management_network" type="String">flat</entry>
+        <entry key="AutoNetkit.address_family" type="String">None</entry>
+        <entry key="AutoNetkit.infrastructure_only" type="Boolean">true</entry>
+    </extensions>
+    <node name="FW-1" type="SIMPLE" subtype="ASAv" location="199,131">
+        <extensions>
+            <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
+            <entry key="config" type="String">! ASAv Config generated on 2016-10-14 19:26&#xD;
+! by autonetkit_0.23.3&#xD;
+!&#xD;
+hostname FW-1&#xD;
+username cisco password cisco privilege 15&#xD;
+enable password cisco&#xD;
+passwd cisco&#xD;
+names&#xD;
+!&#xD;
+interface GigabitEthernet0/0&#xD;
+  description to Internet-Switch&#xD;
+  duplex full&#xD;
+  no shutdown&#xD;
+  no ip address&#xD;
+interface GigabitEthernet0/1&#xD;
+  description to FW-3&#xD;
+  duplex full&#xD;
+  no shutdown&#xD;
+  no ip address&#xD;
+interface GigabitEthernet0/2&#xD;
+  description to FW-4&#xD;
+  duplex full&#xD;
+  no shutdown&#xD;
+  no ip address&#xD;
+interface GigabitEthernet0/3&#xD;
+  description to FW-2&#xD;
+  duplex full&#xD;
+  no shutdown&#xD;
+  no ip address&#xD;
+interface Management0/0&#xD;
+  description OOB Management&#xD;
+  duplex full&#xD;
+  management-only&#xD;
+  no shutdown&#xD;
+  nameif mgmt&#xD;
+  security-level 100&#xD;
+  ! Configured on launch&#xD;
+  no ip address&#xD;
+!&#xD;
+same-security-traffic permit inter-interface&#xD;
+logging enable&#xD;
+logging asdm informational&#xD;
+user-identity default-domain LOCAL&#xD;
+aaa authentication ssh console LOCAL&#xD;
+http server enable&#xD;
+http 0.0.0.0 0.0.0.0 mgmt&#xD;
+ssh 0.0.0.0 0.0.0.0 mgmt&#xD;
+telnet 0.0.0.0 0.0.0.0 mgmt&#xD;
+http 0.0.0.0 0.0.0.0 outside&#xD;
+ssh 0.0.0.0 0.0.0.0 outside&#xD;
+telnet 0.0.0.0 0.0.0.0 outside&#xD;
+http 0.0.0.0 0.0.0.0 outside-1&#xD;
+ssh 0.0.0.0 0.0.0.0 outside-1&#xD;
+telnet 0.0.0.0 0.0.0.0 outside-1&#xD;
+http 0.0.0.0 0.0.0.0 outside-2&#xD;
+ssh 0.0.0.0 0.0.0.0 outside-2&#xD;
+telnet 0.0.0.0 0.0.0.0 outside-2&#xD;
+http 0.0.0.0 0.0.0.0 outside-3&#xD;
+ssh 0.0.0.0 0.0.0.0 outside-3&#xD;
+telnet 0.0.0.0 0.0.0.0 outside-3&#xD;
+ssh version 2&#xD;
+crypto key generate rsa modulus 768&#xD;
+telnet timeout 15&#xD;
+console timeout 0&#xD;
+username cisco password cisco privilege 15&#xD;
+!&#xD;
+no call-home reporting anonymous&#xD;
+call-home&#xD;
+ profile CiscoTAC-1&#xD;
+  no active&#xD;
+end&#xD;
+        </entry>
+        </extensions>
+        <interface id="0" name="GigabitEthernet0/0"/>
+        <interface id="1" name="GigabitEthernet0/1"/>
+        <interface id="2" name="GigabitEthernet0/2"/>
+        <interface id="3" name="GigabitEthernet0/3"/>
+    </node>
+    <node name="FW-2" type="SIMPLE" subtype="ASAv" location="199,258">
+        <extensions>
+            <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
+            <entry key="config" type="String">! ASAv Config generated on 2016-10-14 19:26&#xD;
+! by autonetkit_0.23.3&#xD;
+!&#xD;
+hostname FW-2&#xD;
+username cisco password cisco privilege 15&#xD;
+enable password cisco&#xD;
+passwd cisco&#xD;
+names&#xD;
+!&#xD;
+interface GigabitEthernet0/0&#xD;
+  description to Internet-Switch&#xD;
+  duplex full&#xD;
+  no shutdown&#xD;
+  no ip address&#xD;
+interface GigabitEthernet0/1&#xD;
+  description to FW-4&#xD;
+  duplex full&#xD;
+  no shutdown&#xD;
+  no ip address&#xD;
+interface GigabitEthernet0/2&#xD;
+  description to FW-3&#xD;
+  duplex full&#xD;
+  no shutdown&#xD;
+  no ip address&#xD;
+interface GigabitEthernet0/3&#xD;
+  description to FW-1&#xD;
+  duplex full&#xD;
+  no shutdown&#xD;
+  no ip address&#xD;
+interface Management0/0&#xD;
+  description OOB Management&#xD;
+  duplex full&#xD;
+  management-only&#xD;
+  nameif mgmt&#xD;
+  security-level 100&#xD;
+  no shutdown&#xD;
+  ! Configured on launch&#xD;
+  no ip address&#xD;
+!&#xD;
+same-security-traffic permit inter-interface&#xD;
+logging enable&#xD;
+logging asdm informational&#xD;
+user-identity default-domain LOCAL&#xD;
+aaa authentication ssh console LOCAL&#xD;
+http server enable&#xD;
+http 0.0.0.0 0.0.0.0 mgmt&#xD;
+ssh 0.0.0.0 0.0.0.0 mgmt&#xD;
+telnet 0.0.0.0 0.0.0.0 mgmt&#xD;
+http 0.0.0.0 0.0.0.0 outside&#xD;
+ssh 0.0.0.0 0.0.0.0 outside&#xD;
+telnet 0.0.0.0 0.0.0.0 outside&#xD;
+http 0.0.0.0 0.0.0.0 outside-1&#xD;
+ssh 0.0.0.0 0.0.0.0 outside-1&#xD;
+telnet 0.0.0.0 0.0.0.0 outside-1&#xD;
+http 0.0.0.0 0.0.0.0 outside-2&#xD;
+ssh 0.0.0.0 0.0.0.0 outside-2&#xD;
+telnet 0.0.0.0 0.0.0.0 outside-2&#xD;
+http 0.0.0.0 0.0.0.0 outside-3&#xD;
+ssh 0.0.0.0 0.0.0.0 outside-3&#xD;
+telnet 0.0.0.0 0.0.0.0 outside-3&#xD;
+ssh version 2&#xD;
+crypto key generate rsa modulus 768&#xD;
+telnet timeout 15&#xD;
+console timeout 0&#xD;
+username cisco password cisco privilege 15&#xD;
+!&#xD;
+no call-home reporting anonymous&#xD;
+call-home&#xD;
+ profile CiscoTAC-1&#xD;
+  no active&#xD;
+end&#xD;
+        </entry>
+        </extensions>
+        <interface id="0" name="GigabitEthernet0/0"/>
+        <interface id="1" name="GigabitEthernet0/1"/>
+        <interface id="2" name="GigabitEthernet0/2"/>
+        <interface id="3" name="GigabitEthernet0/3"/>
+    </node>
+    <node name="FW-3" type="SIMPLE" subtype="ASAv" location="387,125">
+        <extensions>
+            <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
+            <entry key="config" type="String">! ASAv Config generated on 2016-10-14 19:26&#xD;
+! by autonetkit_0.23.3&#xD;
+!&#xD;
+hostname FW-3&#xD;
+username cisco password cisco privilege 15&#xD;
+enable password cisco&#xD;
+passwd cisco&#xD;
+names&#xD;
+!&#xD;
+interface GigabitEthernet0/0&#xD;
+  description to FW-1&#xD;
+  duplex full&#xD;
+  no shutdown&#xD;
+  no ip address&#xD;
+interface GigabitEthernet0/1&#xD;
+  description to FW-2&#xD;
+  duplex full&#xD;
+  no shutdown&#xD;
+  no ip address&#xD;
+interface GigabitEthernet0/2&#xD;
+  description to FW-4&#xD;
+  duplex full&#xD;
+  no shutdown&#xD;
+  no ip address&#xD;
+interface GigabitEthernet0/3&#xD;
+  description to SW-1&#xD;
+  duplex full&#xD;
+  no shutdown&#xD;
+  no ip address&#xD;
+interface GigabitEthernet0/4&#xD;
+  description to SW-1&#xD;
+  duplex full&#xD;
+  no shutdown&#xD;
+  no ip address&#xD;
+interface Management0/0&#xD;
+  description OOB Management&#xD;
+  duplex full&#xD;
+  management-only&#xD;
+  nameif mgmt&#xD;
+  security-level 100&#xD;
+  no shutdown&#xD;
+  ! Configured on launch&#xD;
+  no ip address&#xD;
+!&#xD;
+same-security-traffic permit inter-interface&#xD;
+logging enable&#xD;
+logging asdm informational&#xD;
+user-identity default-domain LOCAL&#xD;
+aaa authentication ssh console LOCAL&#xD;
+http server enable&#xD;
+http 0.0.0.0 0.0.0.0 mgmt&#xD;
+ssh 0.0.0.0 0.0.0.0 mgmt&#xD;
+telnet 0.0.0.0 0.0.0.0 mgmt&#xD;
+http 0.0.0.0 0.0.0.0 outside&#xD;
+ssh 0.0.0.0 0.0.0.0 outside&#xD;
+telnet 0.0.0.0 0.0.0.0 outside&#xD;
+http 0.0.0.0 0.0.0.0 outside-1&#xD;
+ssh 0.0.0.0 0.0.0.0 outside-1&#xD;
+telnet 0.0.0.0 0.0.0.0 outside-1&#xD;
+http 0.0.0.0 0.0.0.0 outside-2&#xD;
+ssh 0.0.0.0 0.0.0.0 outside-2&#xD;
+telnet 0.0.0.0 0.0.0.0 outside-2&#xD;
+http 0.0.0.0 0.0.0.0 outside-3&#xD;
+ssh 0.0.0.0 0.0.0.0 outside-3&#xD;
+telnet 0.0.0.0 0.0.0.0 outside-3&#xD;
+http 0.0.0.0 0.0.0.0 outside-4&#xD;
+ssh 0.0.0.0 0.0.0.0 outside-4&#xD;
+telnet 0.0.0.0 0.0.0.0 outside-4&#xD;
+ssh version 2&#xD;
+crypto key generate rsa modulus 768&#xD;
+telnet timeout 15&#xD;
+console timeout 0&#xD;
+username cisco password cisco privilege 15&#xD;
+!&#xD;
+no call-home reporting anonymous&#xD;
+call-home&#xD;
+ profile CiscoTAC-1&#xD;
+  no active&#xD;
+end&#xD;
+        </entry>
+        </extensions>
+        <interface id="0" name="GigabitEthernet0/0"/>
+        <interface id="1" name="GigabitEthernet0/1"/>
+        <interface id="2" name="GigabitEthernet0/2"/>
+        <interface id="3" name="GigabitEthernet0/3"/>
+        <interface id="4" name="GigabitEthernet0/4"/>
+    </node>
+    <node name="FW-4" type="SIMPLE" subtype="ASAv" location="394,247">
+        <extensions>
+            <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
+            <entry key="config" type="String">! ASAv Config generated on 2016-10-14 19:26&#xD;
+! by autonetkit_0.23.3&#xD;
+!&#xD;
+hostname FW-4&#xD;
+username cisco password cisco privilege 15&#xD;
+enable password cisco&#xD;
+passwd cisco&#xD;
+names&#xD;
+!&#xD;
+interface GigabitEthernet0/0&#xD;
+  description to FW-2&#xD;
+  duplex full&#xD;
+  no shutdown&#xD;
+  no ip address&#xD;
+interface GigabitEthernet0/1&#xD;
+  description to FW-1&#xD;
+  duplex full&#xD;
+  no shutdown&#xD;
+  no ip address&#xD;
+interface GigabitEthernet0/2&#xD;
+  description to FW-3&#xD;
+  duplex full&#xD;
+  no shutdown&#xD;
+  no ip address&#xD;
+interface GigabitEthernet0/3&#xD;
+  description to SW-1&#xD;
+  duplex full&#xD;
+  no shutdown&#xD;
+  no ip address&#xD;
+interface GigabitEthernet0/4&#xD;
+  description to SW-1&#xD;
+  duplex full&#xD;
+  no shutdown&#xD;
+  no ip address&#xD;
+interface Management0/0&#xD;
+  description OOB Management&#xD;
+  duplex full&#xD;
+  management-only&#xD;
+  nameif mgmt&#xD;
+  security-level 100&#xD;
+  no shutdown&#xD;
+  ! Configured on launch&#xD;
+  no ip address&#xD;
+!&#xD;
+same-security-traffic permit inter-interface&#xD;
+logging enable&#xD;
+logging asdm informational&#xD;
+user-identity default-domain LOCAL&#xD;
+aaa authentication ssh console LOCAL&#xD;
+http server enable&#xD;
+http 0.0.0.0 0.0.0.0 mgmt&#xD;
+ssh 0.0.0.0 0.0.0.0 mgmt&#xD;
+telnet 0.0.0.0 0.0.0.0 mgmt&#xD;
+http 0.0.0.0 0.0.0.0 outside&#xD;
+ssh 0.0.0.0 0.0.0.0 outside&#xD;
+telnet 0.0.0.0 0.0.0.0 outside&#xD;
+http 0.0.0.0 0.0.0.0 outside-1&#xD;
+ssh 0.0.0.0 0.0.0.0 outside-1&#xD;
+telnet 0.0.0.0 0.0.0.0 outside-1&#xD;
+http 0.0.0.0 0.0.0.0 outside-2&#xD;
+ssh 0.0.0.0 0.0.0.0 outside-2&#xD;
+telnet 0.0.0.0 0.0.0.0 outside-2&#xD;
+http 0.0.0.0 0.0.0.0 outside-3&#xD;
+ssh 0.0.0.0 0.0.0.0 outside-3&#xD;
+telnet 0.0.0.0 0.0.0.0 outside-3&#xD;
+http 0.0.0.0 0.0.0.0 outside-4&#xD;
+ssh 0.0.0.0 0.0.0.0 outside-4&#xD;
+telnet 0.0.0.0 0.0.0.0 outside-4&#xD;
+ssh version 2&#xD;
+crypto key generate rsa modulus 768&#xD;
+telnet timeout 15&#xD;
+console timeout 0&#xD;
+username cisco password cisco privilege 15&#xD;
+!&#xD;
+no call-home reporting anonymous&#xD;
+call-home&#xD;
+ profile CiscoTAC-1&#xD;
+  no active&#xD;
+end&#xD;
+        </entry>
+        </extensions>
+        <interface id="0" name="GigabitEthernet0/0"/>
+        <interface id="1" name="GigabitEthernet0/1"/>
+        <interface id="2" name="GigabitEthernet0/2"/>
+        <interface id="3" name="GigabitEthernet0/3"/>
+        <interface id="4" name="GigabitEthernet0/4"/>
+    </node>
+    <node name="Internet-Switch" type="SIMPLE" subtype="Unmanaged Switch" location="72,189">
+        <interface id="0" name="link1"/>
+        <interface id="1" name="link2"/>
+    </node>
+    <node name="SW-1" type="SIMPLE" subtype="IOSvL2" location="552,186">
+        <extensions>
+            <entry key="config" type="string">! IOSvL2 Config generated on 2016-10-14 19:26
+! by autonetkit_0.23.3
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+no service config
+enable password cisco
+ip classless
+ip subnet-zero
+no ip domain lookup
+!
+line vty 0 4
+transport input ssh telnet
+exec-timeout 720 0
+password cisco
+login
+!
+line con 0
+password cisco
+!
+hostname SW-1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+!
+no aaa new-model
+!
+vtp domain virl.lab
+vtp mode transparent
+!
+vlan 2
+  name ank_vlan2
+!
+!
+!
+!
+no cdp run
+!
+!
+!
+ip cef
+no ipv6 cef
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+!
+!
+!
+vrf definition Mgmt-intf
+!
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+!
+!
+!
+!
+interface Loopback0
+  description Loopback
+!
+interface GigabitEthernet0/0
+  description OOB management
+  ! Configured on launch
+  no switchport
+  vrf forwarding Mgmt-intf
+  no ip address
+  no shutdown
+!
+interface GigabitEthernet0/1
+  description to FW-3
+  switchport access vlan 2
+  switchport mode access
+  no shutdown
+!
+interface GigabitEthernet0/2
+  description to FW-3
+  switchport access vlan 2
+  switchport mode access
+  no shutdown
+!
+interface GigabitEthernet0/3
+  description to FW-4
+  switchport access vlan 2
+  switchport mode access
+  no shutdown
+!
+interface GigabitEthernet1/0
+  description to FW-4
+  switchport access vlan 2
+  switchport mode access
+  no shutdown
+!
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+!
+!
+end
+        </entry>
+            <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
+        </extensions>
+        <interface id="0" name="GigabitEthernet0/1"/>
+        <interface id="1" name="GigabitEthernet0/2"/>
+        <interface id="2" name="GigabitEthernet0/3"/>
+        <interface id="3" name="GigabitEthernet1/0"/>
+    </node>
+    <annotations/>
+    <connection dst="/virl:topology/virl:node[1]/virl:interface[1]" src="/virl:topology/virl:node[5]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[5]/virl:interface[2]" src="/virl:topology/virl:node[2]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[3]/virl:interface[1]" src="/virl:topology/virl:node[1]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[4]/virl:interface[1]" src="/virl:topology/virl:node[2]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[4]/virl:interface[2]" src="/virl:topology/virl:node[1]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[3]/virl:interface[2]" src="/virl:topology/virl:node[2]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[2]/virl:interface[4]" src="/virl:topology/virl:node[1]/virl:interface[4]"/>
+    <connection dst="/virl:topology/virl:node[3]/virl:interface[3]" src="/virl:topology/virl:node[4]/virl:interface[3]"/>
+    <connection dst="/virl:topology/virl:node[6]/virl:interface[1]" src="/virl:topology/virl:node[3]/virl:interface[4]"/>
+    <connection dst="/virl:topology/virl:node[6]/virl:interface[2]" src="/virl:topology/virl:node[3]/virl:interface[5]"/>
+    <connection dst="/virl:topology/virl:node[6]/virl:interface[3]" src="/virl:topology/virl:node[4]/virl:interface[4]"/>
+    <connection dst="/virl:topology/virl:node[6]/virl:interface[4]" src="/virl:topology/virl:node[4]/virl:interface[5]"/>
+</topology>
