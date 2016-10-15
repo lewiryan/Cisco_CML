@@ -27,23 +27,23 @@ names
 interface GigabitEthernet0/0
  description to Internet-Switch
  duplex full
- no nameif
- no security-level
- no ip address
+ nameif outside
+ security-level 0
+ ip address 203.0.113.117 255.255.255.240 
 !
 interface GigabitEthernet0/1
  description to FW-3
  duplex full
- no nameif
- no security-level
- no ip address
+ nameif Vestibule-1
+ security-level 15
+ ip address 10.0.1.17 255.255.255.252 
 !
 interface GigabitEthernet0/2
  description to FW-4
  duplex full
- no nameif
- no security-level
- no ip address
+ nameif Vestibule-2
+ security-level 15
+ ip address 10.0.1.21 255.255.255.252 
 !
 interface GigabitEthernet0/3
  description to FW-2
@@ -58,7 +58,7 @@ interface Management0/0
  management-only
  nameif mgmt
  security-level 100
- ip address 172.16.1.55 255.255.255.0 
+ ip address 172.16.1.76 255.255.255.0 
 !
 ftp mode passive
 same-security-traffic permit inter-interface
@@ -66,7 +66,11 @@ pager lines 23
 logging enable
 logging asdm informational
 mtu mgmt 1500
+mtu Vestibule-1 1500
+mtu Vestibule-2 1500
+mtu outside 1500
 no failover
+no monitor-interface service-module 
 icmp unreachable rate-limit 1 burst-size 1
 no asdm history enable
 arp timeout 14400
@@ -252,7 +256,7 @@ interface Management0/0
  management-only
  nameif mgmt
  security-level 100
- ip address 172.16.1.56 255.255.255.0 
+ ip address 172.16.1.77 255.255.255.0 
 !
 ftp mode passive
 same-security-traffic permit inter-interface
@@ -261,6 +265,7 @@ logging enable
 logging asdm informational
 mtu mgmt 1500
 no failover
+no monitor-interface service-module 
 icmp unreachable rate-limit 1 burst-size 1
 no asdm history enable
 arp timeout 14400
@@ -417,14 +422,14 @@ interface GigabitEthernet0/0
  duplex full
  nameif Vestibule-1
  security-level 15
- ip address 10.0.1.19 255.255.255.248 
+ ip address 10.0.1.18 255.255.255.252 
 !
 interface GigabitEthernet0/1
  description to FW-2
  duplex full
- nameif Vestibule-2
+ nameif Vestibule-4
  security-level 15
- ip address 10.0.1.27 255.255.255.248 
+ ip address 10.0.1.29 255.255.255.252 
 !
 interface GigabitEthernet0/2
  description to FW-4
@@ -453,18 +458,19 @@ interface Management0/0
  management-only
  nameif mgmt
  security-level 100
- ip address 172.16.1.57 255.255.255.0 
+ ip address 172.16.1.78 255.255.255.0 
 !
 ftp mode passive
 same-security-traffic permit inter-interface
 pager lines 23
 logging enable
 logging asdm informational
-mtu mgmt 1500
 mtu Vestibule-1 1500
-mtu Vestibule-2 1500
+mtu Vestibule-4 1500
 mtu DMZ 1500
+mtu mgmt 1500
 no failover
+no monitor-interface service-module 
 icmp unreachable rate-limit 1 burst-size 1
 no asdm history enable
 arp timeout 14400
@@ -620,16 +626,16 @@ names
 interface GigabitEthernet0/0
  description to FW-2
  duplex full
- nameif Vestibule-2
- security-level 15
- ip address 10.0.1.28 255.255.255.248 
+ no nameif
+ no security-level
+ no ip address
 !
 interface GigabitEthernet0/1
  description to FW-1
  duplex full
- nameif Vestibule-1
- security-level 15
- ip address 10.0.1.20 255.255.255.248 
+ no nameif
+ no security-level
+ no ip address
 !
 interface GigabitEthernet0/2
  description to FW-3
@@ -641,9 +647,9 @@ interface GigabitEthernet0/2
 interface GigabitEthernet0/3
  description to SW-1 DMZ
  duplex full
- nameif DMZ
- security-level 50
- ip address 10.1.0.2 255.255.255.0 
+ no nameif
+ no security-level
+ no ip address
 !
 interface GigabitEthernet0/4
  description to SW-1
@@ -658,7 +664,7 @@ interface Management0/0
  management-only
  nameif mgmt
  security-level 100
- ip address 172.16.1.58 255.255.255.0 
+ ip address 172.16.1.79 255.255.255.0 
 !
 ftp mode passive
 same-security-traffic permit inter-interface
@@ -666,10 +672,8 @@ pager lines 23
 logging enable
 logging asdm informational
 mtu mgmt 1500
-mtu Vestibule-2 1500
-mtu Vestibule-1 1500
-mtu DMZ 1500
 no failover
+no monitor-interface service-module 
 icmp unreachable rate-limit 1 burst-size 1
 no asdm history enable
 arp timeout 14400
@@ -807,9 +811,13 @@ call-home
         <interface id="0" name="link1"/>
         <interface id="1" name="link2"/>
     </node>
-    <node name="SW-1" type="SIMPLE" subtype="IOSvL2" location="577,195">
-        <interface id="0" name="GigabitEthernet0/1"/>
-        <interface id="1" name="GigabitEthernet0/2"/>
+    <node name="DMZ-SW-1" type="SIMPLE" subtype="Unmanaged Switch" location="576,70">
+        <interface id="0" name="link1"/>
+        <interface id="1" name="link2"/>
+    </node>
+    <node name="LAN-SW1" type="SIMPLE" subtype="Unmanaged Switch" location="563,313">
+        <interface id="0" name="link1"/>
+        <interface id="1" name="link2"/>
     </node>
     <annotations/>
     <connection dst="/virl:topology/virl:node[1]/virl:interface[1]" src="/virl:topology/virl:node[5]/virl:interface[1]"/>
@@ -822,4 +830,6 @@ call-home
     <connection dst="/virl:topology/virl:node[3]/virl:interface[3]" src="/virl:topology/virl:node[4]/virl:interface[3]"/>
     <connection dst="/virl:topology/virl:node[6]/virl:interface[1]" src="/virl:topology/virl:node[3]/virl:interface[4]"/>
     <connection dst="/virl:topology/virl:node[6]/virl:interface[2]" src="/virl:topology/virl:node[4]/virl:interface[4]"/>
+    <connection dst="/virl:topology/virl:node[7]/virl:interface[1]" src="/virl:topology/virl:node[3]/virl:interface[5]"/>
+    <connection dst="/virl:topology/virl:node[7]/virl:interface[2]" src="/virl:topology/virl:node[4]/virl:interface[5]"/>
 </topology>

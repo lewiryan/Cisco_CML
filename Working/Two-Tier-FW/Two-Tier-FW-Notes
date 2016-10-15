@@ -51,17 +51,35 @@ HA FW-1 & FW-2 10.0.1.0/30
 FW-1 HA - 10.0.1.1/30
 FW-2 HA Secondary - 10.0.1.2/30
 
-Vestibule Network 1 - 10.0.1.16/29
+Primary Vestibule Network 1 - 10.0.1.16/29
 FW-1 -> FW-3 10.0.1.17/29
-FW-1 -> FW-4 10.0.1.18/29
-FW-3 -> FW-1 10.0.1.19/29
-FW-4 -> FW-1 10.0.1.20/29
+FW-3 -> FW-1 10.0.1.18/29
+HA Vestibule Network 1 -(Standby Interfaces)
+FW-2 -> FW-4 10.0.1.19/29
+FW-4 -> FW-2 10.0.1.20/29
 
-Vestibule Network 2 - 10.0.1.24/29
-FW-2 -> FW-3 10.0.1.25/29
-FW-2 -> Fw-4 10.0.1.26/29
-FW-3 -> FW-2 10.0.1.27/29
-FW-4 -> FW-2 10.0.1.28/29
+FW-3 -> FW-2 10.0.1.19/28
+FW-2 -> FW-3 10.0.1.20/28
+
+Secondary Vestibule Network 2 - 10.0.1.24/29
+FW-3 -> FW-2 10.0.1.25/29
+FW-2 -> FW-3 10.0.1.26/29
+HA Vestibule Network 2 - 10.0.1.24/29
+FW-1 -> FW-4 10.0.1.27/28
+FW-4 -> FW-1 10.0.1.28/28
+
+
+Vestibule Network 2 - 10.0.1.20/30
+FW-1 -> FW-4 10.0.1.21/30
+FW-4 -> FW-1 10.0.1.22/30
+
+Vestibule Network 3 - 10.0.1.24/30
+FW-2 -> FW-4 10.0.1.25/30
+FW-4 -> FW-2 10.0.1.26/30
+
+Vestibule Network 4 - 10.0.1.28/30
+FW-3 -> FW-2 10.0.1.29/30
+FW-2 -> FW-3 10.0.1.30/30
 
 HA FW-3 & FW-4 10.0.1.4/30
 FW-3 HA - 10.0.1.5
