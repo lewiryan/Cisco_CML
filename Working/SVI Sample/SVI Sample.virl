@@ -2,6 +2,7 @@
 <topology xmlns="http://www.cisco.com/VIRL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" schemaVersion="0.95" xsi:schemaLocation="http://www.cisco.com/VIRL https://raw.github.com/CiscoVIRL/schema/v0.95/virl.xsd">
     <node name="MGMT-R1" type="SIMPLE" subtype="IOSv" location="307,204">
         <interface id="0" name="GigabitEthernet0/1"/>
+        <interface id="1" name="GigabitEthernet0/2"/>
     </node>
     <node name="PROD-SW2" type="SIMPLE" subtype="NX-OSv" location="130,109">
         <interface id="0" name="Ethernet2/1"/>
@@ -22,6 +23,7 @@
     </node>
     <node name="UMSW2" type="SIMPLE" subtype="Unmanaged Switch" location="302,270">
         <interface id="0" name="link1"/>
+        <interface id="1" name="link2"/>
     </node>
     <node name="windows-1" type="SIMPLE" subtype="Windows" location="269,324">
         <interface id="0" name="eth0"/>
@@ -45,4 +47,5 @@
     <connection dst="/virl:topology/virl:node[6]/virl:interface[1]" src="/virl:topology/virl:node[7]/virl:interface[1]"/>
     <connection dst="/virl:topology/virl:node[5]/virl:interface[1]" src="/virl:topology/virl:node[8]/virl:interface[1]"/>
     <connection dst="/virl:topology/virl:node[4]/virl:interface[2]" src="/virl:topology/virl:node[5]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[6]/virl:interface[2]" src="/virl:topology/virl:node[1]/virl:interface[2]"/>
 </topology>
