@@ -6,7 +6,7 @@
     <node name="MGMT-R1" type="SIMPLE" subtype="IOSv" location="307,204">
         <extensions>
             <entry key="config" type="String">!
-! Last configuration change at 05:46:03 UTC Sat Nov 26 2016
+! Last configuration change at 15:52:52 UTC Sat Nov 26 2016
 !
 version 15.6
 service timestamps debug datetime msec
@@ -66,7 +66,7 @@ redundancy
 !
 !
 interface GigabitEthernet0/0
- ip address 10.255.0.63 255.255.0.0
+ ip address 10.255.0.68 255.255.0.0
  shutdown
  duplex auto
  speed auto
@@ -145,7 +145,7 @@ end</entry>
     <node name="PROD-SW2" type="SIMPLE" subtype="NX-OSv" location="130,109">
         <extensions>
             <entry key="config" type="String">!Command: show running-config
-!Time: Sat Nov 26 05:46:04 2016
+!Time: Sat Nov 26 15:52:53 2016
 
 version 7.3(0)D1(1)
 power redundancy-mode redundant
@@ -195,6 +195,7 @@ interface mgmt0
   vrf member management
 
 interface Vlan1
+  no shutdown
 
 interface Vlan10
   no shutdown
@@ -443,147 +444,195 @@ interface Ethernet2/48
 
 interface Ethernet3/1
   switchport
+  no shutdown
 
 interface Ethernet3/2
   switchport
+  no shutdown
 
 interface Ethernet3/3
   switchport
+  no shutdown
 
 interface Ethernet3/4
   switchport
+  no shutdown
 
 interface Ethernet3/5
   switchport
+  no shutdown
 
 interface Ethernet3/6
   switchport
+  no shutdown
 
 interface Ethernet3/7
   switchport
+  no shutdown
 
 interface Ethernet3/8
   switchport
+  no shutdown
 
 interface Ethernet3/9
   switchport
+  no shutdown
 
 interface Ethernet3/10
   switchport
+  no shutdown
 
 interface Ethernet3/11
   switchport
+  no shutdown
 
 interface Ethernet3/12
   switchport
+  no shutdown
 
 interface Ethernet3/13
   switchport
+  no shutdown
 
 interface Ethernet3/14
   switchport
+  no shutdown
 
 interface Ethernet3/15
   switchport
+  no shutdown
 
 interface Ethernet3/16
   switchport
+  no shutdown
 
 interface Ethernet3/17
   switchport
+  no shutdown
 
 interface Ethernet3/18
   switchport
+  no shutdown
 
 interface Ethernet3/19
   switchport
+  no shutdown
 
 interface Ethernet3/20
   switchport
+  no shutdown
 
 interface Ethernet3/21
   switchport
+  no shutdown
 
 interface Ethernet3/22
   switchport
+  no shutdown
 
 interface Ethernet3/23
   switchport
+  no shutdown
 
 interface Ethernet3/24
   switchport
+  no shutdown
 
 interface Ethernet3/25
   switchport
+  no shutdown
 
 interface Ethernet3/26
   switchport
+  no shutdown
 
 interface Ethernet3/27
   switchport
+  no shutdown
 
 interface Ethernet3/28
   switchport
+  no shutdown
 
 interface Ethernet3/29
   switchport
+  no shutdown
 
 interface Ethernet3/30
   switchport
+  no shutdown
 
 interface Ethernet3/31
   switchport
+  no shutdown
 
 interface Ethernet3/32
   switchport
+  no shutdown
 
 interface Ethernet3/33
   switchport
+  no shutdown
 
 interface Ethernet3/34
   switchport
+  no shutdown
 
 interface Ethernet3/35
   switchport
+  no shutdown
 
 interface Ethernet3/36
   switchport
+  no shutdown
 
 interface Ethernet3/37
   switchport
+  no shutdown
 
 interface Ethernet3/38
   switchport
+  no shutdown
 
 interface Ethernet3/39
   switchport
+  no shutdown
 
 interface Ethernet3/40
   switchport
+  no shutdown
 
 interface Ethernet3/41
   switchport
+  no shutdown
 
 interface Ethernet3/42
   switchport
+  no shutdown
 
 interface Ethernet3/43
   switchport
+  no shutdown
 
 interface Ethernet3/44
   switchport
+  no shutdown
 
 interface Ethernet3/45
   switchport
+  no shutdown
 
 interface Ethernet3/46
   switchport
+  no shutdown
 
 interface Ethernet3/47
   switchport
+  no shutdown
 
 interface Ethernet3/48
   switchport
+  no shutdown
 
 interface Ethernet4/1
   switchport
@@ -739,7 +788,7 @@ boot system bootflash:/titanium-d1.7.3.0.D1.1.bin</entry>
     <node name="SW1" type="SIMPLE" subtype="IOSvL2" location="230,157">
         <extensions>
             <entry key="config" type="String">!
-! Last configuration change at 05:46:04 UTC Sat Nov 26 2016
+! Last configuration change at 15:52:53 UTC Sat Nov 26 2016
 !
 version 15.2
 service timestamps debug datetime msec
@@ -788,13 +837,19 @@ vlan internal allocation policy ascending
 !
 interface GigabitEthernet0/0
  media-type rj45
- negotiation auto
+ duplex full
+ no negotiation auto
 !
 interface GigabitEthernet0/1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
  media-type rj45
- negotiation auto
+ duplex full
+ no negotiation auto
 !
 interface GigabitEthernet0/2
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
  media-type rj45
  negotiation auto
 !
@@ -857,7 +912,7 @@ end</entry>
     <node name="PROD-SW1" type="SIMPLE" subtype="NX-OSv" location="428,147">
         <extensions>
             <entry key="config" type="String">!Command: show running-config
-!Time: Sat Nov 26 05:46:04 2016
+!Time: Sat Nov 26 15:52:54 2016
 
 version 7.3(0)D1(1)
 power redundancy-mode redundant
@@ -1140,147 +1195,195 @@ interface Ethernet2/48
 
 interface Ethernet3/1
   switchport
+  no shutdown
 
 interface Ethernet3/2
   switchport
+  no shutdown
 
 interface Ethernet3/3
   switchport
+  no shutdown
 
 interface Ethernet3/4
   switchport
+  no shutdown
 
 interface Ethernet3/5
   switchport
+  no shutdown
 
 interface Ethernet3/6
   switchport
+  no shutdown
 
 interface Ethernet3/7
   switchport
+  no shutdown
 
 interface Ethernet3/8
   switchport
+  no shutdown
 
 interface Ethernet3/9
   switchport
+  no shutdown
 
 interface Ethernet3/10
   switchport
+  no shutdown
 
 interface Ethernet3/11
   switchport
+  no shutdown
 
 interface Ethernet3/12
   switchport
+  no shutdown
 
 interface Ethernet3/13
   switchport
+  no shutdown
 
 interface Ethernet3/14
   switchport
+  no shutdown
 
 interface Ethernet3/15
   switchport
+  no shutdown
 
 interface Ethernet3/16
   switchport
+  no shutdown
 
 interface Ethernet3/17
   switchport
+  no shutdown
 
 interface Ethernet3/18
   switchport
+  no shutdown
 
 interface Ethernet3/19
   switchport
+  no shutdown
 
 interface Ethernet3/20
   switchport
+  no shutdown
 
 interface Ethernet3/21
   switchport
+  no shutdown
 
 interface Ethernet3/22
   switchport
+  no shutdown
 
 interface Ethernet3/23
   switchport
+  no shutdown
 
 interface Ethernet3/24
   switchport
+  no shutdown
 
 interface Ethernet3/25
   switchport
+  no shutdown
 
 interface Ethernet3/26
   switchport
+  no shutdown
 
 interface Ethernet3/27
   switchport
+  no shutdown
 
 interface Ethernet3/28
   switchport
+  no shutdown
 
 interface Ethernet3/29
   switchport
+  no shutdown
 
 interface Ethernet3/30
   switchport
+  no shutdown
 
 interface Ethernet3/31
   switchport
+  no shutdown
 
 interface Ethernet3/32
   switchport
+  no shutdown
 
 interface Ethernet3/33
   switchport
+  no shutdown
 
 interface Ethernet3/34
   switchport
+  no shutdown
 
 interface Ethernet3/35
   switchport
+  no shutdown
 
 interface Ethernet3/36
   switchport
+  no shutdown
 
 interface Ethernet3/37
   switchport
+  no shutdown
 
 interface Ethernet3/38
   switchport
+  no shutdown
 
 interface Ethernet3/39
   switchport
+  no shutdown
 
 interface Ethernet3/40
   switchport
+  no shutdown
 
 interface Ethernet3/41
   switchport
+  no shutdown
 
 interface Ethernet3/42
   switchport
+  no shutdown
 
 interface Ethernet3/43
   switchport
+  no shutdown
 
 interface Ethernet3/44
   switchport
+  no shutdown
 
 interface Ethernet3/45
   switchport
+  no shutdown
 
 interface Ethernet3/46
   switchport
+  no shutdown
 
 interface Ethernet3/47
   switchport
+  no shutdown
 
 interface Ethernet3/48
   switchport
+  no shutdown
 
 interface Ethernet4/1
   switchport
