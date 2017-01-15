@@ -4,11 +4,11 @@
         <entry key="management_network" type="String">exclusive</entry>
         <entry key="AutoNetkit.infrastructure_only" type="Boolean">true</entry>
     </extensions>
-    <node name="R1" type="SIMPLE" subtype="IOSv" location="179,91">
+    <node name="R1" type="SIMPLE" subtype="IOSv" location="228,94">
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 02:36:38 UTC Sun Jan 15 2017
+! Last configuration change at 19:15:08 UTC Sun Jan 15 2017
 !
 version 15.6
 service timestamps debug datetime msec
@@ -176,11 +176,11 @@ end</entry>
         <interface id="0" name="GigabitEthernet0/1"/>
         <interface id="1" name="GigabitEthernet0/2"/>
     </node>
-    <node name="R2" type="SIMPLE" subtype="IOSv" location="304,94">
+    <node name="R2" type="SIMPLE" subtype="IOSv" location="332,93">
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 02:33:16 UTC Sun Jan 15 2017
+! Last configuration change at 19:15:13 UTC Sun Jan 15 2017
 !
 version 15.6
 service timestamps debug datetime msec
@@ -341,11 +341,11 @@ end</entry>
         <interface id="0" name="GigabitEthernet0/1"/>
         <interface id="1" name="GigabitEthernet0/2"/>
     </node>
-    <node name="R3" type="SIMPLE" subtype="IOSv" location="424,93">
+    <node name="R3" type="SIMPLE" subtype="IOSv" location="438,93">
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 02:39:02 UTC Sun Jan 15 2017
+! Last configuration change at 19:15:19 UTC Sun Jan 15 2017
 !
 version 15.6
 service timestamps debug datetime msec
@@ -513,15 +513,25 @@ end</entry>
         <interface id="0" name="GigabitEthernet0/1"/>
         <interface id="1" name="GigabitEthernet0/2"/>
     </node>
-    <node name="SW2" type="SIMPLE" subtype="Unmanaged Switch" location="539,84">
+    <node name="SW2" type="SIMPLE" subtype="Unmanaged Switch" location="501,92">
         <interface id="0" name="link1"/>
+        <interface id="1" name="link2"/>
     </node>
-    <node name="SW1" type="SIMPLE" subtype="Unmanaged Switch" location="50,97">
+    <node name="SW1" type="SIMPLE" subtype="Unmanaged Switch" location="154,94">
         <interface id="0" name="link1"/>
+        <interface id="1" name="link2"/>
+    </node>
+    <node name="windows-1" type="SIMPLE" subtype="Windows" location="64,135">
+        <interface id="0" name="eth0"/>
+    </node>
+    <node name="windows-2" type="SIMPLE" subtype="Windows" location="573,150">
+        <interface id="0" name="eth0"/>
     </node>
     <annotations/>
     <connection dst="/virl:topology/virl:node[2]/virl:interface[1]" src="/virl:topology/virl:node[1]/virl:interface[1]"/>
     <connection dst="/virl:topology/virl:node[3]/virl:interface[1]" src="/virl:topology/virl:node[2]/virl:interface[2]"/>
     <connection dst="/virl:topology/virl:node[1]/virl:interface[2]" src="/virl:topology/virl:node[5]/virl:interface[1]"/>
     <connection dst="/virl:topology/virl:node[4]/virl:interface[1]" src="/virl:topology/virl:node[3]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[5]/virl:interface[2]" src="/virl:topology/virl:node[6]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[7]/virl:interface[1]" src="/virl:topology/virl:node[4]/virl:interface[2]"/>
 </topology>
