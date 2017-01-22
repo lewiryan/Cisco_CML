@@ -8,7 +8,7 @@
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 19:15:08 UTC Sun Jan 15 2017
+! Last configuration change at 21:56:40 UTC Sun Jan 22 2017
 !
 version 15.6
 service timestamps debug datetime msec
@@ -117,6 +117,8 @@ interface GigabitEthernet0/2
 !
 router rip
  version 2
+ timers basic 30 180 10 240
+ passive-interface GigabitEthernet0/2
  network 192.168.1.0
  network 192.168.254.0
 !
@@ -180,7 +182,7 @@ end</entry>
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 19:15:13 UTC Sun Jan 15 2017
+! Last configuration change at 21:55:02 UTC Sun Jan 22 2017
 !
 version 15.6
 service timestamps debug datetime msec
@@ -283,6 +285,7 @@ interface GigabitEthernet0/2
 !
 router rip
  version 2
+ timers basic 30 180 10 240
  network 192.168.254.0
 !
 ip forward-protocol nd
@@ -345,7 +348,7 @@ end</entry>
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 19:15:19 UTC Sun Jan 15 2017
+! Last configuration change at 22:01:44 UTC Sun Jan 22 2017
 !
 version 15.6
 service timestamps debug datetime msec
@@ -454,6 +457,8 @@ interface GigabitEthernet0/2
 !
 router rip
  version 2
+ timers basic 30 180 10 240
+ passive-interface GigabitEthernet0/2
  network 192.168.2.0
  network 192.168.254.0
 !
