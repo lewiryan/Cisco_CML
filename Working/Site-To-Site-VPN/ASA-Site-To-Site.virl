@@ -56,7 +56,7 @@ interface Management0/0
  management-only
  nameif mgmt
  security-level 100
- ip address 172.16.1.130 255.255.255.0 
+ ip address 172.16.1.142 255.255.255.0 
 !
 ftp mode passive
 same-security-traffic permit inter-interface
@@ -140,7 +140,6 @@ crypto ipsec ikev1 transform-set ESP-DES-MD5-TRANS esp-des esp-md5-hmac
 crypto ipsec ikev1 transform-set ESP-DES-MD5-TRANS mode transport
 crypto ipsec security-association pmtu-aging infinite
 crypto map Outside_map1 1 match address Outside_cryptomap
-crypto map Outside_map1 1 set connection-type originate-only
 crypto map Outside_map1 1 set peer 203.0.113.10 
 crypto map Outside_map1 1 set ikev1 transform-set ESP-AES-128-SHA
 crypto map Outside_map1 1 set nat-t-disable
@@ -331,7 +330,7 @@ call-home
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 03:04:18 UTC Thu Feb 16 2017
+! Last configuration change at 14:28:15 UTC Thu Feb 16 2017
 !
 version 15.6
 service timestamps debug datetime msec
@@ -411,7 +410,7 @@ interface Loopback0
 interface GigabitEthernet0/0
  description OOB Management
  vrf forwarding Mgmt-intf
- ip address 172.16.1.136 255.255.255.0
+ ip address 172.16.1.148 255.255.255.0
  duplex full
  speed auto
  media-type rj45
@@ -493,7 +492,7 @@ end</entry>
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 03:04:18 UTC Thu Feb 16 2017
+! Last configuration change at 14:28:15 UTC Thu Feb 16 2017
 !
 version 15.6
 service timestamps debug datetime msec
@@ -573,7 +572,7 @@ interface Loopback0
 interface GigabitEthernet0/0
  description OOB Management
  vrf forwarding Mgmt-intf
- ip address 172.16.1.137 255.255.255.0
+ ip address 172.16.1.149 255.255.255.0
  duplex full
  speed auto
  media-type rj45
@@ -703,7 +702,7 @@ interface Management0/0
  management-only
  nameif mgmt
  security-level 100
- ip address 172.16.1.131 255.255.255.0 
+ ip address 172.16.1.143 255.255.255.0 
 !
 ftp mode passive
 same-security-traffic permit inter-interface
@@ -717,6 +716,7 @@ object network VPN-CLIENT-1
  host 192.0.2.100
 access-list Outside_access_in extended permit icmp any object 172.17.1.0 echo-reply 
 access-list Outside_cryptomap extended permit ip object PUBLIC-203.0.113.30 object VPN-CLIENT-1 
+access-list Outside_cryptomap_65535.1 extended permit ip object VPN-CLIENT-1 object PUBLIC-203.0.113.30 
 pager lines 23
 logging enable
 logging asdm informational
@@ -731,7 +731,7 @@ no asdm history enable
 arp timeout 14400
 no arp permit-nonconnected
 arp rate-limit 8192
-nat (Outside,DMZ) source static VPN-CLIENT-1 VPN-CLIENT-1 destination static PUBLIC-203.0.113.30 DMZ-1 unidirectional
+nat (Outside,DMZ) source static VPN-CLIENT-1 VPN-CLIENT-1 destination static PUBLIC-203.0.113.30 DMZ-1 no-proxy-arp
 nat (Inside,Outside) source dynamic 172.17.1.0 interface
 access-group Outside_access_in in interface Outside
 route Outside 0.0.0.0 0.0.0.0 203.0.113.1 1
@@ -781,11 +781,15 @@ crypto ipsec ikev1 transform-set ESP-DES-SHA-TRANS mode transport
 crypto ipsec ikev1 transform-set ESP-DES-MD5-TRANS esp-des esp-md5-hmac 
 crypto ipsec ikev1 transform-set ESP-DES-MD5-TRANS mode transport
 crypto ipsec security-association pmtu-aging infinite
+crypto dynamic-map Outside_dyn_map 1 match address Outside_cryptomap_65535.1
+crypto dynamic-map Outside_dyn_map 1 set peer 192.0.2.10 
+crypto dynamic-map Outside_dyn_map 1 set ikev1 transform-set ESP-AES-128-SHA
+crypto dynamic-map Outside_dyn_map 1 set nat-t-disable
 crypto map Outside_map2 1 match address Outside_cryptomap
-crypto map Outside_map2 1 set connection-type answer-only
 crypto map Outside_map2 1 set peer 192.0.2.10 
 crypto map Outside_map2 1 set ikev1 transform-set ESP-AES-128-SHA
 crypto map Outside_map2 1 set nat-t-disable
+crypto map Outside_map2 65535 ipsec-isakmp dynamic Outside_dyn_map
 crypto map Outside_map2 interface Outside
 crypto ca trustpoint _SmartCallHome_ServerCA
  no validation-usage
@@ -973,7 +977,7 @@ call-home
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 01:20:17 UTC Thu Feb 16 2017
+! Last configuration change at 13:57:23 UTC Thu Feb 16 2017
 !
 version 15.2
 service timestamps debug datetime msec
@@ -1073,7 +1077,7 @@ interface GigabitEthernet0/0
  description OOB management
  no switchport
  vrf forwarding Mgmt-intf
- ip address 172.16.1.138 255.255.255.0
+ ip address 172.16.1.150 255.255.255.0
  negotiation auto
 !
 ip forward-protocol nd
@@ -1136,7 +1140,7 @@ end</entry>
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 01:20:22 UTC Thu Feb 16 2017
+! Last configuration change at 13:57:28 UTC Thu Feb 16 2017
 !
 version 15.2
 service timestamps debug datetime msec
@@ -1235,7 +1239,7 @@ interface GigabitEthernet0/0
  description OOB management
  no switchport
  vrf forwarding Mgmt-intf
- ip address 172.16.1.139 255.255.255.0
+ ip address 172.16.1.151 255.255.255.0
  negotiation auto
 !
 ip forward-protocol nd
