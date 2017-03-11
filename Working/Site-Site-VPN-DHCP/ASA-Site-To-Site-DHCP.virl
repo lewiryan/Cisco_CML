@@ -1464,6 +1464,9 @@ end</entry>
         <interface id="1" name="GigabitEthernet0/2"/>
         <interface id="2" name="GigabitEthernet0/3"/>
     </node>
+    <node name="DHCP-Server" type="SIMPLE" subtype="IOSv" location="75,280">
+        <interface id="0" name="GigabitEthernet0/1"/>
+    </node>
     <annotations/>
     <connection dst="/virl:topology/virl:node[1]/virl:interface[1]" src="/virl:topology/virl:node[5]/virl:interface[1]"/>
     <connection dst="/virl:topology/virl:node[6]/virl:interface[1]" src="/virl:topology/virl:node[5]/virl:interface[2]"/>
@@ -1472,4 +1475,5 @@ end</entry>
     <connection dst="/virl:topology/virl:node[1]/virl:interface[2]" src="/virl:topology/virl:node[2]/virl:interface[2]"/>
     <connection dst="/virl:topology/virl:node[4]/virl:interface[1]" src="/virl:topology/virl:node[8]/virl:interface[1]"/>
     <connection dst="/virl:topology/virl:node[7]/virl:interface[1]" src="/virl:topology/virl:node[8]/virl:interface[2]"/>
+    <connection dst="/virl:topology/virl:node[5]/virl:interface[3]" src="/virl:topology/virl:node[9]/virl:interface[1]"/>
 </topology>
