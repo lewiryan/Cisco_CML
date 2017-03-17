@@ -56,7 +56,7 @@ interface Management0/0
  management-only
  nameif mgmt
  security-level 100
- ip address 172.16.1.128 255.255.255.0 
+ ip address 172.16.1.139 255.255.255.0 
 !
 ftp mode passive
 same-security-traffic permit inter-interface
@@ -369,7 +369,7 @@ call-home
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 01:30:16 UTC Thu Mar 16 2017
+! Last configuration change at 01:21:39 UTC Fri Mar 17 2017
 !
 version 15.6
 service timestamps debug datetime msec
@@ -449,7 +449,7 @@ interface Loopback0
 interface GigabitEthernet0/0
  description OOB Management
  vrf forwarding Mgmt-intf
- ip address 172.16.1.133 255.255.255.0
+ ip address 172.16.1.144 255.255.255.0
  duplex full
  speed auto
  media-type rj45
@@ -531,7 +531,7 @@ end</entry>
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 01:30:22 UTC Thu Mar 16 2017
+! Last configuration change at 01:21:43 UTC Fri Mar 17 2017
 !
 version 15.6
 service timestamps debug datetime msec
@@ -611,7 +611,7 @@ interface Loopback0
 interface GigabitEthernet0/0
  description OOB Management
  vrf forwarding Mgmt-intf
- ip address 172.16.1.134 255.255.255.0
+ ip address 172.16.1.145 255.255.255.0
  duplex full
  speed auto
  media-type rj45
@@ -741,7 +741,7 @@ interface Management0/0
  management-only
  nameif mgmt
  security-level 100
- ip address 172.16.1.129 255.255.255.0 
+ ip address 172.16.1.140 255.255.255.0 
 !
 ftp mode passive
 same-security-traffic permit inter-interface
@@ -966,6 +966,9 @@ ssh timeout 5
 ssh version 2
 ssh key-exchange group dh-group1-sha1
 console timeout 0
+dhcprelay server 10.1.1.20 Outside
+dhcprelay enable Inside
+dhcprelay timeout 60
 threat-detection basic-threat
 threat-detection statistics access-list
 no threat-detection statistics tcp-intercept
@@ -1029,7 +1032,7 @@ call-home
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 01:38:31 UTC Thu Mar 16 2017
+! Last configuration change at 01:41:38 UTC Fri Mar 17 2017
 !
 version 15.2
 service timestamps debug datetime msec
@@ -1119,8 +1122,8 @@ interface GigabitEthernet0/2
  negotiation auto
 !
 interface GigabitEthernet0/3
- description to L-DMZ-Server-1
- switchport access vlan 10
+ description DHCP-SERVER
+ switchport access vlan 5
  switchport mode access
  media-type rj45
  negotiation auto
@@ -1129,7 +1132,7 @@ interface GigabitEthernet0/0
  description OOB management
  no switchport
  vrf forwarding Mgmt-intf
- ip address 172.16.1.135 255.255.255.0
+ ip address 172.16.1.146 255.255.255.0
  negotiation auto
 !
 interface GigabitEthernet1/0
@@ -1322,7 +1325,7 @@ write_files:
     <node name="SW-2" type="SIMPLE" subtype="IOSvL2" location="819,240">
         <extensions>
             <entry key="config" type="String">!
-! Last configuration change at 01:38:31 UTC Thu Mar 16 2017
+! Last configuration change at 01:41:38 UTC Fri Mar 17 2017
 !
 version 15.2
 service timestamps debug datetime msec
@@ -1412,8 +1415,8 @@ interface GigabitEthernet0/2
  negotiation auto
 !
 interface GigabitEthernet0/3
- description to R-DMZ-Server2
- switchport access vlan 10
+ description Windows
+ switchport access vlan 5
  switchport mode access
  media-type rj45
  negotiation auto
@@ -1422,7 +1425,7 @@ interface GigabitEthernet0/0
  description OOB management
  no switchport
  vrf forwarding Mgmt-intf
- ip address 172.16.1.136 255.255.255.0
+ ip address 172.16.1.147 255.255.255.0
  negotiation auto
 !
 ip forward-protocol nd
@@ -1480,14 +1483,14 @@ end</entry>
     <node name="DHCP-Server" type="SIMPLE" subtype="IOSv" location="75,280">
         <extensions>
             <entry key="config" type="String">!
-! Last configuration change at 01:38:31 UTC Thu Mar 16 2017
+! Last configuration change at 01:41:38 UTC Fri Mar 17 2017
 !
 version 15.6
 service timestamps debug datetime msec
 service timestamps log datetime msec
 no service password-encryption
 !
-hostname Router
+hostname DHCP-SERVER
 !
 boot-start-marker
 boot-end-marker
@@ -1511,6 +1514,11 @@ mmi snmp-timeout 180
 !
 !
 !
+ip dhcp excluded-address 10.1.2.1 10.1.2.60
+!
+ip dhcp pool DHCP-POOL-1
+ network 10.1.2.0 255.255.255.0
+ default-router 10.1.2.1 
 !
 !
 !
@@ -1540,15 +1548,14 @@ redundancy
 !
 !
 interface GigabitEthernet0/0
- ip address 172.16.1.130 255.255.255.0
+ ip address 172.16.1.141 255.255.255.0
  shutdown
  duplex auto
  speed auto
  media-type rj45
 !
 interface GigabitEthernet0/1
- no ip address
- shutdown
+ ip address 10.1.1.20 255.255.255.0
  duplex auto
  speed auto
  media-type rj45
@@ -1558,6 +1565,7 @@ ip forward-protocol nd
 !
 no ip http server
 no ip http secure-server
+ip route 0.0.0.0 0.0.0.0 10.1.1.1
 !
 !
 !
@@ -1604,6 +1612,9 @@ end</entry>
         </extensions>
         <interface id="0" name="GigabitEthernet0/1"/>
     </node>
+    <node name="windows-1" type="SIMPLE" subtype="Windows" location="910,293">
+        <interface id="0" name="eth0"/>
+    </node>
     <annotations/>
     <connection dst="/virl:topology/virl:node[1]/virl:interface[1]" src="/virl:topology/virl:node[5]/virl:interface[1]"/>
     <connection dst="/virl:topology/virl:node[6]/virl:interface[1]" src="/virl:topology/virl:node[5]/virl:interface[2]"/>
@@ -1613,4 +1624,5 @@ end</entry>
     <connection dst="/virl:topology/virl:node[4]/virl:interface[1]" src="/virl:topology/virl:node[8]/virl:interface[1]"/>
     <connection dst="/virl:topology/virl:node[7]/virl:interface[1]" src="/virl:topology/virl:node[8]/virl:interface[2]"/>
     <connection dst="/virl:topology/virl:node[5]/virl:interface[3]" src="/virl:topology/virl:node[9]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[10]/virl:interface[1]" src="/virl:topology/virl:node[8]/virl:interface[3]"/>
 </topology>
