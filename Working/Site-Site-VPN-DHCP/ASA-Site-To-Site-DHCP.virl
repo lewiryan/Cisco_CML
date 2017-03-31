@@ -56,7 +56,7 @@ interface Management0/0
  management-only
  nameif mgmt
  security-level 100
- ip address 172.16.1.216 255.255.255.0 
+ ip address 172.16.1.249 255.255.255.0 
 !
 ftp mode passive
 same-security-traffic permit inter-interface
@@ -373,7 +373,7 @@ call-home
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 17:11:45 UTC Sun Mar 19 2017
+! Last configuration change at 01:06:59 UTC Fri Mar 31 2017
 !
 version 15.6
 service timestamps debug datetime msec
@@ -453,7 +453,7 @@ interface Loopback0
 interface GigabitEthernet0/0
  description OOB Management
  vrf forwarding Mgmt-intf
- ip address 172.16.1.221 255.255.255.0
+ ip address 172.16.1.51 255.255.255.0
  duplex full
  speed auto
  media-type rj45
@@ -535,7 +535,7 @@ end</entry>
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 17:11:45 UTC Sun Mar 19 2017
+! Last configuration change at 01:07:03 UTC Fri Mar 31 2017
 !
 version 15.6
 service timestamps debug datetime msec
@@ -615,7 +615,7 @@ interface Loopback0
 interface GigabitEthernet0/0
  description OOB Management
  vrf forwarding Mgmt-intf
- ip address 172.16.1.222 255.255.255.0
+ ip address 172.16.1.52 255.255.255.0
  duplex full
  speed auto
  media-type rj45
@@ -745,7 +745,7 @@ interface Management0/0
  management-only
  nameif mgmt
  security-level 100
- ip address 172.16.1.217 255.255.255.0 
+ ip address 172.16.1.250 255.255.255.0 
 !
 ftp mode passive
 same-security-traffic permit inter-interface
@@ -1161,7 +1161,7 @@ write_files:
     <node name="DHCP-Server" type="SIMPLE" subtype="IOSv" location="75,280">
         <extensions>
             <entry key="config" type="String">!
-! Last configuration change at 17:11:43 UTC Sun Mar 19 2017
+! Last configuration change at 01:25:00 UTC Fri Mar 31 2017
 !
 version 15.6
 service timestamps debug datetime msec
@@ -1231,7 +1231,7 @@ redundancy
 !
 !
 interface GigabitEthernet0/0
- ip address 172.16.1.218 255.255.255.0
+ ip address 172.16.1.251 255.255.255.0
  shutdown
  duplex auto
  speed auto
@@ -1298,171 +1298,13 @@ end</entry>
     <node name="windows-1" type="SIMPLE" subtype="Windows" location="910,293">
         <interface id="0" name="eth0"/>
     </node>
-    <node name="SW-1" type="SIMPLE" subtype="IOSvL2" location="177,224">
-        <extensions>
-            <entry key="config" type="String">!
-! Last configuration change at 17:11:44 UTC Sun Mar 19 2017
-!
-version 15.2
-service timestamps debug datetime msec
-service timestamps log datetime msec
-no service password-encryption
-service compress-config
-!
-hostname SW-1
-!
-boot-start-marker
-boot-end-marker
-!
-!
-vrf definition Mgmt-intf
- !
- address-family ipv4
- exit-address-family
- !
- address-family ipv6
- exit-address-family
-!
-enable password cisco
-!
-no aaa new-model
-!
-!
-!
-!
-!
-vtp domain virl.lab
-vtp mode transparent
-!
-!
-!
-no ip domain-lookup
-ip cef
-no ipv6 cef
-!
-!
-!
-spanning-tree mode pvst
-spanning-tree extend system-id
-!
-vlan internal allocation policy ascending
-!
-vlan 2
- name ank_vlan2
-!
-vlan 5
- name DMZ
-!
-vlan 10
- name Inside
-no cdp run
-!
-! 
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-interface Loopback0
- description Loopback
- no ip address
-!
-interface GigabitEthernet0/1
- description to ASA-1
- switchport trunk encapsulation dot1q
- switchport mode trunk
- switchport nonegotiate
- media-type rj45
- duplex full
- no negotiation auto
-!
-interface GigabitEthernet0/2
- description to Internal-Server-1
- switchport access vlan 5
- switchport mode access
- media-type rj45
- negotiation auto
-!
-interface GigabitEthernet0/3
- description DHCP-SERVER
- switchport access vlan 5
- switchport mode access
- media-type rj45
- negotiation auto
-!
-interface GigabitEthernet0/0
- description OOB management
- no switchport
- vrf forwarding Mgmt-intf
- ip address 172.16.1.223 255.255.255.0
- negotiation auto
-!
-ip forward-protocol nd
-!
-no ip http server
-no ip http secure-server
-!
-!
-!
-!
-!
-!
-control-plane
-!
-banner exec `
-**************************************************************************
-* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
-* education. IOSv is provided as-is and is not supported by Cisco's      *
-* Technical Advisory Center. Any use or disclosure, in whole or in part, *
-* of the IOSv Software or Documentation to any third party for any       *
-* purposes is expressly prohibited except as otherwise authorized by     *
-* Cisco in writing.                                                      *
-**************************************************************************`
-banner incoming `
-**************************************************************************
-* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
-* education. IOSv is provided as-is and is not supported by Cisco's      *
-* Technical Advisory Center. Any use or disclosure, in whole or in part, *
-* of the IOSv Software or Documentation to any third party for any       *
-* purposes is expressly prohibited except as otherwise authorized by     *
-* Cisco in writing.                                                      *
-**************************************************************************`
-banner login `
-**************************************************************************
-* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
-* education. IOSv is provided as-is and is not supported by Cisco's      *
-* Technical Advisory Center. Any use or disclosure, in whole or in part, *
-* of the IOSv Software or Documentation to any third party for any       *
-* purposes is expressly prohibited except as otherwise authorized by     *
-* Cisco in writing.                                                      *
-**************************************************************************`
-!
-line con 0
-line aux 0
-line vty 0 4
- login
-!
-!
-end</entry>
-        </extensions>
-        <interface id="0" name="GigabitEthernet0/1"/>
-        <interface id="1" name="GigabitEthernet0/2"/>
-        <interface id="2" name="GigabitEthernet0/3"/>
-    </node>
     <node name="windows-2" type="SIMPLE" subtype="Windows" location="799,319">
         <interface id="0" name="eth0"/>
     </node>
-    <node name="SW-2" type="SIMPLE" subtype="IOSvL2" location="834,229">
+    <node name="SW-2" type="SIMPLE" subtype="IOSvL2" location="843,225">
         <extensions>
             <entry key="config" type="String">!
-! Last configuration change at 17:11:44 UTC Sun Mar 19 2017
+! Last configuration change at 01:24:58 UTC Fri Mar 31 2017
 !
 version 15.2
 service timestamps debug datetime msec
@@ -1562,7 +1404,7 @@ interface GigabitEthernet0/0
  description OOB management
  no switchport
  vrf forwarding Mgmt-intf
- ip address 172.16.1.224 255.255.255.0
+ ip address 172.16.1.54 255.255.255.0
  negotiation auto
 !
 interface GigabitEthernet1/0
@@ -1625,15 +1467,173 @@ end</entry>
         <interface id="2" name="GigabitEthernet0/3"/>
         <interface id="3" name="GigabitEthernet1/0"/>
     </node>
+    <node name="SW-1" type="SIMPLE" subtype="IOSvL2" location="158,220">
+        <extensions>
+            <entry key="config" type="String">!
+! Last configuration change at 01:24:58 UTC Fri Mar 31 2017
+!
+version 15.2
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+service compress-config
+!
+hostname SW-1
+!
+boot-start-marker
+boot-end-marker
+!
+!
+vrf definition Mgmt-intf
+ !
+ address-family ipv4
+ exit-address-family
+ !
+ address-family ipv6
+ exit-address-family
+!
+enable password cisco
+!
+no aaa new-model
+!
+!
+!
+!
+!
+vtp domain virl.lab
+vtp mode transparent
+!
+!
+!
+no ip domain-lookup
+ip cef
+no ipv6 cef
+!
+!
+!
+spanning-tree mode pvst
+spanning-tree extend system-id
+!
+vlan internal allocation policy ascending
+!
+vlan 2
+ name ank_vlan2
+!
+vlan 5
+ name DMZ
+!
+vlan 10
+ name Inside
+no cdp run
+!
+! 
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+interface Loopback0
+ description Loopback
+ no ip address
+!
+interface GigabitEthernet0/1
+ description to ASA-1
+ switchport trunk encapsulation dot1q
+ switchport mode trunk
+ switchport nonegotiate
+ media-type rj45
+ duplex full
+ no negotiation auto
+!
+interface GigabitEthernet0/2
+ description to Internal-Server-1
+ switchport access vlan 5
+ switchport mode access
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet0/3
+ description DHCP-SERVER
+ switchport access vlan 5
+ switchport mode access
+ media-type rj45
+ negotiation auto
+!
+interface GigabitEthernet0/0
+ description OOB management
+ no switchport
+ vrf forwarding Mgmt-intf
+ ip address 172.16.1.53 255.255.255.0
+ negotiation auto
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+!
+!
+!
+!
+!
+control-plane
+!
+banner exec `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner incoming `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+banner login `
+**************************************************************************
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
+* education. IOSv is provided as-is and is not supported by Cisco's      *
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *
+* of the IOSv Software or Documentation to any third party for any       *
+* purposes is expressly prohibited except as otherwise authorized by     *
+* Cisco in writing.                                                      *
+**************************************************************************`
+!
+line con 0
+line aux 0
+line vty 0 4
+ login
+!
+!
+end</entry>
+        </extensions>
+        <interface id="0" name="GigabitEthernet0/1"/>
+        <interface id="1" name="GigabitEthernet0/2"/>
+        <interface id="2" name="GigabitEthernet0/3"/>
+    </node>
     <annotations/>
     <connection dst="/virl:topology/virl:node[3]/virl:interface[1]" src="/virl:topology/virl:node[4]/virl:interface[2]"/>
     <connection dst="/virl:topology/virl:node[2]/virl:interface[1]" src="/virl:topology/virl:node[3]/virl:interface[2]"/>
     <connection dst="/virl:topology/virl:node[1]/virl:interface[2]" src="/virl:topology/virl:node[2]/virl:interface[2]"/>
-    <connection dst="/virl:topology/virl:node[9]/virl:interface[1]" src="/virl:topology/virl:node[1]/virl:interface[1]"/>
-    <connection dst="/virl:topology/virl:node[5]/virl:interface[1]" src="/virl:topology/virl:node[9]/virl:interface[2]"/>
-    <connection dst="/virl:topology/virl:node[7]/virl:interface[1]" src="/virl:topology/virl:node[9]/virl:interface[3]"/>
-    <connection dst="/virl:topology/virl:node[11]/virl:interface[1]" src="/virl:topology/virl:node[4]/virl:interface[1]"/>
-    <connection dst="/virl:topology/virl:node[11]/virl:interface[2]" src="/virl:topology/virl:node[6]/virl:interface[1]"/>
-    <connection dst="/virl:topology/virl:node[11]/virl:interface[3]" src="/virl:topology/virl:node[8]/virl:interface[1]"/>
-    <connection dst="/virl:topology/virl:node[11]/virl:interface[4]" src="/virl:topology/virl:node[10]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[10]/virl:interface[1]" src="/virl:topology/virl:node[4]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[10]/virl:interface[2]" src="/virl:topology/virl:node[6]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[10]/virl:interface[3]" src="/virl:topology/virl:node[8]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[10]/virl:interface[4]" src="/virl:topology/virl:node[9]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[11]/virl:interface[1]" src="/virl:topology/virl:node[1]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[11]/virl:interface[2]" src="/virl:topology/virl:node[5]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[11]/virl:interface[3]" src="/virl:topology/virl:node[7]/virl:interface[1]"/>
 </topology>
