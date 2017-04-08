@@ -50,7 +50,7 @@ interface Management0/0
  management-only
  nameif mgmt
  security-level 100
- ip address 172.16.1.57 255.255.255.0 
+ ip address 172.16.1.68 255.255.255.0 
 !
 ftp mode passive
 same-security-traffic permit inter-interface
@@ -64,9 +64,6 @@ object network VPN-REMOTE-ACORP-BRANCH-NET-1
  subnet 10.1.2.0 255.255.255.0
 object network VPN-REMOTE-ACORP-BRANCH-NET-2
  subnet 10.1.3.0 255.255.255.0
-object-group network VPN-REMOTE-SITE2
- network-object object VPN-REMOTE-ACME-BRANCH-NET-1
- network-object object VPN-REMOTE-ACME-BRANCH-NET-2
 object-group network VPN-LOCAL-ACMECORP-NET
  network-object object ACME-CORP-NET
 object-group network VPN-LOCAL-ACORP
@@ -74,7 +71,7 @@ object-group network VPN-LOCAL-ACORP
 object-group network VPN-REMOTE-ACORP-BRANCH
  network-object object VPN-REMOTE-ACORP-BRANCH-NET-1
  network-object object VPN-REMOTE-ACORP-BRANCH-NET-2
-access-list Outside_cryptomap extended permit ip object-group VPN-LOCAL-ACORP object-group VPN-REMOTE-ACORP-BRANCH 
+access-list ACL-VPN-ACORP-ACORP-BRANCH extended permit ip object-group VPN-LOCAL-ACORP object-group VPN-REMOTE-ACORP-BRANCH 
 pager lines 23
 logging enable
 logging asdm informational
@@ -89,7 +86,7 @@ arp timeout 14400
 no arp permit-nonconnected
 arp rate-limit 8192
 nat (Outside,Inside) source static VPN-REMOTE-ACORP-BRANCH VPN-REMOTE-ACORP-BRANCH destination static VPN-LOCAL-ACORP VPN-LOCAL-ACORP no-proxy-arp
-nat (Inside,Outside) source static VPN-LOCAL-ACMECORP-NET VPN-LOCAL-ACMECORP-NET destination static VPN-REMOTE-SITE2 VPN-REMOTE-SITE2 no-proxy-arp route-lookup
+nat (Inside,Outside) source static VPN-LOCAL-ACMECORP-NET VPN-LOCAL-ACMECORP-NET destination static VPN-REMOTE-ACORP-BRANCH VPN-REMOTE-ACORP-BRANCH no-proxy-arp
 nat (Inside,Outside) source dynamic any interface
 route Outside 0.0.0.0 0.0.0.0 192.0.2.1 1
 timeout xlate 3:00:00
@@ -138,10 +135,10 @@ crypto ipsec ikev1 transform-set ESP-DES-SHA-TRANS mode transport
 crypto ipsec ikev1 transform-set ESP-DES-MD5-TRANS esp-des esp-md5-hmac 
 crypto ipsec ikev1 transform-set ESP-DES-MD5-TRANS mode transport
 crypto ipsec security-association pmtu-aging infinite
-crypto map Outside_map1 1 match address Outside_cryptomap
-crypto map Outside_map1 1 set peer 203.0.113.10 
-crypto map Outside_map1 1 set ikev1 transform-set ESP-AES-128-SHA
-crypto map Outside_map1 interface Outside
+crypto map CM-ACORP-ACORP-BRANCH 1 match address ACL-VPN-ACORP-ACORP-BRANCH
+crypto map CM-ACORP-ACORP-BRANCH 1 set peer 203.0.113.10 
+crypto map CM-ACORP-ACORP-BRANCH 1 set ikev1 transform-set ESP-AES-128-SHA
+crypto map CM-ACORP-ACORP-BRANCH interface Outside
 crypto ca trustpoint _SmartCallHome_ServerCA
  no validation-usage
  crl configure
@@ -270,17 +267,14 @@ console timeout 0
 threat-detection basic-threat
 threat-detection statistics access-list
 no threat-detection statistics tcp-intercept
-group-policy VPN-CLIENT-1 internal
-group-policy VPN-CLIENT-1 attributes
- vpn-tunnel-protocol ikev1 
-group-policy GP-SITE-2 internal
-group-policy GP-SITE-2 attributes
+group-policy GP-VPN-ACORP-ACORP-BRANCH internal
+group-policy GP-VPN-ACORP-ACORP-BRANCH attributes
  vpn-tunnel-protocol ikev1 
 dynamic-access-policy-record DfltAccessPolicy
 username cisco password 3USUcOPFUiMCO4Jk encrypted privilege 15
 tunnel-group 203.0.113.10 type ipsec-l2l
 tunnel-group 203.0.113.10 general-attributes
- default-group-policy GP-SITE-2
+ default-group-policy GP-VPN-ACORP-ACORP-BRANCH
 tunnel-group 203.0.113.10 ipsec-attributes
  ikev1 pre-shared-key cisco
  isakmp keepalive disable
@@ -341,7 +335,7 @@ call-home
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 14:56:12 UTC Sat Apr 8 2017
+! Last configuration change at 16:30:07 UTC Sat Apr 8 2017
 !
 version 15.6
 service timestamps debug datetime msec
@@ -421,7 +415,7 @@ interface Loopback0
 interface GigabitEthernet0/0
  description OOB Management
  vrf forwarding Mgmt-intf
- ip address 172.16.1.62 255.255.255.0
+ ip address 172.16.1.73 255.255.255.0
  duplex full
  speed auto
  media-type rj45
@@ -503,7 +497,7 @@ end</entry>
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!
-! Last configuration change at 14:56:18 UTC Sat Apr 8 2017
+! Last configuration change at 16:30:13 UTC Sat Apr 8 2017
 !
 version 15.6
 service timestamps debug datetime msec
@@ -583,7 +577,7 @@ interface Loopback0
 interface GigabitEthernet0/0
  description OOB Management
  vrf forwarding Mgmt-intf
- ip address 172.16.1.63 255.255.255.0
+ ip address 172.16.1.74 255.255.255.0
  duplex full
  speed auto
  media-type rj45
@@ -713,7 +707,7 @@ interface Management0/0
  management-only
  nameif mgmt
  security-level 100
- ip address 172.16.1.58 255.255.255.0 
+ ip address 172.16.1.69 255.255.255.0 
 !
 ftp mode passive
 same-security-traffic permit inter-interface
@@ -794,11 +788,26 @@ crypto ipsec ikev1 transform-set ESP-DES-SHA-TRANS esp-des esp-sha-hmac
 crypto ipsec ikev1 transform-set ESP-DES-SHA-TRANS mode transport
 crypto ipsec ikev1 transform-set ESP-DES-MD5-TRANS esp-des esp-md5-hmac 
 crypto ipsec ikev1 transform-set ESP-DES-MD5-TRANS mode transport
+crypto ipsec ikev2 ipsec-proposal DES
+ protocol esp encryption des
+ protocol esp integrity sha-1 md5
+crypto ipsec ikev2 ipsec-proposal 3DES
+ protocol esp encryption 3des
+ protocol esp integrity sha-1 md5
+crypto ipsec ikev2 ipsec-proposal AES
+ protocol esp encryption aes
+ protocol esp integrity sha-1 md5
+crypto ipsec ikev2 ipsec-proposal AES192
+ protocol esp encryption aes-192
+ protocol esp integrity sha-1 md5
+crypto ipsec ikev2 ipsec-proposal AES256
+ protocol esp encryption aes-256
+ protocol esp integrity sha-1 md5
 crypto ipsec security-association pmtu-aging infinite
-crypto map Outside_map0 1 match address Outside_cryptomap
-crypto map Outside_map0 1 set peer 192.0.2.10 
-crypto map Outside_map0 1 set ikev1 transform-set ESP-AES-128-SHA
-crypto map Outside_map0 interface Outside
+crypto map CM-ACORP-BRANCH-ACORP 1 match address Outside_cryptomap
+crypto map CM-ACORP-BRANCH-ACORP 1 set peer 192.0.2.10 
+crypto map CM-ACORP-BRANCH-ACORP 1 set ikev1 transform-set ESP-AES-128-SHA
+crypto map CM-ACORP-BRANCH-ACORP interface Outside
 crypto ca trustpoint _SmartCallHome_ServerCA
  no validation-usage
  crl configure
@@ -855,6 +864,36 @@ crypto ca certificate chain _SmartCallHome_ServerCA
     6119b5dd cdb50b26 058ec36e c4c875b8 46cfe218 065ea9ae a8819a47 16de0c28 
     6c2527b9 deb78458 c61f381e a4c4cb66
   quit
+crypto ikev2 policy 1
+ encryption aes-256
+ integrity sha
+ group 5 2
+ prf sha
+ lifetime seconds 86400
+crypto ikev2 policy 10
+ encryption aes-192
+ integrity sha
+ group 5 2
+ prf sha
+ lifetime seconds 86400
+crypto ikev2 policy 20
+ encryption aes
+ integrity sha
+ group 5 2
+ prf sha
+ lifetime seconds 86400
+crypto ikev2 policy 30
+ encryption 3des
+ integrity sha
+ group 5 2
+ prf sha
+ lifetime seconds 86400
+crypto ikev2 policy 40
+ encryption des
+ integrity sha
+ group 5 2
+ prf sha
+ lifetime seconds 86400
 crypto ikev1 enable Outside
 crypto ikev1 policy 20
  authentication rsa-sig
@@ -931,19 +970,17 @@ dhcprelay timeout 60
 threat-detection basic-threat
 threat-detection statistics access-list
 no threat-detection statistics tcp-intercept
-group-policy VPN-CLINET-2 internal
-group-policy VPN-CLINET-2 attributes
- vpn-tunnel-protocol ikev1 
-group-policy GP-SITE-1 internal
-group-policy GP-SITE-1 attributes
+group-policy GP-VPN-ACORP-BRANCH-ACORP internal
+group-policy GP-VPN-ACORP-BRANCH-ACORP attributes
  vpn-tunnel-protocol ikev1 
 dynamic-access-policy-record DfltAccessPolicy
 username cisco password 3USUcOPFUiMCO4Jk encrypted privilege 15
 tunnel-group 192.0.2.10 type ipsec-l2l
 tunnel-group 192.0.2.10 general-attributes
- default-group-policy GP-SITE-1
+ default-group-policy GP-VPN-ACORP-BRANCH-ACORP
 tunnel-group 192.0.2.10 ipsec-attributes
  ikev1 pre-shared-key cisco
+ isakmp keepalive disable
 !
 class-map inspection_default
  match default-inspection-traffic
@@ -1109,7 +1146,7 @@ write_files:
     <node name="DHCP-Server" type="SIMPLE" subtype="IOSv" location="75,280">
         <extensions>
             <entry key="config" type="String">!
-! Last configuration change at 16:17:39 UTC Sat Apr 8 2017
+! Last configuration change at 18:12:50 UTC Sat Apr 8 2017
 !
 version 15.6
 service timestamps debug datetime msec
@@ -1179,7 +1216,7 @@ redundancy
 !
 !
 interface GigabitEthernet0/0
- ip address 172.16.1.59 255.255.255.0
+ ip address 172.16.1.70 255.255.255.0
  shutdown
  duplex auto
  speed auto
@@ -1252,7 +1289,7 @@ end</entry>
     <node name="SW-2" type="SIMPLE" subtype="IOSvL2" location="843,225">
         <extensions>
             <entry key="config" type="String">!
-! Last configuration change at 16:17:37 UTC Sat Apr 8 2017
+! Last configuration change at 18:12:49 UTC Sat Apr 8 2017
 !
 version 15.2
 service timestamps debug datetime msec
@@ -1352,7 +1389,7 @@ interface GigabitEthernet0/0
  description OOB management
  no switchport
  vrf forwarding Mgmt-intf
- ip address 172.16.1.65 255.255.255.0
+ ip address 172.16.1.76 255.255.255.0
  negotiation auto
 !
 interface GigabitEthernet1/0
@@ -1418,7 +1455,7 @@ end</entry>
     <node name="SW-1" type="SIMPLE" subtype="IOSvL2" location="158,220">
         <extensions>
             <entry key="config" type="String">!
-! Last configuration change at 16:17:38 UTC Sat Apr 8 2017
+! Last configuration change at 18:12:49 UTC Sat Apr 8 2017
 !
 version 15.2
 service timestamps debug datetime msec
@@ -1518,7 +1555,7 @@ interface GigabitEthernet0/0
  description OOB management
  no switchport
  vrf forwarding Mgmt-intf
- ip address 172.16.1.64 255.255.255.0
+ ip address 172.16.1.75 255.255.255.0
  negotiation auto
 !
 ip forward-protocol nd
