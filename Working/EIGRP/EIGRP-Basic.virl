@@ -8,7 +8,7 @@
     <node name="R1" type="SIMPLE" subtype="IOSv" location="373,128">
         <extensions>
             <entry key="config" type="String">!
-! Last configuration change at 18:57:41 UTC Sat May 20 2017
+! Last configuration change at 19:27:36 UTC Sun May 21 2017
 !
 version 15.6
 service timestamps debug datetime msec
@@ -73,7 +73,7 @@ redundancy
 !
 !
 interface GigabitEthernet0/0
- no ip address
+ ip address 172.16.1.203 255.255.255.0
  shutdown
  duplex auto
  speed auto
@@ -170,7 +170,7 @@ end</entry>
     <node name="R2" type="SIMPLE" subtype="IOSv" location="200,237">
         <extensions>
             <entry key="config" type="String">!
-! Last configuration change at 18:57:41 UTC Sat May 20 2017
+! Last configuration change at 19:27:37 UTC Sun May 21 2017
 !
 version 15.6
 service timestamps debug datetime msec
@@ -205,7 +205,7 @@ ip dhcp excluded-address 10.2.1.1 10.2.1.10
 !
 ip dhcp pool DHCP-POOL-10211
  network 10.2.1.0 255.255.255.0
- default-router 10.1.2.1 
+ default-router 10.2.1.1 
 !
 !
 !
@@ -235,7 +235,7 @@ redundancy
 !
 !
 interface GigabitEthernet0/0
- no ip address
+ ip address 172.16.1.204 255.255.255.0
  shutdown
  duplex auto
  speed auto
@@ -332,7 +332,7 @@ end</entry>
     <node name="R3" type="SIMPLE" subtype="IOSv" location="526,228">
         <extensions>
             <entry key="config" type="String">!
-! Last configuration change at 18:57:41 UTC Sat May 20 2017
+! Last configuration change at 19:27:38 UTC Sun May 21 2017
 !
 version 15.6
 service timestamps debug datetime msec
@@ -397,7 +397,7 @@ redundancy
 !
 !
 interface GigabitEthernet0/0
- no ip address
+ ip address 172.16.1.205 255.255.255.0
  shutdown
  duplex auto
  speed auto
