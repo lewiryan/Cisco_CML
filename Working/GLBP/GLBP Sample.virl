@@ -194,174 +194,175 @@ end</entry>
     <node name="R2" type="SIMPLE" subtype="IOSv" location="336,270">
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
-            <entry key="config" type="String">!
-! Last configuration change at 01:44:54 UTC Tue Jul 11 2017
-!
-version 15.6
-service timestamps debug datetime msec
-service timestamps log datetime msec
-no service password-encryption
-!
-hostname R2
-!
-boot-start-marker
-boot-end-marker
-!
-!
-vrf definition Mgmt-intf
- !
- address-family ipv4
- exit-address-family
- !
- address-family ipv6
- exit-address-family
-!
-enable password cisco
-!
-no aaa new-model
-ethernet lmi ce
-!
-!
-!
-mmi polling-interval 60
-no mmi auto-configure
-no mmi pvc
-mmi snmp-timeout 180
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-no ip domain lookup
-ip domain name virl.info
-ip cef
-ipv6 unicast-routing
-ipv6 cef
-!
-multilink bundle-name authenticated
-!
-!
-!
-!
-username cisco privilege 15 secret 5 $1$mZel$z/9mXxTws6ZA5G53cr.tv1
-!
-redundancy
-!
-no cdp run
-!
-! 
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-interface Loopback0
- description Loopback
- no ip address
-!
-interface GigabitEthernet0/0
- description OOB Management
- vrf forwarding Mgmt-intf
- ip address 172.16.1.152 255.255.255.0
- duplex full
- speed auto
- media-type rj45
-!
-interface GigabitEthernet0/1
- description to SW1
- ip address 192.168.1.12 255.255.255.0
- glbp 1 ip 192.168.1.1
- glbp 1 preempt
- glbp 1 authentication md5 key-string ciscoskills
- duplex full
- speed auto
- media-type rj45
-!
-interface GigabitEthernet0/2
- description to R4
- no ip address
- duplex full
- speed auto
- media-type rj45
-!
-interface GigabitEthernet0/3
- description to R5
- no ip address
- duplex full
- speed auto
- media-type rj45
-!
-interface GigabitEthernet0/4
- description to R6
- no ip address
- duplex full
- speed auto
- media-type rj45
-!
-ip forward-protocol nd
-!
-!
-no ip http server
-no ip http secure-server
-ip ssh server algorithm authentication password
-!
-!
-!
-!
-control-plane
-!
-banner exec `
-**************************************************************************
-* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
-* education. IOSv is provided as-is and is not supported by Cisco's      *
-* Technical Advisory Center. Any use or disclosure, in whole or in part, *
-* of the IOSv Software or Documentation to any third party for any       *
-* purposes is expressly prohibited except as otherwise authorized by     *
-* Cisco in writing.                                                      *
-**************************************************************************`
-banner incoming `
-**************************************************************************
-* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
-* education. IOSv is provided as-is and is not supported by Cisco's      *
-* Technical Advisory Center. Any use or disclosure, in whole or in part, *
-* of the IOSv Software or Documentation to any third party for any       *
-* purposes is expressly prohibited except as otherwise authorized by     *
-* Cisco in writing.                                                      *
-**************************************************************************`
-banner login `
-**************************************************************************
-* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
-* education. IOSv is provided as-is and is not supported by Cisco's      *
-* Technical Advisory Center. Any use or disclosure, in whole or in part, *
-* of the IOSv Software or Documentation to any third party for any       *
-* purposes is expressly prohibited except as otherwise authorized by     *
-* Cisco in writing.                                                      *
-**************************************************************************`
-!
-line con 0
- password cisco
-line aux 0
-line vty 0 4
- exec-timeout 720 0
- password cisco
- login local
- transport input telnet ssh
-!
-no scheduler allocate
-!
+            <entry key="config" type="String">!&#xD;
+! Last configuration change at 01:44:54 UTC Tue Jul 11 2017&#xD;
+!&#xD;
+version 15.6&#xD;
+service timestamps debug datetime msec&#xD;
+service timestamps log datetime msec&#xD;
+no service password-encryption&#xD;
+!&#xD;
+hostname R2&#xD;
+!&#xD;
+boot-start-marker&#xD;
+boot-end-marker&#xD;
+!&#xD;
+!&#xD;
+vrf definition Mgmt-intf&#xD;
+ !&#xD;
+ address-family ipv4&#xD;
+ exit-address-family&#xD;
+ !&#xD;
+ address-family ipv6&#xD;
+ exit-address-family&#xD;
+!&#xD;
+enable password cisco&#xD;
+!&#xD;
+no aaa new-model&#xD;
+ethernet lmi ce&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+mmi polling-interval 60&#xD;
+no mmi auto-configure&#xD;
+no mmi pvc&#xD;
+mmi snmp-timeout 180&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+no ip domain lookup&#xD;
+ip domain name virl.info&#xD;
+ip cef&#xD;
+ipv6 unicast-routing&#xD;
+ipv6 cef&#xD;
+!&#xD;
+multilink bundle-name authenticated&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+username cisco privilege 15 secret 5 $1$mZel$z/9mXxTws6ZA5G53cr.tv1&#xD;
+!&#xD;
+redundancy&#xD;
+!&#xD;
+no cdp run&#xD;
+!&#xD;
+! &#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+interface Loopback0&#xD;
+ description Loopback&#xD;
+ no ip address&#xD;
+!&#xD;
+interface GigabitEthernet0/0&#xD;
+ description OOB Management&#xD;
+ vrf forwarding Mgmt-intf&#xD;
+ ip address 172.16.1.152 255.255.255.0&#xD;
+ duplex full&#xD;
+ speed auto&#xD;
+ media-type rj45&#xD;
+!&#xD;
+interface GigabitEthernet0/1&#xD;
+ description to SW1&#xD;
+ ip address 192.168.1.12 255.255.255.0&#xD;
+ glbp 1 ip 192.168.1.1&#xD;
+ glbp 1 priority 175&#xD;
+ glbp 1 preempt&#xD;
+ glbp 1 authentication md5 key-string ciscoskills&#xD;
+ duplex full&#xD;
+ speed auto&#xD;
+ media-type rj45&#xD;
+!&#xD;
+interface GigabitEthernet0/2&#xD;
+ description to R4&#xD;
+ no ip address&#xD;
+ duplex full&#xD;
+ speed auto&#xD;
+ media-type rj45&#xD;
+!&#xD;
+interface GigabitEthernet0/3&#xD;
+ description to R5&#xD;
+ no ip address&#xD;
+ duplex full&#xD;
+ speed auto&#xD;
+ media-type rj45&#xD;
+!&#xD;
+interface GigabitEthernet0/4&#xD;
+ description to R6&#xD;
+ no ip address&#xD;
+ duplex full&#xD;
+ speed auto&#xD;
+ media-type rj45&#xD;
+!&#xD;
+ip forward-protocol nd&#xD;
+!&#xD;
+!&#xD;
+no ip http server&#xD;
+no ip http secure-server&#xD;
+ip ssh server algorithm authentication password&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+control-plane&#xD;
+!&#xD;
+banner exec `&#xD;
+**************************************************************************&#xD;
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *&#xD;
+* education. IOSv is provided as-is and is not supported by Cisco's      *&#xD;
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *&#xD;
+* of the IOSv Software or Documentation to any third party for any       *&#xD;
+* purposes is expressly prohibited except as otherwise authorized by     *&#xD;
+* Cisco in writing.                                                      *&#xD;
+**************************************************************************`&#xD;
+banner incoming `&#xD;
+**************************************************************************&#xD;
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *&#xD;
+* education. IOSv is provided as-is and is not supported by Cisco's      *&#xD;
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *&#xD;
+* of the IOSv Software or Documentation to any third party for any       *&#xD;
+* purposes is expressly prohibited except as otherwise authorized by     *&#xD;
+* Cisco in writing.                                                      *&#xD;
+**************************************************************************`&#xD;
+banner login `&#xD;
+**************************************************************************&#xD;
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *&#xD;
+* education. IOSv is provided as-is and is not supported by Cisco's      *&#xD;
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *&#xD;
+* of the IOSv Software or Documentation to any third party for any       *&#xD;
+* purposes is expressly prohibited except as otherwise authorized by     *&#xD;
+* Cisco in writing.                                                      *&#xD;
+**************************************************************************`&#xD;
+!&#xD;
+line con 0&#xD;
+ password cisco&#xD;
+line aux 0&#xD;
+line vty 0 4&#xD;
+ exec-timeout 720 0&#xD;
+ password cisco&#xD;
+ login local&#xD;
+ transport input telnet ssh&#xD;
+!&#xD;
+no scheduler allocate&#xD;
+!&#xD;
 end</entry>
         </extensions>
         <interface id="0" name="GigabitEthernet0/1"/>
@@ -735,174 +736,175 @@ end</entry>
     <node name="R5" type="SIMPLE" subtype="IOSv" location="337,187">
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
-            <entry key="config" type="String">!
-! Last configuration change at 01:41:11 UTC Tue Jul 11 2017
-!
-version 15.6
-service timestamps debug datetime msec
-service timestamps log datetime msec
-no service password-encryption
-!
-hostname R5
-!
-boot-start-marker
-boot-end-marker
-!
-!
-vrf definition Mgmt-intf
- !
- address-family ipv4
- exit-address-family
- !
- address-family ipv6
- exit-address-family
-!
-enable password cisco
-!
-no aaa new-model
-ethernet lmi ce
-!
-!
-!
-mmi polling-interval 60
-no mmi auto-configure
-no mmi pvc
-mmi snmp-timeout 180
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-no ip domain lookup
-ip domain name virl.info
-ip cef
-ipv6 unicast-routing
-ipv6 cef
-!
-multilink bundle-name authenticated
-!
-!
-!
-!
-username cisco privilege 15 secret 5 $1$iypS$TP5taiRM.Wmj56Fe6Z04y/
-!
-redundancy
-!
-no cdp run
-!
-! 
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-!
-interface Loopback0
- description Loopback
- no ip address
-!
-interface GigabitEthernet0/0
- description OOB Management
- vrf forwarding Mgmt-intf
- ip address 172.16.1.155 255.255.255.0
- duplex full
- speed auto
- media-type rj45
-!
-interface GigabitEthernet0/1
- description to SW2
- ip address 192.168.2.15 255.255.255.0
- glbp 1 ip 192.168.2.1
- glbp 1 preempt
- glbp 1 authentication md5 key-string cisco123
- duplex full
- speed auto
- media-type rj45
-!
-interface GigabitEthernet0/2
- description to R1
- no ip address
- duplex full
- speed auto
- media-type rj45
-!
-interface GigabitEthernet0/3
- description to R2
- no ip address
- duplex full
- speed auto
- media-type rj45
-!
-interface GigabitEthernet0/4
- description to R3
- no ip address
- duplex full
- speed auto
- media-type rj45
-!
-ip forward-protocol nd
-!
-!
-no ip http server
-no ip http secure-server
-ip ssh server algorithm authentication password
-!
-!
-!
-!
-control-plane
-!
-banner exec `
-**************************************************************************
-* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
-* education. IOSv is provided as-is and is not supported by Cisco's      *
-* Technical Advisory Center. Any use or disclosure, in whole or in part, *
-* of the IOSv Software or Documentation to any third party for any       *
-* purposes is expressly prohibited except as otherwise authorized by     *
-* Cisco in writing.                                                      *
-**************************************************************************`
-banner incoming `
-**************************************************************************
-* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
-* education. IOSv is provided as-is and is not supported by Cisco's      *
-* Technical Advisory Center. Any use or disclosure, in whole or in part, *
-* of the IOSv Software or Documentation to any third party for any       *
-* purposes is expressly prohibited except as otherwise authorized by     *
-* Cisco in writing.                                                      *
-**************************************************************************`
-banner login `
-**************************************************************************
-* IOSv is strictly limited to use for evaluation, demonstration and IOS  *
-* education. IOSv is provided as-is and is not supported by Cisco's      *
-* Technical Advisory Center. Any use or disclosure, in whole or in part, *
-* of the IOSv Software or Documentation to any third party for any       *
-* purposes is expressly prohibited except as otherwise authorized by     *
-* Cisco in writing.                                                      *
-**************************************************************************`
-!
-line con 0
- password cisco
-line aux 0
-line vty 0 4
- exec-timeout 720 0
- password cisco
- login local
- transport input telnet ssh
-!
-no scheduler allocate
-!
+            <entry key="config" type="String">!&#xD;
+! Last configuration change at 01:41:11 UTC Tue Jul 11 2017&#xD;
+!&#xD;
+version 15.6&#xD;
+service timestamps debug datetime msec&#xD;
+service timestamps log datetime msec&#xD;
+no service password-encryption&#xD;
+!&#xD;
+hostname R5&#xD;
+!&#xD;
+boot-start-marker&#xD;
+boot-end-marker&#xD;
+!&#xD;
+!&#xD;
+vrf definition Mgmt-intf&#xD;
+ !&#xD;
+ address-family ipv4&#xD;
+ exit-address-family&#xD;
+ !&#xD;
+ address-family ipv6&#xD;
+ exit-address-family&#xD;
+!&#xD;
+enable password cisco&#xD;
+!&#xD;
+no aaa new-model&#xD;
+ethernet lmi ce&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+mmi polling-interval 60&#xD;
+no mmi auto-configure&#xD;
+no mmi pvc&#xD;
+mmi snmp-timeout 180&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+no ip domain lookup&#xD;
+ip domain name virl.info&#xD;
+ip cef&#xD;
+ipv6 unicast-routing&#xD;
+ipv6 cef&#xD;
+!&#xD;
+multilink bundle-name authenticated&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+username cisco privilege 15 secret 5 $1$iypS$TP5taiRM.Wmj56Fe6Z04y/&#xD;
+!&#xD;
+redundancy&#xD;
+!&#xD;
+no cdp run&#xD;
+!&#xD;
+! &#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+interface Loopback0&#xD;
+ description Loopback&#xD;
+ no ip address&#xD;
+!&#xD;
+interface GigabitEthernet0/0&#xD;
+ description OOB Management&#xD;
+ vrf forwarding Mgmt-intf&#xD;
+ ip address 172.16.1.155 255.255.255.0&#xD;
+ duplex full&#xD;
+ speed auto&#xD;
+ media-type rj45&#xD;
+!&#xD;
+interface GigabitEthernet0/1&#xD;
+ description to SW2&#xD;
+ ip address 192.168.2.15 255.255.255.0&#xD;
+ glbp 1 ip 192.168.2.1&#xD;
+ glbp 1 priority 175&#xD;
+ glbp 1 preempt&#xD;
+ glbp 1 authentication md5 key-string cisco123&#xD;
+ duplex full&#xD;
+ speed auto&#xD;
+ media-type rj45&#xD;
+!&#xD;
+interface GigabitEthernet0/2&#xD;
+ description to R1&#xD;
+ no ip address&#xD;
+ duplex full&#xD;
+ speed auto&#xD;
+ media-type rj45&#xD;
+!&#xD;
+interface GigabitEthernet0/3&#xD;
+ description to R2&#xD;
+ no ip address&#xD;
+ duplex full&#xD;
+ speed auto&#xD;
+ media-type rj45&#xD;
+!&#xD;
+interface GigabitEthernet0/4&#xD;
+ description to R3&#xD;
+ no ip address&#xD;
+ duplex full&#xD;
+ speed auto&#xD;
+ media-type rj45&#xD;
+!&#xD;
+ip forward-protocol nd&#xD;
+!&#xD;
+!&#xD;
+no ip http server&#xD;
+no ip http secure-server&#xD;
+ip ssh server algorithm authentication password&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+!&#xD;
+control-plane&#xD;
+!&#xD;
+banner exec `&#xD;
+**************************************************************************&#xD;
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *&#xD;
+* education. IOSv is provided as-is and is not supported by Cisco's      *&#xD;
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *&#xD;
+* of the IOSv Software or Documentation to any third party for any       *&#xD;
+* purposes is expressly prohibited except as otherwise authorized by     *&#xD;
+* Cisco in writing.                                                      *&#xD;
+**************************************************************************`&#xD;
+banner incoming `&#xD;
+**************************************************************************&#xD;
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *&#xD;
+* education. IOSv is provided as-is and is not supported by Cisco's      *&#xD;
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *&#xD;
+* of the IOSv Software or Documentation to any third party for any       *&#xD;
+* purposes is expressly prohibited except as otherwise authorized by     *&#xD;
+* Cisco in writing.                                                      *&#xD;
+**************************************************************************`&#xD;
+banner login `&#xD;
+**************************************************************************&#xD;
+* IOSv is strictly limited to use for evaluation, demonstration and IOS  *&#xD;
+* education. IOSv is provided as-is and is not supported by Cisco's      *&#xD;
+* Technical Advisory Center. Any use or disclosure, in whole or in part, *&#xD;
+* of the IOSv Software or Documentation to any third party for any       *&#xD;
+* purposes is expressly prohibited except as otherwise authorized by     *&#xD;
+* Cisco in writing.                                                      *&#xD;
+**************************************************************************`&#xD;
+!&#xD;
+line con 0&#xD;
+ password cisco&#xD;
+line aux 0&#xD;
+line vty 0 4&#xD;
+ exec-timeout 720 0&#xD;
+ password cisco&#xD;
+ login local&#xD;
+ transport input telnet ssh&#xD;
+!&#xD;
+no scheduler allocate&#xD;
+!&#xD;
 end</entry>
         </extensions>
         <interface id="0" name="GigabitEthernet0/1"/>
