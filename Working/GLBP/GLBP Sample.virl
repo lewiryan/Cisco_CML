@@ -1211,18 +1211,6 @@ end</entry>
         <interface id="3" name="link4"/>
         <interface id="4" name="link5"/>
     </node>
-    <node name="windows-1" type="SIMPLE" subtype="Windows" location="255,42">
-        <interface id="0" name="eth0"/>
-    </node>
-    <node name="windows-2" type="SIMPLE" subtype="Windows" location="422,36">
-        <interface id="0" name="eth0"/>
-    </node>
-    <node name="windows-3" type="SIMPLE" subtype="Windows" location="262,429">
-        <interface id="0" name="eth0"/>
-    </node>
-    <node name="windows-4" type="SIMPLE" subtype="Windows" location="434,422">
-        <interface id="0" name="eth0"/>
-    </node>
     <node name="server-1" type="SIMPLE" subtype="server" location="137,376">
         <extensions>
             <entry key="config" type="String">#cloud-config
@@ -1283,6 +1271,18 @@ write_files:
         </extensions>
         <interface id="0" name="eth1"/>
     </node>
+    <node name="debain-1" type="SIMPLE" subtype="Debain" location="261,36">
+        <interface id="0" name="eth0"/>
+    </node>
+    <node name="debain-2" type="SIMPLE" subtype="Debain" location="432,37">
+        <interface id="0" name="eth0"/>
+    </node>
+    <node name="debain-3" type="SIMPLE" subtype="Debain" location="279,418">
+        <interface id="0" name="eth0"/>
+    </node>
+    <node name="debain-4" type="SIMPLE" subtype="Debain" location="392,425">
+        <interface id="0" name="eth0"/>
+    </node>
     <annotations/>
     <connection dst="/virl:topology/virl:node[2]/virl:interface[1]" src="/virl:topology/virl:node[1]/virl:interface[1]"/>
     <connection dst="/virl:topology/virl:node[3]/virl:interface[1]" src="/virl:topology/virl:node[1]/virl:interface[2]"/>
@@ -1299,9 +1299,9 @@ write_files:
     <connection dst="/virl:topology/virl:node[7]/virl:interface[4]" src="/virl:topology/virl:node[4]/virl:interface[2]"/>
     <connection dst="/virl:topology/virl:node[5]/virl:interface[4]" src="/virl:topology/virl:node[4]/virl:interface[3]"/>
     <connection dst="/virl:topology/virl:node[6]/virl:interface[4]" src="/virl:topology/virl:node[4]/virl:interface[4]"/>
-    <connection dst="/virl:topology/virl:node[8]/virl:interface[4]" src="/virl:topology/virl:node[9]/virl:interface[1]"/>
-    <connection dst="/virl:topology/virl:node[8]/virl:interface[5]" src="/virl:topology/virl:node[10]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[1]/virl:interface[6]" src="/virl:topology/virl:node[9]/virl:interface[1]"/>
     <connection dst="/virl:topology/virl:node[1]/virl:interface[4]" src="/virl:topology/virl:node[12]/virl:interface[1]"/>
-    <connection dst="/virl:topology/virl:node[1]/virl:interface[5]" src="/virl:topology/virl:node[11]/virl:interface[1]"/>
-    <connection dst="/virl:topology/virl:node[1]/virl:interface[6]" src="/virl:topology/virl:node[13]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[1]/virl:interface[5]" src="/virl:topology/virl:node[13]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[8]/virl:interface[4]" src="/virl:topology/virl:node[10]/virl:interface[1]"/>
+    <connection dst="/virl:topology/virl:node[8]/virl:interface[5]" src="/virl:topology/virl:node[11]/virl:interface[1]"/>
 </topology>
