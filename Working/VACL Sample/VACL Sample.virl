@@ -7,7 +7,7 @@
         <extensions>
             <entry key="AutoNetkit.mgmt_ip" type="string"></entry>
             <entry key="config" type="String">!Command: show running-config
-!Time: Sat Nov 11 04:59:16 2017
+!Time: Sat Nov 11 15:48:03 2017
 
 version 7.0(3)I6(1)
 hostname nx-osv9000-1
@@ -32,6 +32,8 @@ username lab password 5 $1$buoy/oqy$.EXQz8rCn72ii8qtdldj00  role network-admin
 ip domain-lookup
 ip access-list BLK-DMZ
   10 permit ip 192.168.2.0 0.0.0.255 192.168.2.0 0.0.0.255 
+vlan access-map BLK-DMZ 10
+  action drop
 snmp-server user lab network-admin auth md5 0x5ceb414591539ee35159fca86fdfa101 priv 0x5ceb414591539ee35159fca86fdfa101 localizedkey
 snmp-server user admin network-admin auth md5 0x328945d53e05e8e7207f8c20b142f0b7 priv 0x328945d53e05e8e7207f8c20b142f0b7 localizedkey
 snmp-server user cisco network-operator auth md5 0x55b3c64a53fb95518e75358ee75e82e9 priv 0x55b3c64a53fb95518e75358ee75e82e9 localizedkey
@@ -52,6 +54,7 @@ hardware forwarding unicast trace
 
 
 interface Vlan1
+  no shutdown
 
 interface Vlan2
   no shutdown
@@ -200,7 +203,7 @@ interface Ethernet1/64
 interface mgmt0
   description OOB Management
   vrf member management
-  ip address 10.255.0.16/16
+  ip address 10.255.0.20/16
 
 interface loopback0
   description Loopback
@@ -258,9 +261,14 @@ write_files:
     Type=oneshot
     ExecStart=/sbin/dhclient %i -pf /var/run/dhclient.%i.pid -lf /var/lib/dhclient/dhclient.%i.lease
     RemainAfterExit=yes
+- path: /etc/rc.local
   owner: root:root
-  permissions: '0644'
-</entry>
+  permissions: '0755'
+  content: |-
+    #!/bin/sh
+    ifconfig eth1 up 192.168.2.5 netmask 255.255.255.0
+    route add default gw 192.168.2.1
+    exit 0</entry>
         </extensions>
         <interface id="0" name="eth1"/>
     </node>
@@ -310,8 +318,14 @@ write_files:
     Type=oneshot
     ExecStart=/sbin/dhclient %i -pf /var/run/dhclient.%i.pid -lf /var/lib/dhclient/dhclient.%i.lease
     RemainAfterExit=yes
+- path: /etc/rc.local
   owner: root:root
-  permissions: '0644'
+  permissions: '0755'
+  content: |-
+    #!/bin/sh
+    ifconfig eth1 up 192.168.2.10 netmask 255.255.255.0
+    route add default gw 192.168.2.1
+    exit 0
 </entry>
         </extensions>
         <interface id="0" name="eth1"/>
@@ -362,9 +376,14 @@ write_files:
     Type=oneshot
     ExecStart=/sbin/dhclient %i -pf /var/run/dhclient.%i.pid -lf /var/lib/dhclient/dhclient.%i.lease
     RemainAfterExit=yes
+- path: /etc/rc.local
   owner: root:root
-  permissions: '0644'
-</entry>
+  permissions: '0755'
+  content: |-
+    #!/bin/sh
+    ifconfig eth1 up 192.168.3.5 netmask 255.255.255.0
+    route add default gw 192.168.3.1
+    exit 0</entry>
         </extensions>
         <interface id="0" name="eth1"/>
     </node>
@@ -414,8 +433,14 @@ write_files:
     Type=oneshot
     ExecStart=/sbin/dhclient %i -pf /var/run/dhclient.%i.pid -lf /var/lib/dhclient/dhclient.%i.lease
     RemainAfterExit=yes
+- path: /etc/rc.local
   owner: root:root
-  permissions: '0644'
+  permissions: '0755'
+  content: |-
+    #!/bin/sh
+    ifconfig eth1 up 192.168.3.10 netmask 255.255.255.0
+    route add default gw 192.168.3.1
+    exit 0
 </entry>
         </extensions>
         <interface id="0" name="eth1"/>
