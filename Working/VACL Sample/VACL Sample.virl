@@ -425,7 +425,7 @@ interface Management0/0
  management-only
  no nameif
  no security-level
- ip address 10.255.0.26 255.255.0.0 
+ ip address 10.255.0.33 255.255.0.0 
 !
 ftp mode passive
 same-security-traffic permit inter-interface
