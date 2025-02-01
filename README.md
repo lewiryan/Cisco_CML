@@ -1,4 +1,2 @@
-# VIRL Library
-This is a library of Cisco VIRL files that can used for testing and verifying, feel free to edit and share. More information about the VIRL software can be found at http://virl.cisco.com/.
-
-Addtional reference for these examples can be found at https://ciscoskills.net
+# CML Library
+This is a library of Cisco VIRL/CML files that can used for testing and verifying, feel free to edit and share. More information about the VIRL software can be found at https://www.cisco.com/site/us/en/learn/training-certifications/training/modeling-labs/index.html.
