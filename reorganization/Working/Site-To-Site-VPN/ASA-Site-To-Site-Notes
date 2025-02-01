@@ -1,0 +1,42 @@
+Using RFC: 5737
+The blocks 192.0.2.0/24 (TEST-NET-1), 198.51.100.0/24 (TEST-NET-2),
+and 203.0.113.0/24 (TEST-NET-3) are provided for use in documentation.
+
+In this example using RFC 5737 for "public" internet
+
+Using RFC: 1918
+The Internet Assigned Numbers Authority (IANA) has reserved the
+following three blocks of the IP address space for private internets:
+
+     10.0.0.0        -   10.255.255.255  (10/8 prefix)
+     172.16.0.0      -   172.31.255.255  (172.16/12 prefix)
+     192.168.0.0     -   192.168.255.255 (192.168/16 prefix)
+
+In this example using RFC 1918 for "Local" Network
+
+VM Maestro Note:
+This desgin is in Infrastruce Only mode for AutoNetKit, however in order for
+firewalls to be working in this mode for management on a shared flat the following
+configuration needs to be applyied to all firewalls:
+
+  nameif mgmt
+  security-level 100
+  
+Otherwise you would not be able to connect to these devices on the shared flat.
+When you first configure them.
+-------------------------------------------------------------------------------
+
+This topology is using Ubuntu servers and is in Infrastruce Only mode/Shared Flat becuase of this
+these Ubuntu servers need to configured with an IP address and defualt gateway run the
+apply the following to each Ubuntu Server as these are not configured automatically. Place
+the following at the bottom of the configuration file on each server node.
+
+- path: /etc/rc.local
+  owner: root:root
+  permissions: '0755'
+  content: |-
+    #!/bin/sh
+    ifconfig eth1 up X.X.X.X netmask X.X.X.X
+    route add default gw X.X.X.X
+    exit 0
+

@@ -1,0 +1,78 @@
+In this example we are using a Two-Tiered DMZ design, we have four physical ASA's
+
+Using RFC: 5737
+The blocks 192.0.2.0/24 (TEST-NET-1), 198.51.100.0/24 (TEST-NET-2),
+and 203.0.113.0/24 (TEST-NET-3) are provided for use in documentation.
+
+In this example using RFC 5737 for "public" internet
+
+Using RFC: 1918
+The Internet Assigned Numbers Authority (IANA) has reserved the
+following three blocks of the IP address space for private internets:
+
+     10.0.0.0        -   10.255.255.255  (10/8 prefix)
+     172.16.0.0      -   172.31.255.255  (172.16/12 prefix)
+     192.168.0.0     -   192.168.255.255 (192.168/16 prefix)
+
+In this example using RFC 1918 for "Local" Network
+
+VM Maestro Note:
+This desgin is in Infrastruce Only mode for AutoNetKit, however in order for
+firewalls to be working in this mode for management on a shared flat the following
+configuration needs to be applyied to all firewalls:
+
+  nameif mgmt
+  security-level 100
+  
+Otherwise you would not be able to connect to these devices on the shared flat.
+When you first configure them.
+
+Desgin Overview:
+
+                                                            --DMZ LAN--
+                                                            |
+                  <-  FW-1 -> 			                    FW-3->
+(Internet Switch)     HA (Pair) <-- Vestibule Network -->   HA (Pair) --INTERNAL LAN--
+                  <-  FW-2 ->			                    FW-4->
+                                                            |
+                                                            --DMZ LAN--
+
+This has a public switch connected to ASA's (FW-1 and FW-2)
+outside interfaces which are "public" IP addersses.
+
+Outside Network: 203.0.113.116/28
+Gateway 203.0.113.117
+
+Outside Network 203.0.113.116/28
+FW-1 outside interface: 203.0.113.117 (Primary)
+FW-2 outside interface: 203.0.113.118
+
+Failover Link: (FW-1 & FW-2) - 10.0.1.0/30
+FW-1 - 10.0.1.1/30
+FW-2 - 10.0.1.2/30
+
+Failover Link: (FW-3 & FW-4) - 10.0.1.4/30
+FW-3 - 10.0.1.5/30
+FW-4 - 10.0.1.6/30
+
+Stateful Link (FW-1 & FW-2) - 10.0.1.8/30
+FW-1 - 10.0.1.9/30
+FW-2 - 10.0.1.10/30
+
+Stateful Link (FW-3 & FW-4) - 10.0.1.12/30
+FW-3 - 10.0.1.13/30
+FW-4 - 10.0.1.14/30
+
+Vestibule Network  - 10.0.1.16/29
+FW-1  10.0.1.17/29 - Primary
+FW-2  10.0.1.18/29
+FW-3  10.0.1.19/29 - Primary
+FW-4  10.0.1.20/29
+
+DMZ LAN Network: 10.1.0.0/24
+FW-3 DMZ interface:  10.1.0.1
+FW-4 HA Secondary:   10.1.0.2
+
+LAN Network: 10.2.0.0/24
+FW-3 Inside interface:  10.2.0.1
+FW-4 HA Secondary:      10.2.0.2
