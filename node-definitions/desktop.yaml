@@ -1,0 +1,93 @@
+#
+# desktop node definition
+# added 2018-12.06
+# part of VIRL^2
+#
+
+id: desktop
+configuration:
+  generator:
+    driver: alpine
+  provisioning:
+    volume_name: cfg
+    media_type: iso
+    files:
+      - name: node.cfg
+        content: |
+          # this is a shell script which will be sourced at boot
+          hostname inserthostname-here
+          # configurable user account
+          USERNAME=cisco
+          PASSWORD=cisco
+        editable: true
+device:
+  interfaces:
+    has_loopback_zero: false
+    default_count: 1
+    physical:
+      - eth0
+      - eth1
+      - eth2
+      - eth3
+    serial_ports: 1
+inherited:
+  image:
+    ram: true
+    cpus: true
+    cpu_limit: true
+    data_volume: true
+    boot_disk_size: true
+  node:
+    ram: true
+    cpus: true
+    cpu_limit: true
+    data_volume: true
+    boot_disk_size: true
+general:
+  description: Alpine Linux with X11 Desktop
+  nature: server
+  read_only: true
+schema_version: 0.0.1
+sim:
+  linux_native:
+    cpus: 1
+    disk_driver: virtio
+    driver: server
+    libvirt_domain_driver: kvm
+    nic_driver: virtio
+    ram: 512
+    boot_disk_size: 16
+    video:
+      memory: 16
+boot:
+  completed:
+    - "Welcome to Alpine Linux"
+  timeout: 60
+pyats:
+  os: linux
+ui:
+  description: |2
+    Alpine Linux
+
+    512 MB DRAM, 1 vCPU, 16GB root disk size
+
+    ##### Configuration
+    Shell commands in the configuration field of the node are just sourced as user `root`
+    when the node starts up. This is based on Alpine Linux. More info [here](https://wiki.alpinelinux.org/wiki/Main_Page)
+
+    ##### Users
+    The user account is configurable (cisco/cisco by default).
+
+    ##### Example
+    ```shell
+    hostname desktop-0
+    ifconfig eth1 10.0.0.1 netmask 255.255.255.0 up
+    route add -net 10.0.0.0/8 dev eth1
+    ```
+
+    [Link](https://www.alpinelinux.org/)
+  group: Others
+  icon: host
+  label: Desktop
+  label_prefix: desktop-
+  visible: true

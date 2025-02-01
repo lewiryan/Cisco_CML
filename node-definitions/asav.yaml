@@ -1,0 +1,83 @@
+#
+# asav node definition
+# generated 2018-11-17
+# part of VIRL^2
+#
+id: asav
+configuration:
+  generator:
+    driver: asav
+  provisioning:
+    volume_name: disk
+    media_type: iso
+    files:
+      - name: day0-config
+        content: |
+          hostname inserthostname-here
+          end
+        editable: true
+inherited:
+  image:
+    ram: true
+    cpus: true
+    cpu_limit: true
+    data_volume: false
+    boot_disk_size: false
+  node:
+    ram: true
+    cpus: true
+    cpu_limit: true
+    data_volume: false
+    boot_disk_size: false
+device:
+  interfaces:
+    has_loopback_zero: false
+    default_count: 2
+    management:
+      - Management0/0
+    physical:
+      - Management0/0
+      - GigabitEthernet0/0
+      - GigabitEthernet0/1
+      - GigabitEthernet0/2
+      - GigabitEthernet0/3
+      - GigabitEthernet0/4
+      - GigabitEthernet0/5
+      - GigabitEthernet0/6
+      - GigabitEthernet0/7
+      - GigabitEthernet0/8
+    serial_ports: 1
+general:
+  description: Cisco Adaptive Security Virtual Appliance
+  nature: firewall
+  read_only: true
+schema_version: 0.0.1
+sim:
+  linux_native:
+    cpus: 1
+    disk_driver: virtio
+    driver: asav
+    libvirt_domain_driver: kvm
+    nic_driver: vmxnet3
+    ram: 2048
+boot:
+  timeout: 120
+  completed:
+    - "INFO: Power-On Self-Test complete."
+pyats:
+  os: asa
+  config_extract_command: show run
+ui:
+  description: |2-
+    Cisco Adaptive Security Virtual Appliance (ASAv)
+
+    2 GB DRAM, 1 vCPU
+
+    Maximum 8 interfaces, including Management0/0.
+
+    [CCO Link](https://www.cisco.com/c/en/us/support/security/virtual-adaptive-security-appliance-firewall/tsd-products-support-series-home.html)
+  group: Cisco
+  icon: firewall
+  label: ASAv
+  label_prefix: asav-
+  visible: true

@@ -1,0 +1,126 @@
+#
+# Ubuntu node definition (cloud image, using cloud-init)
+#
+
+id: ubuntu
+sim:
+  linux_native:
+    driver: server
+    libvirt_domain_driver: kvm
+    disk_driver: virtio
+    nic_driver: virtio
+    ram: 2048
+    cpus: 1
+    data_volume: 0
+    boot_disk_size: 64
+inherited:
+  image:
+    ram: true
+    cpus: true
+    cpu_limit: true
+    data_volume: true
+    boot_disk_size: true
+  node:
+    ram: true
+    cpus: true
+    cpu_limit: true
+    data_volume: true
+    boot_disk_size: true
+general:
+  nature: server
+  description: Ubuntu Cloud Init Platform
+  read_only: true
+schema_version: 0.0.1
+configuration:
+  generator:
+    driver: ubuntu
+  provisioning:
+    volume_name: cidata
+    media_type: iso
+    files:
+      - name: meta-data
+        content: |
+          instance-id: ubuntu
+          local-hostname: ubuntu
+        editable: false
+      - name: user-data
+        content: |
+          #cloud-config
+          hostname: inserthostname-here
+          manage_etc_hosts: True
+          system_info:
+            default_user:
+              name: cisco
+          password: cisco
+          chpasswd: { expire: False }
+          ssh_pwauth: True
+          ssh_authorized_keys:
+            - your-ssh-pubkey-line-goes-here
+        editable: true
+      - name: network-config
+        content: |
+          #network-config
+          network:
+            version: 2
+            ethernets:
+              ens2:
+                dhcp4: true
+        editable: true
+device:
+  interfaces:
+    # 8 should be enough, they are called ens2, ens3, ...
+    # however, those are PCI bus/slot numbers. I guess they are
+    # not static. Depends what device goes before '2'
+    physical:
+      - ens2
+      - ens3
+      - ens4
+      - ens5
+      - ens6
+      - ens7
+      - ens8
+      - ens9
+    has_loopback_zero: false
+    default_count: 1
+    serial_ports: 1
+boot:
+  timeout: 180
+  # seems that without proper meta-data the hostname is not
+  # correctly set at initial boot. It is 'ubuntu'. Also, the
+  # first line is not seen at first boot. Only at second
+  # boot, the correct hostname plus the 'reached target' is
+  # will be set / shown on the console.
+  completed:
+    - "Cloud-init target"
+    - "Welcome to Ubuntu"
+    - "running 'modules:final' at"
+pyats:
+  os: linux
+ui:
+  group: Others
+  icon: server
+  label: Ubuntu
+  label_prefix: ubuntu-
+  visible: true
+  description: |
+    Ubuntu Cloud Init Platform
+
+    2 GB DRAM, 1 vCPU (can be adjusted)
+
+    ##### Configuration
+
+    The Ubuntu image uses cloud-init YAML for configuration. Please
+    ensure that you have a valid cloud-init configuration in the node's
+    Edit Config pane in the Workbench. When you drop an Ubuntu node
+    on the canvas in the Workbench, a very brief (but complete) skeleton
+    for a cloud-init configuration is added to the node.
+
+    The pre-configured default username on the VM image is ubuntu,
+    but the initial config for the node overrides the default_user account
+    to be cisco. To log into the node as with this default user account,
+    ensure that the cloud-init config for the node either specifies a password
+    with the top-level password field or provides at least one SSH public key
+    with the top-level ssh_authorized_keys field.
+
+    See [the cloud-init documentation](https://cloudinit.readthedocs.io/en/latest/topics/examples.html)
+    for additional cloud-init examples.
