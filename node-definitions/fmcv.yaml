@@ -1,0 +1,90 @@
+#
+# fmcv node definition
+# generated 2024-09-18
+# part of VIRL^2
+#
+
+id: fmcv
+general:
+  description: Cisco Firepower Management Center Virtual Appliance
+  nature: server
+  read_only: true
+device:
+  interfaces:
+    has_loopback_zero: true
+    physical:
+      - eth0
+    serial_ports: 1
+    default_count: 1
+    loopback:
+      - lo
+ui:
+  visible: true
+  description: |-
+    Cisco Firepower Management Center Virtual Appliance
+
+    It is recommended to use 32 GB DRAM, 4 vCPUs.
+    Minimum requirements are 28 GB DRAM, 4 vCPUs.
+
+    [CCO Link](https://www.cisco.com/c/en/us/td/docs/security/firepower/quick_start/fmcv/fpmc-virtual.html)
+  label_prefix: fmcv-
+  icon: server
+  label: FMCv
+sim:
+  linux_native:
+    libvirt_domain_driver: kvm
+    driver: server
+    disk_driver: virtio
+    ram: 32768
+    cpus: 4
+    cpu_limit: 100
+    nic_driver: virtio
+    data_volume: 256
+    enable_rng: true
+boot:
+  timeout: 1800
+  completed:
+    - 'login:'
+inherited:
+  image:
+    ram: true
+    cpus: true
+    cpu_limit: true
+    data_volume: true
+    boot_disk_size: false
+  node:
+    ram: true
+    cpus: true
+    cpu_limit: true
+    data_volume: true
+    boot_disk_size: false
+configuration:
+  generator:
+    driver: fmcv
+  provisioning:
+    volume_name: day0
+    media_type: iso
+    files:
+      - name: day0-config
+        editable: true
+        content: |-
+          {
+              "EULA": "accept",
+              "Hostname": "inserthostname-here",
+              "AdminPassword": "Cisc01@3",
+              "DNS1": "",
+              "DNS2": "",
+              "IPv4Mode": "dhcp",
+              "IPv4Addr": "",
+              "IPv4Mask": "",
+              "IPv4Gw": "",
+              "IPv6Mode": "disabled",
+              "IPv6Addr": "",
+              "IPv6Mask": "",
+              "IPv6Gw": ""
+          }
+pyats:
+  os: linux
+  username: admin
+  password: Cisc01@3
+schema_version: 0.0.1
