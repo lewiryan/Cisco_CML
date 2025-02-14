@@ -1,0 +1,95 @@
+#
+# alpine wan emulator node definition
+# added 2019-10-28
+# part of VIRL^2
+#
+
+id: wan_emulator
+configuration:
+  generator:
+    driver: wan_emulator
+  provisioning:
+    volume_name: cfg
+    media_type: iso
+    files:
+      - name: node.cfg
+        content: |
+          # this is a shell script which will be sourced at boot
+          hostname inserthostname-here
+          # configurable user account
+          USERNAME=cisco
+          PASSWORD=cisco
+          # WAN Emulator configuration
+          LATENCY="100"
+          JITTER="0"
+          LOSS="0.0"
+          BANDWIDTH="512"
+        editable: true
+device:
+  interfaces:
+    has_loopback_zero: false
+    default_count: 2
+    physical:
+      - eth0
+      - eth1
+    serial_ports: 1
+inherited:
+  image:
+    ram: false
+    cpus: false
+    cpu_limit: true
+    data_volume: false
+    boot_disk_size: false
+  node:
+    ram: false
+    cpus: false
+    cpu_limit: true
+    data_volume: false
+    boot_disk_size: false
+general:
+  description: WAN Emulator
+  nature: server
+  read_only: true
+schema_version: 0.0.1
+sim:
+  linux_native:
+    cpus: 1
+    disk_driver: virtio
+    driver: server
+    libvirt_domain_driver: kvm
+    nic_driver: virtio
+    ram: 512
+boot:
+  completed:
+    - "VIRL^2 WAN Emulator"
+  timeout: 60
+ui:
+  description: |2
+    WAN Emulator Node
+
+    512 MB DRAM
+
+    Emulate WAN characteristics such as delay and packet loss.
+
+    ##### Configuration
+    Can be static using variables put into the
+    configuration field of the node as shown here
+
+    ##### Users
+    The user account is configurable (cisco/cisco by default).
+
+    ```plain
+    LATENCY="100"
+    JITTER="0"
+    LOSS="0.0"
+    BANDWIDTH="512"
+    ```
+
+    There's also a text based UI available on the console
+    of the node that allows to configure and monitor the
+    WAN emulator.
+  group: Others
+  icon: access_point
+  label: WAN Emulator
+  label_prefix: wan-em-
+  visible: true

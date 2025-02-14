@@ -1,0 +1,85 @@
+#
+# iosv node definition
+# generated 2018-11-17
+# part of VIRL^2
+#
+id: iosv
+sim:
+  linux_native:
+    driver: iosv
+    libvirt_domain_driver: kvm
+    nic_driver: e1000
+    disk_driver: virtio
+    ram: 512
+    cpus: 1
+general:
+  nature: router
+  description: Cisco IOSv Virtual Router Platform
+  read_only: true
+schema_version: 0.0.1
+inherited:
+  image:
+    ram: true
+    cpus: false
+    cpu_limit: true
+    data_volume: false
+    boot_disk_size: false
+  node:
+    ram: true
+    cpus: false
+    cpu_limit: true
+    data_volume: false
+    boot_disk_size: false
+configuration:
+  generator:
+    driver: iosv
+  provisioning:
+    volume_name: disk
+    media_type: fat
+    files:
+      - name: ios_config.txt
+        content: hostname inserthostname-here
+        editable: true
+device:
+  interfaces:
+    physical:
+      - GigabitEthernet0/0
+      - GigabitEthernet0/1
+      - GigabitEthernet0/2
+      - GigabitEthernet0/3
+      - GigabitEthernet0/4
+      - GigabitEthernet0/5
+      - GigabitEthernet0/6
+      - GigabitEthernet0/7
+      - GigabitEthernet0/8
+      - GigabitEthernet0/9
+      - GigabitEthernet0/10
+      - GigabitEthernet0/11
+      - GigabitEthernet0/12
+      - GigabitEthernet0/13
+      - GigabitEthernet0/14
+      - GigabitEthernet0/15
+    loopback:
+      - Loopback0
+    has_loopback_zero: true
+    default_count: 4
+    serial_ports: 2
+boot:
+  timeout: 180
+  completed:
+    - "%PLATFORM-5-SIGNATURE_VERIFIED:"
+    - "Would you like to enter the initial configuration dialog?"
+pyats:
+  os: ios
+  series: iosv
+  config_extract_command: show run
+ui:
+  group: Cisco
+  icon: router
+  label_prefix: iosv-
+  label: IOSv
+  visible: true
+  description: |2
+    Cisco IOSv Virtual Router Platform
+
+    512 MB DRAM, 1 vCPU

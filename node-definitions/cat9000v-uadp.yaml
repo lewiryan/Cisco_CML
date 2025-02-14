@@ -1,0 +1,238 @@
+#
+# cat9000v UADP node definition
+# generated 2023-11-22
+# part of CML^2
+#
+id: cat9000v-uadp
+configuration:
+  generator:
+    driver: cat9000v
+  provisioning:
+    volume_name: CDROM
+    media_type: iso
+    files:
+      - name: iosxe_config.txt
+        content: |-
+          hostname inserthostname-here
+          !
+          end
+        editable: true
+      - name: conf/vswitch.xml
+        content: |-
+          <?xml version="1.0"?>
+          <!-- Copyright (c) 2020 by Cisco Systems, Inc.-->
+          <!-- All rights reserved. -->
+          <!-- Virtual Cat9k configuration information -->
+          <switch>
+          <!-- Virtual Board ID to indicate Q200 or UADP asic simulation -->
+            <board_id>20612</board_id>
+          <!-- Unique Serial# must be provided for each running instance -->
+            <prod_serial_number>CML12345UADP</prod_serial_number>
+          <!-- Number of ports must appear before other port information -->
+            <port_count>24</port_count>
+            <port lpn="1">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="2">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="3">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="4">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="5">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="6">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="7">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="8">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="9">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="10">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="11">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="12">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="13">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="14">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="15">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="16">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="17">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="18">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="19">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="20">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="21">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="22">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="23">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+            <port lpn="24">
+              <asic_id>0</asic_id>
+              <asic_ifg>0</asic_ifg>
+              <asic_slice>0</asic_slice>
+            </port>
+          </switch>
+        editable: true
+inherited:
+  image:
+    ram: true
+    cpus: true
+    cpu_limit: true
+    data_volume: false
+    boot_disk_size: false
+  node:
+    ram: true
+    cpus: true
+    cpu_limit: true
+    data_volume: false
+    boot_disk_size: false
+device:
+  interfaces:
+    has_loopback_zero: true
+    min_count: 9
+    default_count: 25
+    loopback:
+      - Loopback0
+    physical:
+      - GigabitEthernet0/0
+      - GigabitEthernet1/0/1
+      - GigabitEthernet1/0/2
+      - GigabitEthernet1/0/3
+      - GigabitEthernet1/0/4
+      - GigabitEthernet1/0/5
+      - GigabitEthernet1/0/6
+      - GigabitEthernet1/0/7
+      - GigabitEthernet1/0/8
+      - GigabitEthernet1/0/9
+      - GigabitEthernet1/0/10
+      - GigabitEthernet1/0/11
+      - GigabitEthernet1/0/12
+      - GigabitEthernet1/0/13
+      - GigabitEthernet1/0/14
+      - GigabitEthernet1/0/15
+      - GigabitEthernet1/0/16
+      - GigabitEthernet1/0/17
+      - GigabitEthernet1/0/18
+      - GigabitEthernet1/0/19
+      - GigabitEthernet1/0/20
+      - GigabitEthernet1/0/21
+      - GigabitEthernet1/0/22
+      - GigabitEthernet1/0/23
+      - GigabitEthernet1/0/24
+    serial_ports: 2
+general:
+  description: Catalyst 9000v UADP
+  nature: switch
+  read_only: true
+schema_version: 0.0.1
+sim:
+  linux_native:
+    cpus: 4
+    disk_driver: ide
+    driver: csr1000v
+    libvirt_domain_driver: kvm
+    nic_driver: e1000
+    ram: 18432
+boot:
+  timeout: 600
+  completed:
+    - "Would you like to enter the initial configuration dialog?"
+    - "Press RETURN to get started!"
+    - "%SSH-5-ENABLED:"
+pyats:
+  os: iosxe
+  series: cat9k
+  config_extract_command: show run
+ui:
+  description: |-
+    **BETA** Catalyst 9000 series with UADP data plane virtual switch
+
+    **_NO SUPPORT IS PROVIDED FOR THIS IMAGE_**
+
+    18 GB DRAM, 4 vCPU
+
+    [CCO Link](https://www.cisco.com/c/en/us/support/switches/catalyst-9300-series-switches/series.html)
+  group: Cisco
+  icon: switch
+  label: BETA CAT9000v UADP
+  label_prefix: cat9000v-uadp-
+  visible: true

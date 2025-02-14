@@ -1,0 +1,85 @@
+#
+# iosvl2 node definition
+# generated 2018-11-17
+# part of VIRL^2
+#
+id: iosvl2
+configuration:
+  generator:
+    driver: iosvl2
+  provisioning:
+    volume_name: disk
+    media_type: fat
+    files:
+      - name: ios_config.txt
+        content: hostname inserthostname-here
+        editable: true
+device:
+  interfaces:
+    has_loopback_zero: true
+    default_count: 4
+    loopback:
+      - Loopback0
+    physical:
+      - GigabitEthernet0/0
+      - GigabitEthernet0/1
+      - GigabitEthernet0/2
+      - GigabitEthernet0/3
+      - GigabitEthernet1/0
+      - GigabitEthernet1/1
+      - GigabitEthernet1/2
+      - GigabitEthernet1/3
+      - GigabitEthernet2/0
+      - GigabitEthernet2/1
+      - GigabitEthernet2/2
+      - GigabitEthernet2/3
+      - GigabitEthernet3/0
+      - GigabitEthernet3/1
+      - GigabitEthernet3/2
+      - GigabitEthernet3/3
+    serial_ports: 2
+inherited:
+  image:
+    ram: true
+    cpus: false
+    cpu_limit: true
+    data_volume: false
+    boot_disk_size: false
+  node:
+    ram: true
+    cpus: false
+    cpu_limit: true
+    data_volume: false
+    boot_disk_size: false
+general:
+  description: Cisco IOSv-L2 Virtual Switch Platform
+  nature: switch
+  read_only: true
+schema_version: 0.0.1
+sim:
+  linux_native:
+    cpus: 1
+    disk_driver: virtio
+    driver: iosvl2
+    libvirt_domain_driver: kvm
+    nic_driver: e1000
+    ram: 768
+boot:
+  timeout: 300
+  completed:
+    - "%PLATFORM-5-SIGNATURE_VERIFIED:"
+    - "Would you like to enter the initial configuration dialog?"
+pyats:
+  os: ios
+  series: iosv
+  config_extract_command: show run
+ui:
+  description: |2
+    Cisco IOSv-L2 Virtual Switch Platform
+
+    768 MB DRAM, 1 vCPU
+  group: Cisco
+  icon: switch
+  label: IOSvL2
+  label_prefix: iosvl2-
+  visible: true

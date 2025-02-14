@@ -1,0 +1,134 @@
+#
+# iosxrv9000 node definition
+# generated 2018-11-17
+# part of VIRL^2
+#
+
+id: iosxrv9000
+configuration:
+  generator:
+    driver: iosxrv9000
+  provisioning:
+    volume_name: config
+    media_type: iso
+    files:
+      # sunstone does not implement iosxr_admin_confic.txt
+      - name: "iosxr_config.txt"
+        editable: true
+        content: |
+          hostname inserthostname-here
+          username cisco
+          group root-lr
+          group cisco-support
+          password cisco
+          !
+          username admin
+          group root-lr
+          group cisco-support
+          password cisco
+          !
+          username lab
+          group root-lr
+          group cisco-support
+          password cisco
+          !
+          end
+device:
+  interfaces:
+    has_loopback_zero: true
+    min_count: 3
+    default_count: 4
+    loopback:
+      - Loopback0
+    management:
+      - MgmtEth0/RP0/CPU0/0
+    physical:
+      - MgmtEth0/RP0/CPU0/0
+      - donotuse1
+      - donotuse2
+      - GigabitEthernet0/0/0/0
+      - GigabitEthernet0/0/0/1
+      - GigabitEthernet0/0/0/2
+      - GigabitEthernet0/0/0/3
+      - GigabitEthernet0/0/0/4
+      - GigabitEthernet0/0/0/5
+      - GigabitEthernet0/0/0/6
+      - GigabitEthernet0/0/0/7
+      - GigabitEthernet0/0/0/8
+      - GigabitEthernet0/0/0/9
+      - GigabitEthernet0/0/0/10
+      - GigabitEthernet0/0/0/11
+      - GigabitEthernet0/0/0/12
+      - GigabitEthernet0/0/0/13
+      - GigabitEthernet0/0/0/14
+      - GigabitEthernet0/0/0/15
+      - GigabitEthernet0/0/0/16
+      - GigabitEthernet0/0/0/17
+      - GigabitEthernet0/0/0/18
+      - GigabitEthernet0/0/0/19
+      - GigabitEthernet0/0/0/20
+      - GigabitEthernet0/0/0/21
+      - GigabitEthernet0/0/0/22
+      - GigabitEthernet0/0/0/23
+      - GigabitEthernet0/0/0/24
+      - GigabitEthernet0/0/0/25
+      - GigabitEthernet0/0/0/26
+      - GigabitEthernet0/0/0/27
+      - GigabitEthernet0/0/0/28
+      - GigabitEthernet0/0/0/29
+      - GigabitEthernet0/0/0/30
+    serial_ports: 4
+inherited:
+  image:
+    ram: true
+    cpus: true
+    cpu_limit: true
+    data_volume: false
+    boot_disk_size: false
+  node:
+    ram: true
+    cpus: true
+    cpu_limit: true
+    data_volume: false
+    boot_disk_size: false
+general:
+  description: Cisco IOS XRv 9000 Router platform
+  nature: router
+  read_only: true
+schema_version: 0.0.1
+sim:
+  linux_native:
+    cpus: 4
+    disk_driver: virtio
+    driver: iosxrv9000
+    libvirt_domain_driver: kvm
+    nic_driver: virtio
+    ram: 20480
+boot:
+  timeout: 3600
+  completed:
+    - "--- Administrative User Dialog ---"
+    - "%MGBL-CVAC-4-CONFIG_DONE"
+pyats:
+  os: iosxr
+  series: iosxrv9k
+  config_extract_command: show running-config
+ui:
+  description: |2-
+    Cisco IOS XRv 9000 Router platform
+
+    It is recommended to use 20 GB DRAM, 4 vCPUs.
+    Minimum requirements are 10 GB DRAM, 2 vCPUs.
+
+    ##### Note
+    The first data interface is the **4th interface**:
+    - The first interface is management,
+    - second and third are marked as 'do not use' and should not be connected to anything
+    - The next interfaces are actual data interfaces.
+
+    [CCO Link](https://www.cisco.com/c/en/us/support/routers/ios-xrv-9000-router/tsd-products-support-series-home.html)
+  group: Cisco
+  icon: router
+  label: IOS XRv 9000
+  label_prefix: xr9kv-
+  visible: true

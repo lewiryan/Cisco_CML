@@ -1,0 +1,88 @@
+#
+# alpine trex node definition
+# added 2019-10-28
+# part of VIRL^2
+#
+
+id: trex
+configuration:
+  generator:
+    driver: alpine
+  provisioning:
+    volume_name: cfg
+    media_type: iso
+    files:
+      - name: node.cfg
+        content: |
+          # this is a shell script which will be sourced at boot
+          hostname inserthostname-here
+          # configurable user account
+          USERNAME=cisco
+          PASSWORD=cisco
+        editable: true
+device:
+  interfaces:
+    has_loopback_zero: false
+    default_count: 2
+    management:
+      - eth0
+    physical:
+      - eth0
+      - eth1
+      - eth2
+    serial_ports: 1
+inherited:
+  image:
+    ram: true
+    cpus: true
+    cpu_limit: true
+    data_volume: true
+    boot_disk_size: true
+  node:
+    ram: true
+    cpus: true
+    cpu_limit: true
+    data_volume: true
+    boot_disk_size: true
+general:
+  description: Alpine Linux
+  nature: server
+  read_only: true
+schema_version: 0.0.1
+sim:
+  linux_native:
+    cpus: 1
+    disk_driver: virtio
+    driver: server
+    libvirt_domain_driver: kvm
+    nic_driver: virtio
+    ram: 512
+boot:
+  completed:
+    - "VIRL^2 TRex Node"
+  timeout: 60
+ui:
+  description: |2
+    Cisco TRex Traffic Generator Container
+
+    (runs in *stateless* mode)
+
+    512 MB DRAM
+
+    ##### Users
+    The user account is configurable (cisco/cisco by default).
+
+    ##### Important
+    TRex **MUST** have at least 2 interfaces. The first interface is used for
+    management (consider to connect it using a bridged external connector and
+    giving it a static IP so that a GUI can be connected to it), the 2nd and
+    3rd interface is for data. The 3rd interface is optional.
+
+    The GUI can be downloaded from
+    [here](https://github.com/cisco-system-traffic-generator/trex-stateless-gui),
+    search for "Builds". Ensure the version matches the image.
+  group: Others
+  icon: access_point
+  label: TRex
+  label_prefix: trex-
+  visible: true
