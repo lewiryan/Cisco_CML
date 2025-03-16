@@ -1281,10 +1281,10 @@ end</entry>
         <interface id="0" name="GigabitEthernet0/1"/>
     </node>
     <node name="windows-1" type="SIMPLE" subtype="Windows" location="910,293">
-        <interface id="0" name="eth0"/>
+        <interface id="0" name="Ethernet1"/>
     </node>
     <node name="windows-2" type="SIMPLE" subtype="Windows" location="799,319">
-        <interface id="0" name="eth0"/>
+        <interface id="0" name="Ethernet1"/>
     </node>
     <node name="SW-1" type="SIMPLE" subtype="IOSvL2" location="148,225">
         <extensions>
