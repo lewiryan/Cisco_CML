@@ -1999,7 +1999,7 @@ nodes:
            no cdp enable
           !
           interface GigabitEthernet0/3
-           description Windows
+           
            switchport access vlan 5
            switchport mode access
            media-type rj45
@@ -2007,7 +2007,7 @@ nodes:
            no cdp enable
           !
           interface GigabitEthernet1/0
-           description Windows
+           
            switchport access vlan 10
            switchport mode access
            media-type rj45
