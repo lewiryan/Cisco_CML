@@ -2370,7 +2370,7 @@ lab:
     A lab that demos, DHCP over a site-to-site VPN connection using old school crypto-maps.
     Lab should initialize to get into ASA's it will ask to create a new password.
 
-    Reference from an article: https://lewiryan.github.io/ciscoskills/2017/04/19/asa-site-to-site-vpn-dhcp/
+    
 
     You might need to change Management0/0 IP address to match your network. The bridge connection is created on the MGMT-SW and ext-conn-0, that is how you can access both ASA's management interface.
 
