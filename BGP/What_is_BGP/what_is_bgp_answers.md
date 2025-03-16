@@ -1,9 +1,45 @@
+# Requirements:  
+CML 2.8+
+Free-Tier
+
 # In this Lab:
-We are Using a three (3) IOL routers with eBGP and iBGP config. This is a simple lab to you started into the world of BGP.
+We are Using a three (3) IOL routers with eBGP and iBGP config. This is a simple lab to get you started into the world of BGP.
 
 - Verify that BGP is **Established** 
 - Which routers are using iBGP and which ones are using eBGP?
 - Why don't we have any routes in our routing table besides directly connected routes if BGP is Established?
+
+# Answers:
+- Verify that BGP is **Established** 
+  - So for this question running the command that is under the helpful commands: `show ip bgp neighbors | include BGP` would be a helpful command to verify if BGP is established.
+    ```
+    R1#show ip bgp neighbors | include BGP
+    BGP neighbor is 192.168.12.2,  remote AS 65001, internal link
+    BGP version 4, remote router ID 192.168.23.1
+    BGP state = Established, up for 00:15:54
+    BGP table version 1, neighbor version 1/0
+    ```
+    In the command output we can see for this example a neighbor has been established.
+
+- Which routers are using iBGP and which ones are using eBGP?
+  - For this question running the command that is under the helpful commands: `show ip bgp summary` would be be helpful but you have to remember about the AS. (autonomous system)
+    ```
+    R2#show ip bgp summary
+    BGP router identifier 192.168.23.1, local AS number 65001
+    BGP table version is 1, main routing table version 1
+
+    Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+    192.168.12.1    4        65001      26      25        1    0    0 00:21:20        0
+    192.168.23.2    4        65002      26      26        1    0    0 00:21:12        0
+    R2#
+    ```
+    In the command output notice what (AS) R2 (192.168.23.1) is in? Hint: `local AS number`
+      - AS 65001
+    
+    We also see `192.168.12.1` is also in (AS) 65001. If both routers are using the same (AS) number they are in a (iBGP). If routers are using a different (AS) number they would be eBGP. So for this example R2 is in an iBGP and a eBGP neighbor.
+    
+- Why don't we have any routes in our routing table besides directly connected routes if BGP is Established?
+  - If you look at the configuration BGP has no network statements, BGP does not just automatically start sending routes, you have to tell BGP what routes you want to advertise.
 
 
 ### Helpful Commands:
