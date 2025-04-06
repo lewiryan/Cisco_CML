@@ -7,7 +7,7 @@ We are Using a three (3) IOL routers with eBGP and iBGP config. This is a simple
 
 - Verify that BGP is **Established** 
 - Which routers are using iBGP and which ones are using eBGP?
-- Why don't we have any routes in our routing table besides directly connected routes if BGP is Established?
+- Why don't we have any routes in our routing table besides directly connected routes if BGP is established?
 
 
 ### Helpful Commands:
