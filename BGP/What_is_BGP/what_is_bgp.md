@@ -1,6 +1,7 @@
 # Requirements:  
 CML 2.8+
 Free-Tier
+Reference: https://ryansrealm.com/blog/2025/04/06/lab-what-is-bgp/
 
 # In this Lab:
 We are Using a three (3) IOL routers with eBGP and iBGP config. This is a simple lab to get you started into the world of BGP.
