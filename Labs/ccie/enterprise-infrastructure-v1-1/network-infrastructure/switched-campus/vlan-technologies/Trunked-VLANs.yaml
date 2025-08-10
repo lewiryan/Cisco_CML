@@ -1398,13 +1398,71 @@ links:
     label: SW5-GigabitEthernet1/3<->SW6-GigabitEthernet0/3
 lab:
   description: |-
-    A lab that focuses mainly on configuring trunk links and VLANs. Controlling which VLANs are allowed on a trunk link.
+    
+    # Requirements:  
+    CML 2.8+ **paid version**
+
+    A lab that focuses mainly on configuring trunk links and VLANs and Controlling which VLANs are allowed on a trunk link.
 
     * Dynamic Trunks
     * Basic VTP operation
     * Modify the allowed list on trunk links.
 
   notes: |-
+    
+    #### In this Lab:
+
+    We have six IOSvL2 switches, although not depicted in the topology these switches have two links connected to each other. 
+    This lab is going to focus on configuring trunk links and VLANs. For example controlling which VLANs are allowed on particular
+    trunk link. We will also look at dynamic trunks and basic VTP operation.
+    
+    #### Task 1:
+
+    - Shutdown all ports on all six switches and configure the VTP domain to be: **ryansrealm.com** We also need to change the
+      VTP mode to server for all switches.
+
+    #### Task 2:
+
+    Configure an 802.1Q (dot1q) trunk link between SW3 and SW5:
+    - SW3 **G1/1** and SW5 **G0/3** should be a trunk link unconditionally. Bring the interfaces up.
+    - "SW3 **G1/0** should be a trunk link but actively negotiate a trunk link on its port. SW5 **G0/2** should be only configured
+       to negotiate a trunk once it receives negotiation packets from a neighboring port and actively try to convert links into trunk ports."
+    
+    #### Task 3:
+
+    - Between SW4 (**G0/2**, **G0/3**) and SW5 (**G0/0**, **G0/1**) interfaces bring up a trunk link with SW5 being passive on negotiation of
+      the trunk. While SW4 to auto trunk and actively negotiate but use the standard dot1q encapsulation, and bring up the interfaces.
+    
+    #### Task 5:
+
+    - Between SW4 (**G0/0**, **G0/1**) and SW2 (**G1/1**, **G1/0**) configure the SW2 interfaces to be trunk links with the dot1q standard.
+      While SW4 to auto trunk and passively negotiate.
+
+    #### Task 6:
+
+    Configure the following VLANs, 3–10, 100, 150, 200, 450, 230, 359, 353, 240, 250, and 340 on SW2 only. Ensure they are propagated to the following switches.
+    - SW3
+    - SW4
+    - SW5
+
+    #### Task 7:
+
+    Add VLANs to the following interfaces:
+    
+    | Switch | Interface | VLAN           |
+    |--------|-----------|----------------|
+    | SW3    | G1/1      | 5-10           |
+    | SW5    | G0/3      | 5-10           |
+    | SW3    | G1/0      | 100, 150, 450  |
+    | SW5    | G0/2      | 100, 150, 450  |
+    | SW2    | G1/1      | All but 340    |
+    | SW4    | G0/1      | All but 340    |
+    | SW4    | G0/0      | 8-10, 250, 340 |
+    | SW2    | G1/0      | 8-10, 250, 340 |
+
+    Answers:
+    https://ryansrealm.com/ccie/enterprise-infrastructure-v1-1/network-infrastructure/switched-campus/vlan-technologies/trunk-ports/#requirements-topology
+    
     More Labs:
     https://github.com/lewiryan/Cisco_CML
 
