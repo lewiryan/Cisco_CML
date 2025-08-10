@@ -1,6 +1,5 @@
 # Requirements:  
-CML 2.8+
-No Free-Tier 5+ nodes in this lab
+CML 2.8+ **paid version**
 
 # Summary
 Taken from my archive of posts from ciscoskills.net, when CML used to be called VIRL.

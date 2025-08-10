@@ -552,6 +552,9 @@ lab:
     show ip bgp summary
 
     ```
+    
+    Answers:
+    https://ryansrealm.com/blog/2025/04/06/lab-what-is-bgp/
 
     More Labs:
     https://github.com/lewiryan/Cisco_CML
